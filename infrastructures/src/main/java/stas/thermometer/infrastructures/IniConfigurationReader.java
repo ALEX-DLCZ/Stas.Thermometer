@@ -68,12 +68,10 @@ public class IniConfigurationReader implements ConfigurationStrategy{
     }
 
     private void processKeyValuePair(String line) {
-        if (currentSection != null) {
             String[] parts = line.split("=", 2);
             String key = parts[0].trim();
             String value = parts[1].trim();
             currentSection.put(key, value);
-        }
     }
     private boolean IsValuePair(String line) {
         return line.contains("=");

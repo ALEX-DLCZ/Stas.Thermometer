@@ -170,4 +170,28 @@ Pws= 0007
             assertTrue(true);
         }
     }
+
+
+    //test le fichier configDegragated.ini qui est un fichier ini avec des sections qui ne sont pas dans l'ordre et dont le format n'est pas correct
+    @Test
+    public void ShouldReadIniFileDegraded() {
+        //Given
+        String path = "src/test/resources/configDegradated.ini";
+        IniConfigurationReader iniConfigurationReader = new IniConfigurationReader();
+
+        //When
+        HashMap<String, HashMap<String, String>> readedConfiguration = new HashMap<>();
+        try {
+            readedConfiguration = iniConfigurationReader.executeConfigurationReaderStrategy(path);
+        } catch (FileNotFoundException e) {
+            fail();
+        }
+        //Then
+        assertNotNull(readedConfiguration);
+        assertEquals(3, readedConfiguration.size());
+
+        assertEquals("Living Room 1", readedConfiguration.get("general").get("[name"));
+        assertEquals("19]", readedConfiguration.get("temperature").get("j01"));
+    }
+
 }
