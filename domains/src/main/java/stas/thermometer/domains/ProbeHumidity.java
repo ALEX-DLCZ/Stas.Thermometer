@@ -5,7 +5,6 @@ import java.util.List;
 
 public class ProbeHumidity implements Probe{
 
-
     private final List<Double> profil;
     private Measurement currentMeasurement;
 
@@ -18,14 +17,12 @@ public class ProbeHumidity implements Probe{
     public void generateMeasurement(LocalDateTime dateTime) {
         currentMeasurement = new Measurement(currentValue(dateTime), dateTime, MeasurementType.HUMIDITY);
 
-
     }
 
     @Override
     public Measurement getMeasurement() {
         return currentMeasurement;
     }
-
 
 
     private double currentValue(LocalDateTime dateTime) {

@@ -1,7 +1,6 @@
 package stas.thermometer.domains;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 public class ProbeTemperature implements Probe{
@@ -13,9 +12,9 @@ public class ProbeTemperature implements Probe{
         this.profil = profil;
     }
 
+
     @Override
     public void generateMeasurement(LocalDateTime dateTime ) {
-
         currentMeasurement = new Measurement(currentValue(dateTime), dateTime, MeasurementType.TEMPERATURE);
 
     }
