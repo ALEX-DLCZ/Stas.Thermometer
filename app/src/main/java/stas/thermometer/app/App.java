@@ -5,6 +5,7 @@ package stas.thermometer.app;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import stas.thermometer.app.personalExceptions.fatalException;
 import stas.thermometer.domains.ThermometerRepositoryInterface;
 import stas.thermometer.infrastructures.ThermometerRepository;
 import stas.thermometer.presentations.MainPresenter;
@@ -32,25 +33,35 @@ public class App {
 
     public static void main(String[] args) {
 
-        ArgsAnalyzer argsAnalyzer = new ArgsAnalyzer(args);
-        ThermometerRepositoryInterface thermometerRepository = new ThermometerRepository(argsAnalyzer.getConfiguration());
-        MainView mainView = new MainView();
-        MainPresenter mainPresenter = new MainPresenter(mainView, thermometerRepository);
-        mainPresenter.Start();
+
+        MainPresenter mainPresenter = null;
+        try {
+            ArgsAnalyzer argsAnalyzer = new ArgsAnalyzer(args);
+            ThermometerRepositoryInterface thermometerRepository = new ThermometerRepository(argsAnalyzer.getConfiguration());
+            MainView mainView = new MainView();
+            mainPresenter = new MainPresenter(mainView, thermometerRepository);
 
 
 
 
+            //TODO: faire collaborer la sonde avec la tâche de rafraichissement ...thermometerPresenter en paramètre ?
+            var task = new RefreshProbeTask(mainPresenter);
+            //Configure un exécuteur planifié pour un seul thread
+            var scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+            //Exécute la tache tout de suite et la répète toutes les 2 secondes
+            scheduledExecutor.scheduleAtFixedRate(task, 0, 100, TimeUnit.MILLISECONDS);
 
 
-        //TODO: faire collaborer la sonde avec la tâche de rafraichissement ...thermometerPresenter en paramètre ?
-        var task = new RefreshProbeTask(mainPresenter);
-        //Configure un exécuteur planifié pour un seul thread
-        var scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-        //Exécute la tache tout de suite et la répète toutes les 2 secondes
-        scheduledExecutor.scheduleAtFixedRate(task, 0, 100, TimeUnit.MILLISECONDS);
+            // TODO: 12/11/2023 askip c'est pas bien ici
+            mainPresenter.Start();
 
-        scheduledExecutor.shutdown();
+            scheduledExecutor.shutdown();
+
+        } catch ( fatalException e) {
+            LOG.fatal(e.getMessage());
+        }
+
+
     }
 
 }
