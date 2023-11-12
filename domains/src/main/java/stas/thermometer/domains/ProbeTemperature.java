@@ -42,6 +42,9 @@ public class ProbeTemperature implements Probe{
             value2 = profil.get(0);
         }
 
-        return value1 + ((value2 - value1) * ((time * nbList) % timeSecond) / timeSecond);
+        double finalValue = value1 + ((value2 - value1) * ((time * nbList) % timeSecond) / timeSecond);
+
+        //marge d'erreur de 0.5
+        return finalValue + ((Math.random() * 0.1) - 0.5);
     }
 }

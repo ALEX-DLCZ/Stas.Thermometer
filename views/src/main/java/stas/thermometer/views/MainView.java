@@ -41,9 +41,15 @@ public class MainView implements MainViewInterface {
             } while (!quitRequested);
         } catch (IOException e) {
             //logger.warning("Erreur de lecture de la commande");
-            System.out.println("Erreur de lecture de la commande");
+            System.out.println("FATAL : Erreur de lecture de la commande");
         }
     }
 
 
+
+
+    @Override
+    public void printString(String s) {
+        System.out.println(s);
+    }
 }

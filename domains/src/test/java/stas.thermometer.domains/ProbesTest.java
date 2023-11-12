@@ -54,7 +54,9 @@ public class ProbesTest {
         Measurement measurement = probeTemperature.getMeasurement();
 
         assertNotNull(measurement);
-        assertEquals(20, measurement.value());
+        assertTrue(measurement.value() >= 19.5 && measurement.value() <= 20.5);
+
+
         assertEquals(date, measurement.dateTime());
         assertEquals(MeasurementType.TEMPERATURE, measurement.type());
     }
@@ -72,7 +74,9 @@ public class ProbesTest {
         Measurement measurement = probeHumidity.getMeasurement();
 
         assertNotNull(measurement);
-        assertEquals(0.0064, measurement.value());
+        //assertEquals(0.0064, measurement.value());
+        // 0.05 de marge d'erreur
+        assertTrue(measurement.value() >= -0.0436 && measurement.value() <= 0.0564);
         assertEquals(date, measurement.dateTime());
         assertEquals(MeasurementType.HUMIDITY, measurement.type());
     }
@@ -90,7 +94,10 @@ public class ProbesTest {
         Measurement measurement = probeTemperature.getMeasurement();
 
         assertNotNull(measurement);
-        assertEquals(10, measurement.value());
+        //assertEquals(10, measurement.value());
+        // 0.5 de marge d'erreur
+        assertTrue(measurement.value() >= 9.5 && measurement.value() <= 10.5);
+
     }
 
     @Test
@@ -106,7 +113,9 @@ public class ProbesTest {
         Measurement measurement = probeHumidity.getMeasurement();
 
         assertNotNull(measurement);
-        assertEquals(0.02, measurement.value());
+        //assertEquals(0.02, measurement.value());
+        // 0.05 de marge d'erreur
+        assertTrue(measurement.value() >= -0.03 && measurement.value() <= 0.07);
     }
 
     @Test
@@ -122,7 +131,9 @@ public class ProbesTest {
         Measurement measurement = probeTemperature.getMeasurement();
 
         assertNotNull(measurement);
-        assertEquals(15, measurement.value());
+        //assertEquals(15, measurement.value());
+        // 0.5 de marge d'erreur
+        assertTrue(measurement.value() >= 14.5 && measurement.value() <= 15.5);
     }
 
     @Test
@@ -138,7 +149,9 @@ public class ProbesTest {
         Measurement measurement = probeHumidity.getMeasurement();
 
         assertNotNull(measurement);
-        assertEquals(0.0132, measurement.value());
+        //assertEquals(0.0132, measurement.value());
+        // 0.05 de marge d'erreur
+        assertTrue(measurement.value() >= -0.0368 && measurement.value() <= 0.0632);
     }
 
     @Test
@@ -154,7 +167,9 @@ public class ProbesTest {
         Measurement measurement = probeTemperature.getMeasurement();
 
         assertNotNull(measurement);
-        assertEquals(4.3525, measurement.value());
+        //assertEquals(4.3525, measurement.value());
+        // 0.5 de marge d'erreur
+        assertTrue(measurement.value() >= 3.8525 && measurement.value() <= 4.8525);
     }
 
     @Test
@@ -170,7 +185,9 @@ public class ProbesTest {
         Measurement measurement = probeHumidity.getMeasurement();
 
         assertNotNull(measurement);
-        assertEquals(0.355, measurement.value());
+        //assertEquals(0.355, measurement.value());
+        // 0.05 de marge d'erreur
+        assertTrue(measurement.value() >= 0.305 && measurement.value() <= 0.405);
     }
 
 }

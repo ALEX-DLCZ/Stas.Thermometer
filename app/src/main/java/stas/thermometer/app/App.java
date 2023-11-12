@@ -50,8 +50,6 @@ public class App {
         //Exécute la tache tout de suite et la répète toutes les 2 secondes
         scheduledExecutor.scheduleAtFixedRate(task, 0, 100, TimeUnit.MILLISECONDS);
 
-        //TODO: cette méthode est-elle placée au bon endroit ? (nop je crois pas)
-
         scheduledExecutor.shutdown();
     }
 
@@ -61,7 +59,7 @@ public class App {
  * Représente une boucle principale à demander un rafraichissement de la sonde.
  * */
 class RefreshProbeTask implements Runnable {
-    private MainPresenter mainPresenter;
+    private final MainPresenter mainPresenter;
     public final Logger log = LogManager.getLogger("stas");
     public RefreshProbeTask(MainPresenter mainPresenter){
         this.mainPresenter = mainPresenter;

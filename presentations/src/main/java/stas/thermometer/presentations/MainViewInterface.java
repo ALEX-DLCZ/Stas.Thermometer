@@ -5,5 +5,6 @@ public interface MainViewInterface {
 
      void inputLoop();
 
+     void printString(String s);
 
 }

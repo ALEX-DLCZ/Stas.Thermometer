@@ -2,9 +2,6 @@ package stas.thermometer.presentations;
 
 import stas.thermometer.domains.ThermometerRepositoryInterface;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class MainPresenter {
 
@@ -20,6 +17,7 @@ public class MainPresenter {
     }
 
     public void onUpdate() {
+        this.view.printString("update");
 
     }
 
@@ -33,24 +31,27 @@ public class MainPresenter {
     public void processingUserInput(String userInput) {
         switch (userInput) {
             case "h": {
-                System.out.println("h: help");
+                this.view.printString("h: help");
                 break;
             }
             case "q": {
-                System.out.println("q: quit");
+                this.view.printString("Bye");
                 break;
             }
             case "r": {
-                System.out.println("r: run");
+                this.view.printString("raise");
                 break;
             }
             case "m": {
-                System.out.println("m: stop");
+                this.view.printString("lower");
+                break;
+            }
+            case "s": {
+                this.view.printString("Changement de sonde");
                 break;
             }
             default:
-                System.out.println("Erreur de lecture de la commande");
-                //throw new IllegalStateException("Unexpected value: " + userInput.strip());
+                this.view.printString("Commande non reconnue");
         }
     }
 
