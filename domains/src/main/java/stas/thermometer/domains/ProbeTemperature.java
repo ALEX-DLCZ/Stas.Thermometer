@@ -1,6 +1,7 @@
 package stas.thermometer.domains;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 public class ProbeTemperature implements Probe{
@@ -15,12 +16,33 @@ public class ProbeTemperature implements Probe{
     @Override
     public void generateMeasurement(LocalDateTime dateTime ) {
 
-        currentMeasurement = new Measurement(0, dateTime, MeasurementType.TEMPERATURE);
+        currentMeasurement = new Measurement(currentValue(dateTime), dateTime, MeasurementType.TEMPERATURE);
 
     }
 
     @Override
     public Measurement getMeasurement() {
         return currentMeasurement;
+    }
+
+
+    private double currentValue(LocalDateTime dateTime) {
+        int nbList = profil.size();
+        int time = dateTime.toLocalTime().toSecondOfDay();
+
+        //détermine l'index de la liste dans laquelle nous nous trouvons
+        int timeSecond = 86400;
+        int index = (int) Math.floor((double) (time * nbList) / timeSecond);
+        //récupère les valeur des éléments de la liste entre lesquels nous nous trouvons
+        double value1 = profil.get(index);
+
+        double value2;
+        try {
+            value2 = profil.get(index + 1);
+        } catch (IndexOutOfBoundsException e) {
+            value2 = profil.get(0);
+        }
+
+        return value1 + ((value2 - value1) * ((time * nbList) % timeSecond) / timeSecond);
     }
 }

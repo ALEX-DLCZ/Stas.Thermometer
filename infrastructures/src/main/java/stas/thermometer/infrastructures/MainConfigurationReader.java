@@ -13,10 +13,10 @@ public class MainConfigurationReader implements ConfigurationReader {
 
         String fileExtension;
 
-        try {
+        if (pathArgs.contains(".")) {
             fileExtension = pathArgs.substring(pathArgs.lastIndexOf(".") + 1);
-        } catch (Exception e) {
-            fileExtension = "ERROR";
+        } else {
+            throw new unknownArgumentException();
         }
         ConfigurationStrategy configurationStrategy;
         if (fileExtension.equals("ini")) {
@@ -27,7 +27,6 @@ public class MainConfigurationReader implements ConfigurationReader {
 
         configurationMap = configurationStrategy.executeConfigurationReaderStrategy(pathArgs);
     }
-
 
     @Override
     public HashMap<String, HashMap<String, String>> getReadedConfiguration() {
