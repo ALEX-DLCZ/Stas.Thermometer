@@ -1,18 +1,21 @@
 package stas.thermometer.domains;
 
 
+import stas.thermometer.domains.AggregatorHandler.Aggregator;
+
 import java.time.LocalDateTime;
 import java.util.LinkedList;
-import java.util.List;
 
-public class Aggregator {
+public class AggregatorMain {
 
     private final Probe probe;
-
-    // TODO: 14/11/2023  pas de concret style Linked ou Hash map
+    private final Aggregator aggregator;
     private LinkedList<Measurement> aggregatedValues;
-    public Aggregator(Probe probe) {
+
+
+    public AggregatorMain(Probe probe) {
         this.probe = probe;
+        this.aggregator = new Aggregator();
     }
 
 
@@ -21,7 +24,7 @@ public class Aggregator {
         probe.generateMeasurement(date);
         aggregatedValues.add(probe.getMeasurement());
 
-        if (!aggregatedValues.isEmpty() && aggregatedValues.getLast().dateTime().getSecond() - aggregatedValues.getFirst().dateTime().getSecond() > 1) {
+        if (!aggregatedValues.isEmpty() && aggregatedValues.getLast().dateTime().getSecond() - aggregatedValues.getFirst().dateTime().getSecond() > 2) {
             // TODO: 14/11/2023 updateAverageTemperature(); execute une méthode de la classe Presenteur qu'on récupure avant
             System.out.println("updateAverageTemperature");
             aggregatedValues.clear();

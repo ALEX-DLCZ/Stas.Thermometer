@@ -17,7 +17,7 @@ public class MainPresenter {
     }
 
     public void onUpdate() {
-        this.view.printString("update");
+        //this.view.printString("update");
 
     }
 

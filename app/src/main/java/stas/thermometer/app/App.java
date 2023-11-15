@@ -44,7 +44,6 @@ public class App {
 
 
 
-            //TODO: faire collaborer la sonde avec la tâche de rafraichissement ...thermometerPresenter en paramètre ?
             var task = new RefreshProbeTask(mainPresenter);
             //Configure un exécuteur planifié pour un seul thread
             scheduledExecutor = Executors.newSingleThreadScheduledExecutor();

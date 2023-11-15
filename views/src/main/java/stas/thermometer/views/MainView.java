@@ -6,13 +6,13 @@ import stas.thermometer.presentations.MainViewInterface;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.logging.Logger;
 
 public class MainView implements MainViewInterface {
 
     private MainPresenter presenter;
 
     public MainView() {
+
     }
 
 
@@ -21,6 +21,7 @@ public class MainView implements MainViewInterface {
     public void setPresenter(MainPresenter presenter) {
         this.presenter = presenter;
     }
+
 
 
 
@@ -47,9 +48,9 @@ public class MainView implements MainViewInterface {
 
 
 
-
     @Override
     public void printString(String s) {
         System.out.println(s);
     }
+
 }
