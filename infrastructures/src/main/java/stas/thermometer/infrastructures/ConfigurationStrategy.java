@@ -2,9 +2,9 @@ package stas.thermometer.infrastructures;
 
 import stas.thermometer.infrastructures.personalExceptions.FileNotFoundException;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public interface ConfigurationStrategy {
 
-    HashMap<String, HashMap<String, String>> executeConfigurationReaderStrategy(String pathArg) throws FileNotFoundException;
+    Map<String, Map<String, String>> executeConfigurationReaderStrategy(String pathArg) throws FileNotFoundException;
 }

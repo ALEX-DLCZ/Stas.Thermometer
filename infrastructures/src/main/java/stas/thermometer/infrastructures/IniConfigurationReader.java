@@ -6,11 +6,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.Map;
 
 public class IniConfigurationReader implements ConfigurationStrategy{
 
-    private HashMap<String, HashMap<String, String>> sectionMaps;
-    private HashMap<String, String> currentSection;
+    private Map<String, Map<String, String>> sectionMaps;
+    private Map<String, String> currentSection;
 
     public IniConfigurationReader() {
 
@@ -18,7 +19,7 @@ public class IniConfigurationReader implements ConfigurationStrategy{
     }
 
     @Override
-    public HashMap<String, HashMap<String, String>> executeConfigurationReaderStrategy(String pathArg) throws FileNotFoundException {
+    public Map<String, Map<String, String>> executeConfigurationReaderStrategy(String pathArg) throws FileNotFoundException {
 
         try{
             //va lire toute les ligne d'un fichier une par une et executer la commande ReadLine

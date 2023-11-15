@@ -85,7 +85,7 @@ Pws= 0007
         IniConfigurationReader iniConfigurationReader = new IniConfigurationReader();
 
         //When
-        HashMap<String, HashMap<String, String>> readedConfiguration = new HashMap<>();
+        Map<String, Map<String, String>> readedConfiguration = new HashMap<>();
         try {
              readedConfiguration = iniConfigurationReader.executeConfigurationReaderStrategy(path);
         } catch (FileNotFoundException e) {
@@ -120,7 +120,7 @@ Pws= 0007
         IniConfigurationReader iniConfigurationReader = new IniConfigurationReader();
 
         //When
-        HashMap<String, HashMap<String, String>> readedConfiguration = new HashMap<>();
+        Map<String, Map<String, String>> readedConfiguration = new HashMap<>();
         try {
             readedConfiguration = iniConfigurationReader.executeConfigurationReaderStrategy(path);
         } catch (FileNotFoundException e) {
@@ -138,7 +138,7 @@ Pws= 0007
         IniConfigurationReader iniConfigurationReader = new IniConfigurationReader();
 
         //When
-        HashMap<String, HashMap<String, String>> readedConfiguration = new HashMap<>();
+        Map<String, Map<String, String>> readedConfiguration = new HashMap<>();
         try {
             readedConfiguration = iniConfigurationReader.executeConfigurationReaderStrategy(path);
         } catch (FileNotFoundException e) {
@@ -162,7 +162,7 @@ Pws= 0007
         IniConfigurationReader iniConfigurationReader = new IniConfigurationReader();
 
         //When
-        HashMap<String, HashMap<String, String>> readedConfiguration = new HashMap<>();
+        Map<String, Map<String, String>> readedConfiguration = new HashMap<>();
         try {
             readedConfiguration = iniConfigurationReader.executeConfigurationReaderStrategy(path);
         } catch (FileNotFoundException e) {
@@ -180,7 +180,7 @@ Pws= 0007
         IniConfigurationReader iniConfigurationReader = new IniConfigurationReader();
 
         //When
-        HashMap<String, HashMap<String, String>> readedConfiguration = new HashMap<>();
+        Map<String, Map<String, String>> readedConfiguration = new HashMap<>();
         try {
             readedConfiguration = iniConfigurationReader.executeConfigurationReaderStrategy(path);
         } catch (FileNotFoundException e) {

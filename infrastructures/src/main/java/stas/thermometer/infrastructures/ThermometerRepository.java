@@ -6,11 +6,12 @@ import stas.thermometer.domains.Thermometer;
 import stas.thermometer.domains.ThermometerRepositoryInterface;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class ThermometerRepository implements ThermometerRepositoryInterface {
 
     private final Thermometer thermometer;
-    private final HashMap<String, String> format;
+    private final Map<String, String> format;
 
     public ThermometerRepository(ConfigurationReader configurationReader){
         Configuration configuration = new Configuration(configurationReader);
@@ -20,7 +21,7 @@ public class ThermometerRepository implements ThermometerRepositoryInterface {
     }
 
     @Override
-    public HashMap<String, String> getFormat() {
+    public Map<String, String> getFormat() {
         return this.format;
     }
 }

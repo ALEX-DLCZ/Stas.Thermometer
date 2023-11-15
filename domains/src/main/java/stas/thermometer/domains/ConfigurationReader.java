@@ -1,8 +1,9 @@
 package stas.thermometer.domains;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public interface ConfigurationReader {
-    HashMap<String, HashMap<String, String>> getReadedConfiguration();
+    Map<String, Map<String, String>> getReadedConfiguration();
 
 }

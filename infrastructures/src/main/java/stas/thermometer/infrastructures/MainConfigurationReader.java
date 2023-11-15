@@ -5,10 +5,11 @@ import stas.thermometer.infrastructures.personalExceptions.FileNotFoundException
 import stas.thermometer.infrastructures.personalExceptions.unknownArgumentException;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MainConfigurationReader implements ConfigurationReader {
 
-    private final HashMap<String, HashMap<String, String>> configurationMap;
+    private final Map<String, Map<String, String>> configurationMap;
     public MainConfigurationReader(String pathArgs) throws unknownArgumentException, FileNotFoundException {
 
         String fileExtension;
@@ -29,7 +30,7 @@ public class MainConfigurationReader implements ConfigurationReader {
     }
 
     @Override
-    public HashMap<String, HashMap<String, String>> getReadedConfiguration() {
+    public Map<String, Map<String, String>> getReadedConfiguration() {
         return configurationMap;
     }
 }

@@ -1,10 +1,11 @@
 package stas.thermometer.domains;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public interface ThermometerRepositoryInterface {
 
-    public HashMap<String, String> getFormat();
+    public Map<String, String> getFormat();
 
 
 }
