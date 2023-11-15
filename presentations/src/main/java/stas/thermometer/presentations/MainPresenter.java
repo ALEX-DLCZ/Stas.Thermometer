@@ -21,16 +21,28 @@ public class MainPresenter {
 
     }
 
+
+
+
+
+
     public void Start() {
 
-        this.view.setPresenter(this);
+        this.view.printString("Bienvenue dans le thermomètre");
         this.view.inputLoop();
 
     }
 
+
+
     public void processingUserInput(String userInput) {
         switch (userInput) {
             case "h": {
+                this.view.printString("h: help");
+                this.view.printString("P: quit");
+                this.view.printString("h: help");
+                this.view.printString("h: help");
+                this.view.printString("h: help");
                 this.view.printString("h: help");
                 break;
             }

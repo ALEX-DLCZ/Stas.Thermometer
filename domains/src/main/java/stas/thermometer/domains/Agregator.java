@@ -8,6 +8,8 @@ import java.util.List;
 public class Agregator {
 
     private final Probe probe;
+
+    // TODO: 14/11/2023  pas de concret style Linked ou Hash map
     private LinkedList<Measurement> agregatedValues;
     public Agregator(Probe probe) {
         this.probe = probe;

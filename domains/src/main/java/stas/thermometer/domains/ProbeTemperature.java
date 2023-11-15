@@ -15,7 +15,7 @@ public class ProbeTemperature implements Probe{
 
     @Override
     public void generateMeasurement(LocalDateTime dateTime ) {
-        currentMeasurement = new Measurement(currentValue(dateTime), dateTime, MeasurementType.TEMPERATURE);
+        currentMeasurement = new Measurement(currentValue(dateTime), dateTime);
 
     }
 
@@ -23,6 +23,7 @@ public class ProbeTemperature implements Probe{
     public Measurement getMeasurement() {
         return currentMeasurement;
     }
+
 
 
     private double currentValue(LocalDateTime dateTime) {

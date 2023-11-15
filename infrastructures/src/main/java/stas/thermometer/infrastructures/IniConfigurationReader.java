@@ -13,6 +13,7 @@ public class IniConfigurationReader implements ConfigurationStrategy{
     private HashMap<String, String> currentSection;
 
     public IniConfigurationReader() {
+
         this.sectionMaps = new HashMap<>();
     }
 

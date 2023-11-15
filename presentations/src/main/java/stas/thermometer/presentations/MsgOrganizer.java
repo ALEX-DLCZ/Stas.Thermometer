@@ -1,6 +1,6 @@
 package stas.thermometer.presentations;
 
-public class MsgOrganizer<T1,T2 >{
+public class MsgOrganizer<T1,T2>{
 
     // T1 Type of message :MsgAlert, MsgMeasurement,...
     private T1 msg1;

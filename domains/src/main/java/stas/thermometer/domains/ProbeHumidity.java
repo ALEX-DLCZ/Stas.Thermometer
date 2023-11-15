@@ -15,7 +15,7 @@ public class ProbeHumidity implements Probe{
 
     @Override
     public void generateMeasurement(LocalDateTime dateTime) {
-        currentMeasurement = new Measurement(currentValue(dateTime), dateTime, MeasurementType.HUMIDITY);
+        currentMeasurement = new Measurement(currentValue(dateTime), dateTime);
 
     }
 

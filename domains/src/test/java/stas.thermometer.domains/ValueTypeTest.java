@@ -2,7 +2,7 @@ package stas.thermometer.domains;
 
 import org.junit.jupiter.api.Test;
 
-public class MeasurementTypeTest {
+public class ValueTypeTest {
 
     /**
      * UNIQUEMENT POUR LE 100% COVERAGE ...
@@ -11,14 +11,17 @@ public class MeasurementTypeTest {
 
     @Test
     public void testMeasurementType() {
-        MeasurementType type = MeasurementType.TEMPERATURE;
+        ValueType type = ValueType.TEMPERATURE;
         assert(type.getType().equals("temperature"));
+        assert (type.probeClass().equals(ProbeTemperature.class));
+
     }
 
     @Test
     public void testMeasurementType2() {
-        MeasurementType type = MeasurementType.HUMIDITY;
+        ValueType type = ValueType.HUMIDITY;
         assert(type.getType().equals("humidity"));
+        assert (type.probeClass().equals(ProbeHumidity.class));
     }
 
 }

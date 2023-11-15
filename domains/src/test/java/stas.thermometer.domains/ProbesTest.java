@@ -58,7 +58,6 @@ public class ProbesTest {
 
 
         assertEquals(date, measurement.dateTime());
-        assertEquals(MeasurementType.TEMPERATURE, measurement.type());
     }
 
     @Test
@@ -78,7 +77,6 @@ public class ProbesTest {
         // 0.05 de marge d'erreur
         assertTrue(measurement.value() >= -0.0436 && measurement.value() <= 0.0564);
         assertEquals(date, measurement.dateTime());
-        assertEquals(MeasurementType.HUMIDITY, measurement.type());
     }
 
     @Test

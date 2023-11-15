@@ -1,14 +1,14 @@
 package stas.thermometer.presentations.messages;
 
-import stas.thermometer.domains.MeasurementType;
+import stas.thermometer.domains.ValueType;
 
 public class MsgAlert {
 
     private final String message;
 
-    public MsgAlert(MeasurementType type, int alertType) {
+    public MsgAlert(String type, int alertType) {
 
-        switch (type.getType()) {
+        switch (type) {
             case "temperature":
                 switch (alertType) {
                     case 1:

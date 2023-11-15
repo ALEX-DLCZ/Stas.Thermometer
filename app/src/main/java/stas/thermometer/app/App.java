@@ -22,7 +22,7 @@ public class App {
      *
      * prévoir une évolution de maintenabilité du code
      * ex : pression atmosphérique, rayonnement thermique, vitesse du vent, Conductivité thermique.
-     * (créer un probe "ProbeNom", créer un message "MsgNom" + imp MsgAlert, implémenter dans MeasurementType et c'est tout ... normalement)
+     * (créer un probe "ProbeNom", créer un message "MsgNom" + imp MsgAlert, implémenter dans ValueType et c'est tout ... normalement)
      *
      *
      *
@@ -34,12 +34,12 @@ public class App {
     public static void main(String[] args) {
 
 
-        MainPresenter mainPresenter = null;
+        var scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
         try {
             ArgsAnalyzer argsAnalyzer = new ArgsAnalyzer(args);
             ThermometerRepositoryInterface thermometerRepository = new ThermometerRepository(argsAnalyzer.getConfiguration());
             MainView mainView = new MainView();
-            mainPresenter = new MainPresenter(mainView, thermometerRepository);
+            MainPresenter mainPresenter = new MainPresenter(mainView, thermometerRepository);
 
 
 
@@ -47,7 +47,7 @@ public class App {
             //TODO: faire collaborer la sonde avec la tâche de rafraichissement ...thermometerPresenter en paramètre ?
             var task = new RefreshProbeTask(mainPresenter);
             //Configure un exécuteur planifié pour un seul thread
-            var scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+            scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
             //Exécute la tache tout de suite et la répète toutes les 2 secondes
             scheduledExecutor.scheduleAtFixedRate(task, 0, 100, TimeUnit.MILLISECONDS);
 
@@ -55,10 +55,11 @@ public class App {
             // TODO: 12/11/2023 askip c'est pas bien ici
             mainPresenter.Start();
 
-            scheduledExecutor.shutdown();
-
         } catch ( fatalException e) {
             LOG.fatal(e.getMessage());
+        }
+        finally {
+            scheduledExecutor.shutdown();
         }
 
 
