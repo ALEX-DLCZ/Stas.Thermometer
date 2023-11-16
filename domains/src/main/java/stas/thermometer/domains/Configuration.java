@@ -8,15 +8,15 @@ import java.util.stream.Collectors;
 
 public class Configuration {
 
-    private final Thermometer thermometer;
     private final Map<String, String> format;
-    private final List<Probe> aggregators ;
+    private final List<Probe> probes ;
+
+    private final Map<String, Map<String, String>> readedConfiguration;
 
     public Configuration(ConfigurationReader reader) {
-        this.aggregators = new ArrayList<>();
-        Map<String, Map<String, String>> readedConfiguration = reader.getReadedConfiguration();
+        this.probes = new ArrayList<>();
+        this.readedConfiguration = reader.getReadedConfiguration();
         this.format = readedConfiguration.get("format");
-        this.thermometer = new Thermometer();
 
         for (ValueType type : ValueType.values()) {
             if (readedConfiguration.containsKey(type.getType())) {
@@ -25,13 +25,12 @@ public class Configuration {
                 List<Double> profil = getProfilList(readedConfiguration.get(type.getType()));
 
 
-
                 try {
                     Class<? extends Probe> probeType = type.probeClass();
 
                     Probe probeInstance = probeType.getDeclaredConstructor(List.class).newInstance(profil);
 
-                    this.aggregators.add(probeInstance);
+                    this.probes.add(probeInstance);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -39,10 +38,6 @@ public class Configuration {
             }
         }
 
-
-    }
-    public Thermometer getThermometer() {
-        return this.thermometer;
     }
 
     public Map<String, String> getFormat() {
@@ -55,7 +50,9 @@ public class Configuration {
                 .sorted(Map.Entry.comparingByKey()) // Tri des entrées par clé (l'ordre d'insertion est préservé)
                 .map(entry -> Double.parseDouble(entry.getValue())) // Conversion des valeurs en Double
                 .collect(Collectors.toList()); // Collecte des éléments dans une liste
-
     }
 
+    public Thermometer createThermometer() {
+        return new Thermometer(readedConfiguration.get("general").get("name"));
+    }
 }

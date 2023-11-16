@@ -15,13 +15,16 @@ public class ThermometerRepository implements ThermometerRepositoryInterface {
 
     public ThermometerRepository(ConfigurationReader configurationReader){
         Configuration configuration = new Configuration(configurationReader);
-        this.thermometer = configuration.getThermometer();
+        this.thermometer = configuration.createThermometer();
         this.format = configuration.getFormat();
 
     }
+
+
 
     @Override
     public Map<String, String> getFormat() {
         return this.format;
     }
+
 }

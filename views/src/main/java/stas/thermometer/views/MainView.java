@@ -1,6 +1,5 @@
 package stas.thermometer.views;
 
-import stas.thermometer.presentations.FunctionalInput;
 import stas.thermometer.presentations.MainPresenter;
 import stas.thermometer.presentations.MainViewInterface;
 

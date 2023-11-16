@@ -1,7 +1,7 @@
 package stas.thermometer.domains;
 
 
-import stas.thermometer.domains.AggregatorHandler.Aggregator;
+import stas.thermometer.domains.AggregatorHandler.AggregatorModeler;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -9,13 +9,13 @@ import java.util.LinkedList;
 public class AggregatorMain {
 
     private final Probe probe;
-    private final Aggregator aggregator;
+    private final AggregatorModeler modeler;
     private LinkedList<Measurement> aggregatedValues;
 
 
     public AggregatorMain(Probe probe) {
         this.probe = probe;
-        this.aggregator = new Aggregator();
+        this.modeler = new AggregatorModeler();
     }
 
 
@@ -29,13 +29,13 @@ public class AggregatorMain {
 
             double averageList = aggregatedValues.stream().mapToDouble(Measurement::value).average().orElse(0.0);
 
-            Measurement measurement = new Measurement(aggregator.execute(averageList), date);
+            Measurement measurement = new Measurement(modeler.execute(averageList), date);
             aggregatedValues.clear();
         }
     }
 
 
     public void adjustDelta(double correctiveDelta) {
-        this.aggregator.adjustDelta(correctiveDelta);
+        this.modeler.adjustDelta(correctiveDelta);
     }
 }

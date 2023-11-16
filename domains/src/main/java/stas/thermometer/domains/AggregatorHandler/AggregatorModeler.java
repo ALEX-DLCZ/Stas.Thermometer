@@ -1,9 +1,7 @@
 package stas.thermometer.domains.AggregatorHandler;
 
 
-import stas.thermometer.domains.Measurement;
-
-public class Aggregator {
+public class AggregatorModeler {
 
     private final AggregatorAlarm alarm;
     private final AggregatorCorrective Corrective;
@@ -11,7 +9,7 @@ public class Aggregator {
 
 
 
-    public Aggregator() {
+    public AggregatorModeler() {
         this.alarm = new AggregatorAlarm();
         this.Corrective = new AggregatorCorrective();
     }
