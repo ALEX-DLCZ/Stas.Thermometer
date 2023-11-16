@@ -22,7 +22,6 @@ public class Configuration {
             if (readedConfiguration.containsKey(type.getType())) {
 
                 // TODO: 15/11/2023  get profil from configuration
-                //List<Double> profil = List.of(1.0, 2.0, 3.0);
                 List<Double> profil = getProfilList(readedConfiguration.get(type.getType()));
 
 

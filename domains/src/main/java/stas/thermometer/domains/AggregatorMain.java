@@ -26,8 +26,16 @@ public class AggregatorMain {
 
         if (!aggregatedValues.isEmpty() && aggregatedValues.getLast().dateTime().getSecond() - aggregatedValues.getFirst().dateTime().getSecond() > 2) {
             // TODO: 14/11/2023 updateAverageTemperature(); execute une méthode de la classe Presenteur qu'on récupure avant
-            System.out.println("updateAverageTemperature");
+
+            double averageList = aggregatedValues.stream().mapToDouble(Measurement::value).average().orElse(0.0);
+
+            Measurement measurement = new Measurement(aggregator.execute(averageList), date);
             aggregatedValues.clear();
         }
+    }
+
+
+    public void adjustDelta(double correctiveDelta) {
+        this.aggregator.adjustDelta(correctiveDelta);
     }
 }

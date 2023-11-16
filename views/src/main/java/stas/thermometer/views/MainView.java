@@ -1,5 +1,6 @@
 package stas.thermometer.views;
 
+import stas.thermometer.presentations.FunctionalInput;
 import stas.thermometer.presentations.MainPresenter;
 import stas.thermometer.presentations.MainViewInterface;
 
@@ -16,7 +17,7 @@ public class MainView implements MainViewInterface {
     }
 
 
-
+//todo interface fonctionelle
     @Override
     public void setPresenter(MainPresenter presenter) {
         this.presenter = presenter;
