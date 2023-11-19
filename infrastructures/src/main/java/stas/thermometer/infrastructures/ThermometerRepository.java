@@ -2,6 +2,7 @@ package stas.thermometer.infrastructures;
 
 import stas.thermometer.domains.*;
 
+import java.util.List;
 import java.util.Map;
 
 public class ThermometerRepository implements ThermometerRepositoryInterface {
@@ -32,5 +33,10 @@ public class ThermometerRepository implements ThermometerRepositoryInterface {
     @Override
     public void notifyUpdate() {
         this.thermometer.NotifySubscribers();
+    }
+
+    @Override
+    public List<AggregatorMain> getAggregators() {
+        return this.thermometer.getAggregators();
     }
 }

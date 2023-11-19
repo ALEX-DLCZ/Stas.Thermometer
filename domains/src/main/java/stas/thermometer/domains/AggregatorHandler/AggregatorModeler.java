@@ -26,4 +26,8 @@ public class AggregatorModeler {
         return modTemp;
     };
 
+    public int getAlarmType() {
+        return alarm.getAlarmType();
+    }
+
 }

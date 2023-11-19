@@ -19,6 +19,7 @@ public class MainPresenter {
         this.view = view;
         this.view.setPresenter(this);
         this.repository = repository;
+        this.aggregatorMains = this.repository.getAggregators();
     }
 
     public void onUpdate() {
@@ -33,10 +34,8 @@ public class MainPresenter {
 
 
     public void Start() {
-
         this.view.printString("Bienvenue dans le thermomètre");
         this.view.inputLoop();
-
     }
 
 

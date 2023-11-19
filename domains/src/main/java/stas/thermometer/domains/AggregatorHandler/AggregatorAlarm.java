@@ -22,9 +22,9 @@ public class AggregatorAlarm{
 //            this.isAlarm = false;
 //        }
 
-        if (modTemp > temp * 1.1) {
+        if (modTemp > (temp * 1.1)) {
             this.alarmType = 1;
-        } else if (modTemp < temp * 0.9) {
+        } else if (modTemp < (temp * 0.9)) {
             this.alarmType = -1;
         } else {
             this.alarmType = 0;
