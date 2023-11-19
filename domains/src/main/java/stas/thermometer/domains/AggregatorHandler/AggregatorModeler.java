@@ -12,6 +12,7 @@ public class AggregatorModeler {
     public AggregatorModeler() {
         this.alarm = new AggregatorAlarm();
         this.Corrective = new AggregatorCorrective();
+        System.out.println("AggregatorModeler created");
     }
 
 

@@ -9,6 +9,8 @@ public class AggregatorCorrective{
     }
 
     public double execute(double value) {
-        return value + correctiveDelta;
+
+        return value + correctiveDelta * value;
     }
 }
+

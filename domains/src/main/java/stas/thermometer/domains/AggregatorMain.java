@@ -10,12 +10,14 @@ public class AggregatorMain {
 
     private final Probe probe;
     private final AggregatorModeler modeler;
-    private LinkedList<Measurement> aggregatedValues;
+    private final LinkedList<Measurement> aggregatedValues;
+
 
 
     public AggregatorMain(Probe probe) {
         this.probe = probe;
         this.modeler = new AggregatorModeler();
+        this.aggregatedValues = new LinkedList<>();
     }
 
 
@@ -24,12 +26,14 @@ public class AggregatorMain {
         probe.generateMeasurement(date);
         aggregatedValues.add(probe.getMeasurement());
 
-        if (!aggregatedValues.isEmpty() && aggregatedValues.getLast().dateTime().getSecond() - aggregatedValues.getFirst().dateTime().getSecond() > 2) {
-            // TODO: 14/11/2023 updateAverageTemperature(); execute une méthode de la classe Presenteur qu'on récupure avant
 
+        if (aggregatedValues.getLast().dateTime().getSecond() - aggregatedValues.getFirst().dateTime().getSecond() > 1) {
+
+            // TODO: 14/11/2023 updateAverageTemperature(); execute une méthode de la classe Presenteur qu'on récupure avant
             double averageList = aggregatedValues.stream().mapToDouble(Measurement::value).average().orElse(0.0);
 
             Measurement measurement = new Measurement(modeler.execute(averageList), date);
+            System.out.println("BAAAHH " + measurement.value());
             aggregatedValues.clear();
         }
     }

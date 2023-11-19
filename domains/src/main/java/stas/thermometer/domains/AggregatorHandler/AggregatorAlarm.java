@@ -3,28 +3,31 @@ package stas.thermometer.domains.AggregatorHandler;
 
 public class AggregatorAlarm{
 
-    private boolean isAlarm = false;
-    private boolean IsTooHighAlarm = false;
+    private int alarmType = 0;
 
 
-    public boolean getAlarm() {
-        return this.isAlarm;
+    public int getAlarmType() {
+        return alarmType;
     }
-    public boolean tooHighAlarm() {
-        return this.IsTooHighAlarm;
-    }
-
 
 
     public void execute(double temp, double modTemp) {
+//        if (modTemp > temp * 1.1) {
+//            this.isAlarm = true;
+//            this.IsTooHighAlarm = true;
+//        } else if (modTemp < temp * 0.9) {
+//            this.isAlarm = true;
+//            this.IsTooHighAlarm = false;
+//        } else {
+//            this.isAlarm = false;
+//        }
+
         if (modTemp > temp * 1.1) {
-            this.isAlarm = true;
-            this.IsTooHighAlarm = true;
+            this.alarmType = 1;
         } else if (modTemp < temp * 0.9) {
-            this.isAlarm = true;
-            this.IsTooHighAlarm = false;
+            this.alarmType = -1;
         } else {
-            this.isAlarm = false;
+            this.alarmType = 0;
         }
     }
 }

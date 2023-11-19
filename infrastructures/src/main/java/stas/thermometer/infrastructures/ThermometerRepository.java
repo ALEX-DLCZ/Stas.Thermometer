@@ -1,11 +1,7 @@
 package stas.thermometer.infrastructures;
 
-import stas.thermometer.domains.Configuration;
-import stas.thermometer.domains.ConfigurationReader;
-import stas.thermometer.domains.Thermometer;
-import stas.thermometer.domains.ThermometerRepositoryInterface;
+import stas.thermometer.domains.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class ThermometerRepository implements ThermometerRepositoryInterface {
@@ -15,7 +11,13 @@ public class ThermometerRepository implements ThermometerRepositoryInterface {
 
     public ThermometerRepository(ConfigurationReader configurationReader){
         Configuration configuration = new Configuration(configurationReader);
+
         this.thermometer = configuration.createThermometer();
+        for(Probe probe : configuration.getProbes()){
+            thermometer.Subscribe( new AggregatorMain(probe));
+        }
+
+
         this.format = configuration.getFormat();
 
     }
@@ -27,4 +29,8 @@ public class ThermometerRepository implements ThermometerRepositoryInterface {
         return this.format;
     }
 
+    @Override
+    public void notifyUpdate() {
+        this.thermometer.NotifySubscribers();
+    }
 }

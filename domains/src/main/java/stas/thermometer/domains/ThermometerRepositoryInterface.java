@@ -5,7 +5,8 @@ import java.util.Map;
 
 public interface ThermometerRepositoryInterface {
 
-    public Map<String, String> getFormat();
+    Map<String, String> getFormat();
 
+    void notifyUpdate();
 
 }
