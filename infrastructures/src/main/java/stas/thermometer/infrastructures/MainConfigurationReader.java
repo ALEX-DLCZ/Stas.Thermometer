@@ -4,9 +4,15 @@ import stas.thermometer.domains.ConfigurationReader;
 import stas.thermometer.infrastructures.personalExceptions.FileNotFoundException;
 import stas.thermometer.infrastructures.personalExceptions.unknownArgumentException;
 
-import java.util.HashMap;
+
 import java.util.Map;
 
+
+/**
+ * classe qui implémente l'interface ConfigurationReader
+ *
+ * inspirée du design pattern Strategy en temps que "Context"
+ */
 public class MainConfigurationReader implements ConfigurationReader {
 
     private final Map<String, Map<String, String>> configurationMap;

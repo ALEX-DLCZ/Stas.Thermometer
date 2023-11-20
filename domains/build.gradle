@@ -3,10 +3,10 @@ id 'java-library'
 id 'helmo-common-conventions'
 }
 
-dependencies {
 
-    testImplementation 'org.mockito:mockito-core:5.6.0'
-    testImplementation('org.junit.jupiter:junit-jupiter-api:5.8.1')
+
+//dependencies {
 //
 //    testImplementation 'org.mockito:mockito-core:5.6.0'
-}
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+//}

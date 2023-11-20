@@ -1,7 +1,6 @@
 package stas.thermometer.infrastructures;
 
 import org.junit.jupiter.api.Test;
-import stas.thermometer.infrastructures.IniConfigurationReader;
 import stas.thermometer.infrastructures.personalExceptions.FileNotFoundException;
 
 import java.util.HashMap;

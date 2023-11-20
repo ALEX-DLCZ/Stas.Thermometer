@@ -12,5 +12,5 @@ plugins {
 }
 
 rootProject.name = 'stas.thermometer'
-include('domains','app','views','presentations','infrastructures')
+include('app','views','presentations','infrastructures','domains')
 

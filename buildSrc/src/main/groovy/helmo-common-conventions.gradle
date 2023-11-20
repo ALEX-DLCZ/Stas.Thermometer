@@ -17,7 +17,8 @@ testing {
 
 dependencies {
     //todo a suppr
-    //implementation 'org.ini4j:ini4j:0.5.+'
+    implementation 'org.ini4j:ini4j:0.5.+'
+    testImplementation 'org.mockito:mockito-core:5.6.0'
 }
 
 pmd {

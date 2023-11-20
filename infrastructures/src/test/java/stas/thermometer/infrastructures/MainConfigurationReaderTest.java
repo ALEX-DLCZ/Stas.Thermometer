@@ -1,11 +1,9 @@
 package stas.thermometer.infrastructures;
 
 import org.junit.jupiter.api.Test;
-import stas.thermometer.infrastructures.IniConfigurationReader;
 import stas.thermometer.infrastructures.personalExceptions.FileNotFoundException;
 import stas.thermometer.infrastructures.personalExceptions.unknownArgumentException;
 
-import java.util.Map;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
