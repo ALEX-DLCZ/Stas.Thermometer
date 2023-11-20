@@ -93,4 +93,67 @@ public class ConfigurationTest {
     }
 
 
+
+    @Test
+    public void Should_Test_HappyPath_when_ConfigurationConstructeur_but_newInstanceFail(){
+
+        ConfigurationReader mockReaderHappyPath = mock(ConfigurationReader.class);
+        Map<String, Map<String, String>> configWithoutCorrectProfil = new HashMap<>();
+        Map<String, String> generalWithoutCorrectProfil = new HashMap<>();
+        Map<String, String> formatWithoutCorrectProfil = new HashMap<>();
+        Map<String, String> humidityWithoutCorrectProfil = new HashMap<>();
+        generalWithoutCorrectProfil.put("name", "BHAAAaaaNAME");
+        formatWithoutCorrectProfil.put("temperature", "00.00°");
+        formatWithoutCorrectProfil.put("humidity", "0%");
+        formatWithoutCorrectProfil.put("datetime", "dd/MM/YYYY à HH :mm :ss");
+        configWithoutCorrectProfil.put("general", generalWithoutCorrectProfil);
+        configWithoutCorrectProfil.put("format", formatWithoutCorrectProfil);
+        configWithoutCorrectProfil.put("humidity", humidityWithoutCorrectProfil);
+
+        //ERREUR HAPPY PATH
+        configWithoutCorrectProfil.put("temperature", null);
+
+        when(mockReaderHappyPath.getReadedConfiguration()).thenReturn(configWithoutCorrectProfil);
+
+        Configuration configuration = new Configuration(mockReaderHappyPath);
+
+        List<Probe> probes = configuration.getProbes();
+
+        assertEquals(1, probes.size());
+        assertEquals(ProbeHumidity.class, probes.get(0).getClass());
+    }
+
+
+    @Test
+    public void Should_Return_ProbesList_but_with_only_humidity_probe(){
+        ConfigurationReader mockReaderHappyPath = mock(ConfigurationReader.class);
+        Map<String, Map<String, String>> configWithoutCorrectProfil = new HashMap<>();
+        Map<String, String> generalWithoutCorrectProfil = new HashMap<>();
+        Map<String, String> formatWithoutCorrectProfil = new HashMap<>();
+        Map<String, String> humidityWithoutCorrectProfil = new HashMap<>();
+        generalWithoutCorrectProfil.put("name", "BHAAAaaaNAME");
+        formatWithoutCorrectProfil.put("temperature", "00.00°");
+        formatWithoutCorrectProfil.put("humidity", "0%");
+        formatWithoutCorrectProfil.put("datetime", "dd/MM/YYYY à HH :mm :ss");
+        configWithoutCorrectProfil.put("general", generalWithoutCorrectProfil);
+        configWithoutCorrectProfil.put("format", formatWithoutCorrectProfil);
+        configWithoutCorrectProfil.put("humidity", humidityWithoutCorrectProfil);
+
+        humidityWithoutCorrectProfil.put("j00", "0.5");
+        humidityWithoutCorrectProfil.put("j01", "0.02");
+        humidityWithoutCorrectProfil.put("j02", "0.0064");
+        humidityWithoutCorrectProfil.put("j03", "0.209");
+
+
+        when(mockReaderHappyPath.getReadedConfiguration()).thenReturn(configWithoutCorrectProfil);
+        Configuration configuration = new Configuration(mockReaderHappyPath);
+
+        List<Probe> probes = configuration.getProbes();
+
+        assertEquals(1, probes.size());
+        assertEquals(ProbeHumidity.class, probes.get(0).getClass());
+
+
+    }
+
 }

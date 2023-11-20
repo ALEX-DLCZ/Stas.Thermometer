@@ -25,11 +25,12 @@ public class AggregatorLogistical {
     }
 
 
-    public void update(){
+    public boolean update(){
         if( this.aggregatorValueUpdater.updater()){
             this.measurementMod = new Measurement (execute(this.aggregatorValueUpdater.getAverageMeasurement()), LocalDateTime.now());
-            System.out.println("AggregatorLogistical: " + this.measurementMod.value());
+            return true;
         }
+        return false;
     }
 
     private double execute(double value) {

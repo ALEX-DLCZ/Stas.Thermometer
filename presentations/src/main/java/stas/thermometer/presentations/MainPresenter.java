@@ -1,7 +1,6 @@
 package stas.thermometer.presentations;
 
 import stas.thermometer.domains.AggregatorHandler.AggregatorAccessor;
-import stas.thermometer.domains.AggregatorMain;
 import stas.thermometer.domains.ThermometerRepositoryInterface;
 
 import java.util.List;
@@ -21,6 +20,10 @@ public class MainPresenter {
         this.view.setPresenter(this);
         this.repository = repository;
         this.aggregatorAccessors = this.repository.getAggregatorsAccessor();
+        NotifReceiverPresentations notifReceiverPresentations = new NotifReceiverPresentations(this);
+        for (AggregatorAccessor aggregatorAccessor : aggregatorAccessors) {
+            aggregatorAccessor.addSubscriber(notifReceiverPresentations);
+        }
     }
 
     public void onUpdate() {
@@ -28,11 +31,6 @@ public class MainPresenter {
         this.repository.notifyUpdate();
 
     }
-
-
-
-
-
 
     public void Start() {
         this.view.printString("Bienvenue dans le thermomètre");
@@ -76,6 +74,32 @@ public class MainPresenter {
             default:
                 this.view.printString("Commande non reconnue");
         }
+    }
+
+
+
+    public void updateAggregatorNotification(String name) {
+        this.aggregatorAccessors.stream()
+                .filter(aggregatorAccessor -> aggregatorAccessor.getName().equals(name))
+                .forEach(aggregatorAccessor -> {
+                    this.view.printString("Update de la sonde " + name);
+                    this.view.printString("Valeur actuelle : " + aggregatorAccessor.getmesurementMod().value());
+                    this.view.printString("Valeur simple : " + aggregatorAccessor.getmesurementSimple().value());
+                    this.view.printString("Alarme : " + aggregatorAccessor.getAlarmType());
+                    this.view.printString(" ");
+                });
+
+
+
+//        aggregatorAccessors.get(1).getName();
+//
+//        if (name.equals(this.aggregatorAccessors.get(this.currentProbe).getName())) {
+//            this.view.printString("Update de la sonde " + name);
+//            this.view.printString("Valeur actuelle : " + this.aggregatorAccessors.get(this.currentProbe).getmesurementMod().value());
+//            this.view.printString("Valeur simple : " + this.aggregatorAccessors.get(this.currentProbe).getmesurementSimple().value());
+//            this.view.printString("Alarme : " + this.aggregatorAccessors.get(this.currentProbe).getAlarmType());
+//            this.view.printString(" ");
+//        }
     }
 
 

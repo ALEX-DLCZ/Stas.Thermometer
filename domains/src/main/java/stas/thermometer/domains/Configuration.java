@@ -9,31 +9,26 @@ import java.util.stream.Collectors;
 public class Configuration {
 
     private final Map<String, String> format;
-    private final List<Probe> probes ;
+    private final List<Probe> probes = new ArrayList<>();
 
     private final Map<String, Map<String, String>> readedConfiguration;
 
     public Configuration(ConfigurationReader reader) {
-        this.probes = new ArrayList<>();
         this.readedConfiguration = reader.getReadedConfiguration();
         this.format = readedConfiguration.get("format");
 
         for (ValueType type : ValueType.values()) {
-            if (readedConfiguration.containsKey(type.getType())) {
-
+            if (readedConfiguration.containsKey(type.getType())) try {
                 List<Double> profil = getProfilList(readedConfiguration.get(type.getType()));
 
+                Class<? extends Probe> probeType = type.probeClass();
 
-                try {
-                    Class<? extends Probe> probeType = type.probeClass();
+                Probe probeInstance = probeType.getDeclaredConstructor(List.class).newInstance(profil);
 
-                    Probe probeInstance = probeType.getDeclaredConstructor(List.class).newInstance(profil);
+                this.probes.add(probeInstance);
 
-                    this.probes.add(probeInstance);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            } catch (Exception e) {
+                //ce cas de figure est litéralement impossible sauf si l'enum ValueType est mal construite
             }
         }
 
