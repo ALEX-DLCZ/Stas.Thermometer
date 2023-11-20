@@ -1,5 +1,7 @@
 package stas.thermometer.domains;
 
+import stas.thermometer.domains.AggregatorHandler.AggregatorAccessor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +15,12 @@ public class Thermometer {
         this.aggregatorMains = new ArrayList<>();
     }
 
-    public List<AggregatorMain> getAggregators() {
-        return aggregatorMains;
+    public List<AggregatorAccessor> getAggregators() {
+        return new ArrayList<>(this.aggregatorMains);
+    }
+
+    public String getName() {
+        return name;
     }
 
 

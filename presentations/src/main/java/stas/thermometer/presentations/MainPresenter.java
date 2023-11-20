@@ -1,5 +1,6 @@
 package stas.thermometer.presentations;
 
+import stas.thermometer.domains.AggregatorHandler.AggregatorAccessor;
 import stas.thermometer.domains.AggregatorMain;
 import stas.thermometer.domains.ThermometerRepositoryInterface;
 
@@ -11,7 +12,7 @@ public class MainPresenter {
     private final MainViewInterface view;
     private ThermometerRepositoryInterface repository;
     int currentProbe = 0;
-    private List<AggregatorMain> aggregatorMains;
+    private final List<AggregatorAccessor> aggregatorAccessors;
 
     // TODO: 10/11/2023 possède mes agrégateur ou thermometre a voir mais il le récupère grace a thermometreRepository
 
@@ -19,7 +20,7 @@ public class MainPresenter {
         this.view = view;
         this.view.setPresenter(this);
         this.repository = repository;
-        this.aggregatorMains = this.repository.getAggregators();
+        this.aggregatorAccessors = this.repository.getAggregatorsAccessor();
     }
 
     public void onUpdate() {
@@ -57,18 +58,19 @@ public class MainPresenter {
             }
             case "r": {
                 this.view.printString("raise");
-                this.aggregatorMains.get(this.currentProbe).adjustDelta(0.1);
+                this.aggregatorAccessors.get(this.currentProbe).adjustDelta(0.1);
                 break;
             }
             case "m": {
                 this.view.printString("minimize");
-                this.aggregatorMains.get(this.currentProbe).adjustDelta(-0.1);
+                this.aggregatorAccessors.get(this.currentProbe).adjustDelta(-0.1);
 
                 break;
             }
             case "s": {
                 this.view.printString("Changement de sonde");
-                this.currentProbe = (this.currentProbe + 1) % this.aggregatorMains.size();
+                this.currentProbe = (this.currentProbe + 1) % this.aggregatorAccessors.size();
+                this.view.printString("Sonde actuelle : " + this.aggregatorAccessors.get(this.currentProbe).getName());
                 break;
             }
             default:

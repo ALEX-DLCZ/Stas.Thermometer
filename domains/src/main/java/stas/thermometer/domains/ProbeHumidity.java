@@ -5,6 +5,7 @@ import java.util.List;
 
 public class ProbeHumidity implements Probe{
 
+    private final String name = "humidity";
     private final List<Double> profil;
     private Measurement currentMeasurement;
 
@@ -22,6 +23,11 @@ public class ProbeHumidity implements Probe{
     @Override
     public Measurement getMeasurement() {
         return currentMeasurement;
+    }
+
+    @Override
+    public String getName() {
+        return "humidity";
     }
 
 

@@ -10,6 +10,7 @@ public class AggregatorCorrective{
 
     public double execute(double value) {
 
+
         return value + correctiveDelta * value;
     }
 }

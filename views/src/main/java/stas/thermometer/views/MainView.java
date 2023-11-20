@@ -15,16 +15,11 @@ public class MainView implements MainViewInterface {
 
     }
 
-
 //todo interface fonctionelle
     @Override
     public void setPresenter(MainPresenter presenter) {
         this.presenter = presenter;
     }
-
-
-
-
 
     @Override
     public void inputLoop() {
@@ -45,8 +40,6 @@ public class MainView implements MainViewInterface {
             System.out.println("FATAL : Erreur de lecture de la commande");
         }
     }
-
-
 
     @Override
     public void printString(String s) {

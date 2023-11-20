@@ -1,45 +1,71 @@
 package stas.thermometer.domains;
 
 
-import stas.thermometer.domains.AggregatorHandler.AggregatorModeler;
+import stas.thermometer.domains.AggregatorHandler.AggregatorAccessor;
+import stas.thermometer.domains.AggregatorHandler.AggregatorLogistical;
+import stas.thermometer.domains.AggregatorHandler.AggregatorValueUpdater;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
-public class AggregatorMain {
+public class AggregatorMain implements AggregatorAccessor {
 
-    private final Probe probe;
-    private final AggregatorModeler modeler;
-    private final LinkedList<Measurement> aggregatedValues;
+    private final String name;
+    private final AggregatorLogistical modeler;
+
+    private List<AggregatorSubscriber> subscribers = new ArrayList<>();
 
 
 
     public AggregatorMain(Probe probe) {
-        this.probe = probe;
-        this.modeler = new AggregatorModeler();
-        this.aggregatedValues = new LinkedList<>();
+        this.name = probe.getName();
+
+        this.modeler = new AggregatorLogistical(new AggregatorValueUpdater(probe));
     }
 
 
     public void updateAgregatedValues() {
-        LocalDateTime date = LocalDateTime.now();
-        probe.generateMeasurement(date);
-        aggregatedValues.add(probe.getMeasurement());
-
-
-        if (aggregatedValues.getLast().dateTime().getSecond() - aggregatedValues.getFirst().dateTime().getSecond() > 1) {
-
-            // TODO: 14/11/2023 updateAverageTemperature(); execute une méthode de la classe Presenteur qu'on récupure avant
-            double averageList = aggregatedValues.stream().mapToDouble(Measurement::value).average().orElse(0.0);
-
-            Measurement measurement = new Measurement(modeler.execute(averageList), date);
-            System.out.println("BAAAHH " + measurement.value());
-            aggregatedValues.clear();
-        }
+        modeler.update();
     }
 
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
+    @Override
+    public Measurement getmesurementMod() {
+        return modeler.getMeasurementMod();
+    }
+
+    @Override
+    public Measurement getmesurementSimple() {
+        return modeler.getMeasurementSimple();
+    }
+
+    @Override
     public void adjustDelta(double correctiveDelta) {
         this.modeler.adjustDelta(correctiveDelta);
     }
+
+    @Override
+    public int getAlarmType() {
+        return 0;
+    }
+
+
+    //----------
+    @Override
+    public void addSubscriber(AggregatorSubscriber subscriber) {subscribers.add(subscriber);}
+    @Override
+    public void removeSubscriber(AggregatorSubscriber subscriber) {subscribers.remove(subscriber);}
+    private void notifySubscribers() {
+        for (AggregatorSubscriber subscriber : subscribers) {
+            subscriber.updateAggregatorNotification(this.name);
+        }
+    }
+    //----------
 }

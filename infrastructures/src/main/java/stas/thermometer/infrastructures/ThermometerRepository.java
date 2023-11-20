@@ -1,6 +1,7 @@
 package stas.thermometer.infrastructures;
 
 import stas.thermometer.domains.*;
+import stas.thermometer.domains.AggregatorHandler.AggregatorAccessor;
 
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class ThermometerRepository implements ThermometerRepositoryInterface {
     }
 
     @Override
-    public List<AggregatorMain> getAggregators() {
+    public List<AggregatorAccessor> getAggregatorsAccessor() {
         return this.thermometer.getAggregators();
     }
 }
