@@ -1,7 +1,7 @@
 package stas.thermometer.domains;
 
 import org.junit.jupiter.api.Test;
-import stas.thermometer.domains.AggregatorHandler.AggregatorCorrective;
+import stas.thermometer.domains.aggregator.handler.AggregatorCorrective;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

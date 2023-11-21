@@ -1,6 +1,6 @@
 package stas.thermometer.infrastructures;
 
-import stas.thermometer.infrastructures.personalExceptions.FileNotFoundException;
+import stas.thermometer.infrastructures.personal.exceptions.FileNotFoundException;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -46,23 +46,28 @@ public class IniConfigurationReader implements ConfigurationStrategy {
             processKeyValuePair(line);
         }
     }
+
     private boolean isCommentOrEmpty(String line) {
         return line.isEmpty() || line.startsWith(";") || line.startsWith("#");
     }
+
     private boolean isNewSection(String line) {
         return line.startsWith("[") && line.endsWith("]");
     }
+
     private void handleNewSection(String line) {
         String sectionName = line.substring(1, line.length() - 1);
         currentSection = new HashMap<>();
         sectionMaps.put(sectionName, currentSection);
     }
+
     private void processKeyValuePair(String line) {
         String[] parts = line.split("=", 2);
         String key = parts[0].trim();
         String value = parts[1].trim();
         currentSection.put(key, value);
     }
+
     private boolean IsValuePair(String line) {
         return line.contains("=");
     }

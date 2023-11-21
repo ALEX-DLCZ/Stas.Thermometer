@@ -1,4 +1,4 @@
-package stas.thermometer.domains.AggregatorHandler;
+package stas.thermometer.domains.aggregator.handler;
 
 
 import stas.thermometer.domains.Measurement;
@@ -8,20 +8,20 @@ import java.time.LocalDateTime;
 public class AggregatorLogistical {
 
     private final AggregatorAlarm alarm;
-    private final AggregatorCorrective Corrective;
+    private final AggregatorCorrective corrective;
     private final AggregatorValueUpdater aggregatorValueUpdater;
     private Measurement measurementMod;
 
 
     public AggregatorLogistical(AggregatorValueUpdater aggregatorValueUpdater) {
         this.alarm = new AggregatorAlarm();
-        this.Corrective = new AggregatorCorrective();
+        this.corrective = new AggregatorCorrective();
         this.aggregatorValueUpdater = aggregatorValueUpdater;
     }
 
 
     public void adjustDelta(double correctiveDelta) {
-        this.Corrective.adjustCorrectiveDelta(correctiveDelta);
+        this.corrective.adjustCorrectiveDelta(correctiveDelta);
     }
 
 
@@ -34,7 +34,7 @@ public class AggregatorLogistical {
     }
 
     private double execute(double value) {
-        double modTemp = Corrective.execute(value);
+        double modTemp = corrective.execute(value);
         alarm.execute(value, modTemp);
         return modTemp;
     };

@@ -4,8 +4,8 @@ package stas.thermometer.domains;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import stas.thermometer.domains.AggregatorHandler.AggregatorLogistical;
-import stas.thermometer.domains.AggregatorHandler.AggregatorValueUpdater;
+import stas.thermometer.domains.aggregator.handler.AggregatorLogistical;
+import stas.thermometer.domains.aggregator.handler.AggregatorValueUpdater;
 
 
 import java.time.LocalDateTime;

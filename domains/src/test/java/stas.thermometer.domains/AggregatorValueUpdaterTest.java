@@ -2,8 +2,7 @@ package stas.thermometer.domains;
 
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import stas.thermometer.domains.AggregatorHandler.AggregatorValueUpdater;
+import stas.thermometer.domains.aggregator.handler.AggregatorValueUpdater;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
 
 
 public class AggregatorValueUpdaterTest {

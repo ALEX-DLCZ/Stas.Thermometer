@@ -1,4 +1,4 @@
-package stas.thermometer.domains.AggregatorHandler;
+package stas.thermometer.domains.aggregator.handler;
 
 public class AggregatorCorrective{
 

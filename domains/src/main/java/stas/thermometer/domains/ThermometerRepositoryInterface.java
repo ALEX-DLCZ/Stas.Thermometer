@@ -1,8 +1,7 @@
 package stas.thermometer.domains;
 
-import stas.thermometer.domains.AggregatorHandler.AggregatorAccessor;
+import stas.thermometer.domains.aggregator.handler.AggregatorAccessor;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

@@ -1,6 +1,6 @@
 package stas.thermometer.presentations;
 
-import stas.thermometer.domains.AggregatorHandler.AggregatorAccessor;
+import stas.thermometer.domains.aggregator.handler.AggregatorAccessor;
 import stas.thermometer.domains.ThermometerRepositoryInterface;
 
 import java.util.List;

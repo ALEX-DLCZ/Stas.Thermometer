@@ -1,4 +1,4 @@
-package stas.thermometer.domains.AggregatorHandler;
+package stas.thermometer.domains.aggregator.handler;
 
 import stas.thermometer.domains.AggregatorSubscriber;
 import stas.thermometer.domains.Measurement;

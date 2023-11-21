@@ -1,4 +1,4 @@
-package stas.thermometer.domains.personalExceptions;
+package stas.thermometer.domains.personal.exceptions;
 
 public class NameNotFoundException extends Exception{
 

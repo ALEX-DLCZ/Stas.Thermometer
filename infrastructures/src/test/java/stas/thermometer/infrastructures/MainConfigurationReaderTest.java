@@ -1,8 +1,8 @@
 package stas.thermometer.infrastructures;
 
 import org.junit.jupiter.api.Test;
-import stas.thermometer.infrastructures.personalExceptions.FileNotFoundException;
-import stas.thermometer.infrastructures.personalExceptions.unknownArgumentException;
+import stas.thermometer.infrastructures.personal.exceptions.FileNotFoundException;
+import stas.thermometer.infrastructures.personal.exceptions.unknownArgumentException;
 
 import java.util.Map;
 

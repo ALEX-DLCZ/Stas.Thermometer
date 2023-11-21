@@ -13,7 +13,7 @@ public class ValueTypeTest {
     public void testMeasurementType() {
         ValueType type = ValueType.TEMPERATURE;
         assert(type.getType().equals("temperature"));
-        assert (type.probeClass().equals(ProbeTemperature.class));
+        assert (type.getProbeClass().equals(ProbeTemperature.class));
 
     }
 
@@ -21,7 +21,7 @@ public class ValueTypeTest {
     public void testMeasurementType2() {
         ValueType type = ValueType.HUMIDITY;
         assert(type.getType().equals("humidity"));
-        assert (type.probeClass().equals(ProbeHumidity.class));
+        assert (type.getProbeClass().equals(ProbeHumidity.class));
     }
 
 }

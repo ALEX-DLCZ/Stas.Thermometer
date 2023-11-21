@@ -5,7 +5,6 @@ import java.util.List;
 
 public class ProbeTemperature implements Probe{
 
-
     private final List<Double> profil;
     private Measurement currentMeasurement;
 

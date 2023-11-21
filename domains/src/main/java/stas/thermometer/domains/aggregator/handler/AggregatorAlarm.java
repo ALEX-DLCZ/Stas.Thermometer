@@ -1,4 +1,4 @@
-package stas.thermometer.domains.AggregatorHandler;
+package stas.thermometer.domains.aggregator.handler;
 
 
 public class AggregatorAlarm{
@@ -12,6 +12,17 @@ public class AggregatorAlarm{
 
 
     public void execute(double temp, double modTemp) {
+
+        if (modTemp > (temp * 1.1)) {
+            this.alarmType = 1;
+        } else if (modTemp < (temp * 0.9)) {
+            this.alarmType = -1;
+        } else {
+            this.alarmType = 0;
+        }
+
+
+
 //        if (modTemp > temp * 1.1) {
 //            this.isAlarm = true;
 //            this.IsTooHighAlarm = true;
@@ -21,13 +32,5 @@ public class AggregatorAlarm{
 //        } else {
 //            this.isAlarm = false;
 //        }
-
-        if (modTemp > (temp * 1.1)) {
-            this.alarmType = 1;
-        } else if (modTemp < (temp * 0.9)) {
-            this.alarmType = -1;
-        } else {
-            this.alarmType = 0;
-        }
     }
 }

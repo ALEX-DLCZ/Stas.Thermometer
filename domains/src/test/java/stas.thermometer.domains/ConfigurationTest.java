@@ -8,8 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -119,8 +118,9 @@ public class ConfigurationTest {
 
         List<Probe> probes = configuration.getProbes();
 
-        assertEquals(1, probes.size());
-        assertEquals(ProbeHumidity.class, probes.get(0).getClass());
+        assertEquals(2, probes.size());
+        assertNull(probes.get(1));
+        assertEquals(ProbeHumidity.class, probes.get(1).getClass());
     }
 
 

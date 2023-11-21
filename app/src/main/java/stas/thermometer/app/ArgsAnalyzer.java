@@ -2,8 +2,8 @@ package stas.thermometer.app;
 
 import stas.thermometer.app.personalExceptions.fatalException;
 import stas.thermometer.infrastructures.MainConfigurationReader;
-import stas.thermometer.infrastructures.personalExceptions.FileNotFoundException;
-import stas.thermometer.infrastructures.personalExceptions.unknownArgumentException;
+import stas.thermometer.infrastructures.personal.exceptions.FileNotFoundException;
+import stas.thermometer.infrastructures.personal.exceptions.unknownArgumentException;
 
 import java.util.Objects;
 import java.util.logging.Logger;

@@ -1,6 +1,7 @@
 package stas.thermometer.infrastructures;
 
-import stas.thermometer.infrastructures.personalExceptions.FileNotFoundException;
+import stas.thermometer.infrastructures.personal.exceptions.FileNotFoundException;
+
 import java.util.Map;
 
 public interface ConfigurationStrategy {

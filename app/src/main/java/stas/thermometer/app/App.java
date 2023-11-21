@@ -25,6 +25,7 @@ public class App {
      * (créer un probe "ProbeNom", créer un message "MsgNom" + imp MsgAlert, implémenter dans ValueType et c'est tout ... normalement)
      *
      *
+     * gradlew run --args="--config-file config.ini"
      *
      */
 

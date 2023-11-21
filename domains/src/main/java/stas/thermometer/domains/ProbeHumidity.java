@@ -5,7 +5,6 @@ import java.util.List;
 
 public class ProbeHumidity implements Probe{
 
-    private final String name = "humidity";
     private final List<Double> profil;
     private Measurement currentMeasurement;
 

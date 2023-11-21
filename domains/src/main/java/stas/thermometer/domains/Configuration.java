@@ -1,6 +1,5 @@
 package stas.thermometer.domains;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,17 +17,20 @@ public class Configuration {
         this.format = readedConfiguration.get("format");
 
         for (ValueType type : ValueType.values()) {
-            if (readedConfiguration.containsKey(type.getType())) try {
-                List<Double> profil = getProfilList(readedConfiguration.get(type.getType()));
+            if (readedConfiguration.containsKey(type.getType())) {
+                try {
+                    List<Double> profil = getProfilList(readedConfiguration.get(type.getType()));
 
-                Class<? extends Probe> probeType = type.probeClass();
+                    Class<? extends Probe> probeType = type.getProbeClass();
 
-                Probe probeInstance = probeType.getDeclaredConstructor(List.class).newInstance(profil);
+                    Probe probeInstance = probeType.getDeclaredConstructor(List.class).newInstance(profil);
 
-                this.probes.add(probeInstance);
+                    this.probes.add(probeInstance);
 
-            } catch (Exception e) {
-                //ce cas de figure est litéralement impossible sauf si l'enum ValueType est mal construite
+                } catch (Exception e) {
+                    //ce cas de figure est litéralement impossible sauf si l'enum ValueType est mal construite
+                    this.probes.add(null);
+                }
             }
         }
 

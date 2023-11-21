@@ -5,7 +5,9 @@ public enum ValueType {
     TEMPERATURE("temperature", ProbeTemperature.class),
     HUMIDITY("humidity", ProbeHumidity.class);
 
-    public final String type;
+    private final String type;
+    //Field probeClass has the same name as a method
+    // private final Class<? extends Probe> probeClass;
     private final Class<? extends Probe> probeClass;
 
     ValueType(String type, Class<? extends Probe> probeClass) {
@@ -18,7 +20,7 @@ public enum ValueType {
         return type;
     }
 
-    public Class<? extends Probe> probeClass() {
+    public Class<? extends Probe> getProbeClass() {
         return probeClass;
     }
 }

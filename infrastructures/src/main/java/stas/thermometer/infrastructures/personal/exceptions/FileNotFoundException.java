@@ -1,4 +1,4 @@
-package stas.thermometer.infrastructures.personalExceptions;
+package stas.thermometer.infrastructures.personal.exceptions;
 
 public class FileNotFoundException extends Exception {
 

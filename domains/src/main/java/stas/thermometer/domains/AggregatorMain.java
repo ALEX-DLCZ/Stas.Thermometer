@@ -1,9 +1,9 @@
 package stas.thermometer.domains;
 
 
-import stas.thermometer.domains.AggregatorHandler.AggregatorAccessor;
-import stas.thermometer.domains.AggregatorHandler.AggregatorLogistical;
-import stas.thermometer.domains.AggregatorHandler.AggregatorValueUpdater;
+import stas.thermometer.domains.aggregator.handler.AggregatorAccessor;
+import stas.thermometer.domains.aggregator.handler.AggregatorLogistical;
+import stas.thermometer.domains.aggregator.handler.AggregatorValueUpdater;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,9 @@ public class AggregatorMain implements AggregatorAccessor {
         this.modeler = new AggregatorLogistical(new AggregatorValueUpdater(probe));
     }
     public void updateAgregatedValues() {
-        if(modeler.update()) notifySubscribers();
+        if(modeler.update()) {
+            notifySubscribers();
+        }
     }
     private void notifySubscribers() {
         for (AggregatorSubscriber subscriber : subscribers) {
