@@ -56,17 +56,6 @@ public class ConfigurationTest {
 
 
     @Test
-    public void Should_Return_Thermometer_Object_when_ConfigurationConstructeur_is_Correct_and_creatThermometerCall(){
-
-        Configuration configuration = new Configuration(mockReader);
-
-        Thermometer thermometer = configuration.createThermometer();
-
-        assertNotNull(thermometer);
-        assertEquals("BHAAAaaaNAME", thermometer.getName());
-    }
-
-    @Test
     public void Should_Return_AggregatorsList_when_getProbesCall(){
 
         Configuration configuration = new Configuration(mockReader);

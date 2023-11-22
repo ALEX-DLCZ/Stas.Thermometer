@@ -7,11 +7,9 @@ import java.util.List;
 
 public class Thermometer {
 
-    private final String name;
     private final List<AggregatorMain> aggregatorMains;
 
-    public Thermometer(String name) {
-        this.name = name;
+    public Thermometer() {
         this.aggregatorMains = new ArrayList<>();
     }
 
@@ -19,9 +17,6 @@ public class Thermometer {
         return new ArrayList<>(this.aggregatorMains);
     }
 
-    public String getName() {
-        return name;
-    }
 
 
     //---------------------------------------------

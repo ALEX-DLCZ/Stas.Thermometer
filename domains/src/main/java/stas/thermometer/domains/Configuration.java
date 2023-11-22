@@ -44,10 +44,6 @@ public class Configuration {
     }
 
 
-    public Thermometer createThermometer() {
-        return new Thermometer(readedConfiguration.get("general").get("name"));
-    }
-
 
     public List<AggregatorMain> getAggregator() {
         return this.aggregators;
@@ -61,4 +57,7 @@ public class Configuration {
                 .collect(Collectors.toList()); // Collecte des éléments dans une liste
     }
 
+    public String getThermometerName() {
+        return readedConfiguration.get("general").get("name");
+    }
 }
