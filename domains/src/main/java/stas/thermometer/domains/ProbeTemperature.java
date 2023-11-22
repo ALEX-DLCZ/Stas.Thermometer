@@ -6,22 +6,17 @@ import java.util.List;
 public class ProbeTemperature implements Probe{
 
     private final List<Double> profil;
-    private Measurement currentMeasurement;
 
     public ProbeTemperature(List<Double> profil) {
         this.profil = profil;
     }
 
 
-    @Override
-    public void generateMeasurement(LocalDateTime dateTime ) {
-        currentMeasurement = new Measurement(currentValue(dateTime), dateTime);
-
-    }
 
     @Override
-    public Measurement getMeasurement() {
-        return currentMeasurement;
+    public Measurement generateMeasurement(LocalDateTime dateTime ) {
+        return new Measurement(currentValue(dateTime), dateTime);
+
     }
 
     @Override

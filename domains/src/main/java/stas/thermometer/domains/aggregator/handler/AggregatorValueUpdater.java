@@ -24,8 +24,7 @@ public class AggregatorValueUpdater {
 
     public boolean updater() {
         LocalDateTime date = LocalDateTime.now();
-        this.probe.generateMeasurement(date);
-        this.aggregatedValues.add(probe.getMeasurement());
+        this.aggregatedValues.add(probe.generateMeasurement(date));
 
         long secondsBetween = ChronoUnit.SECONDS.between(aggregatedValues.get(0).dateTime(), aggregatedValues.get(aggregatedValues.size()-1).dateTime());
 

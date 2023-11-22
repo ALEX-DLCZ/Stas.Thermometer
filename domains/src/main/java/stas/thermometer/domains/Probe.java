@@ -6,7 +6,6 @@ public interface Probe {
 
      String getName();
 
-     void generateMeasurement(LocalDateTime dateTime);
-     Measurement getMeasurement();
+     Measurement generateMeasurement(LocalDateTime dateTime);
 
 }

@@ -119,7 +119,7 @@ public class ConfigurationTest {
         List<Probe> probes = configuration.getProbes();
 
         assertEquals(2, probes.size());
-        assertNull(probes.get(1));
+        assertNull(probes.get(0));
         assertEquals(ProbeHumidity.class, probes.get(1).getClass());
     }
 

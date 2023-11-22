@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 public class ProbesTest {
     //Les tests unitaires suivent une convention de nommage telle que Should…, It…, ou Given...When...Then…
@@ -17,27 +18,6 @@ public class ProbesTest {
     }
 
 
-    @Test
-    public void Should_Return_Null_When_ProbeTemperatureGetMeasurement() {
-
-
-        List<Double> profil = List.of(7.205, 10.0, 20.0, 1.5, 0.5);
-
-        ProbeTemperature probeTemperature = new ProbeTemperature(profil);
-
-        assertNull(probeTemperature.getMeasurement());
-    }
-
-    @Test
-    public void Should_Return_Null_When_ProbeHumidityGetMeasurement() {
-
-
-        List<Double> profil = List.of(0.5,0.02,0.0064,0.209,0.9);
-
-        ProbeHumidity probeHumidity = new ProbeHumidity(profil);
-
-        assertNull(probeHumidity.getMeasurement());
-    }
 
 
     @Test
@@ -51,7 +31,7 @@ public class ProbesTest {
 
         probeTemperature.generateMeasurement(date);
 
-        Measurement measurement = probeTemperature.getMeasurement();
+        Measurement measurement = probeTemperature.generateMeasurement(date);
 
         assertNotNull(measurement);
         assertTrue(measurement.value() >= 19.5 && measurement.value() <= 20.5);
@@ -70,7 +50,7 @@ public class ProbesTest {
 
         probeHumidity.generateMeasurement(date);
 
-        Measurement measurement = probeHumidity.getMeasurement();
+        Measurement measurement = probeHumidity.generateMeasurement(date);
 
         assertNotNull(measurement);
         //assertEquals(0.0064, measurement.value());
@@ -89,7 +69,7 @@ public class ProbesTest {
 
         probeTemperature.generateMeasurement(date);
 
-        Measurement measurement = probeTemperature.getMeasurement();
+        Measurement measurement = probeTemperature.generateMeasurement(date);
 
         assertNotNull(measurement);
         //assertEquals(10, measurement.value());
@@ -108,7 +88,7 @@ public class ProbesTest {
 
         probeHumidity.generateMeasurement(date);
 
-        Measurement measurement = probeHumidity.getMeasurement();
+        Measurement measurement = probeHumidity.generateMeasurement(date);
 
         assertNotNull(measurement);
         //assertEquals(0.02, measurement.value());
@@ -126,7 +106,7 @@ public class ProbesTest {
 
         probeTemperature.generateMeasurement(date);
 
-        Measurement measurement = probeTemperature.getMeasurement();
+        Measurement measurement = probeTemperature.generateMeasurement(date);
 
         assertNotNull(measurement);
         //assertEquals(15, measurement.value());
@@ -144,7 +124,7 @@ public class ProbesTest {
 
         probeHumidity.generateMeasurement(date);
 
-        Measurement measurement = probeHumidity.getMeasurement();
+        Measurement measurement = probeHumidity.generateMeasurement(date);
 
         assertNotNull(measurement);
         //assertEquals(0.0132, measurement.value());
@@ -162,7 +142,7 @@ public class ProbesTest {
 
         probeTemperature.generateMeasurement(date);
 
-        Measurement measurement = probeTemperature.getMeasurement();
+        Measurement measurement = probeTemperature.generateMeasurement(date);
 
         assertNotNull(measurement);
         //assertEquals(4.3525, measurement.value());
@@ -180,7 +160,7 @@ public class ProbesTest {
 
         probeHumidity.generateMeasurement(date);
 
-        Measurement measurement = probeHumidity.getMeasurement();
+        Measurement measurement = probeHumidity.generateMeasurement(date);
 
         assertNotNull(measurement);
         //assertEquals(0.355, measurement.value());

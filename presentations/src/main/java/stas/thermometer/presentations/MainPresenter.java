@@ -6,10 +6,10 @@ import stas.thermometer.domains.ThermometerRepositoryInterface;
 import java.util.List;
 
 
-public class MainPresenter {
+public class MainPresenter  {
 
     private final MainViewInterface view;
-    private ThermometerRepositoryInterface repository;
+    private final ThermometerRepositoryInterface repository;
     int currentProbe = 0;
     private final List<AggregatorAccessor> aggregatorAccessors;
 
@@ -20,16 +20,15 @@ public class MainPresenter {
         this.view.setPresenter(this);
         this.repository = repository;
         this.aggregatorAccessors = this.repository.getAggregatorsAccessor();
-        NotifReceiverPresentations notifReceiverPresentations = new NotifReceiverPresentations(this);
+
         for (AggregatorAccessor aggregatorAccessor : aggregatorAccessors) {
-            aggregatorAccessor.addSubscriber(notifReceiverPresentations);
+            aggregatorAccessor.addSubscriber(this::updateAggregatorNotification);
         }
     }
 
     public void onUpdate() {
         //this.view.printString("update");
         this.repository.notifyUpdate();
-
     }
 
     public void Start() {
