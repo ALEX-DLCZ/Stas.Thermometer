@@ -168,24 +168,5 @@ public class ProbesTest {
         assertTrue(measurement.value() >= 0.305 && measurement.value() <= 0.405);
     }
 
-    @Test
-    public void Should_Return_Name_When_ProbeTemperatureGetName() {
-
-        List<Double> profil = List.of(7.205, 10.0, 20.0, 1.5);
-
-        ProbeTemperature probeTemperature = new ProbeTemperature(profil);
-
-        assertEquals("temperature", probeTemperature.getName());
-    }
-
-    @Test
-    public void Should_Return_Name_When_ProbeHumidityGetName() {
-
-        List<Double> profil = List.of(0.5,0.02,0.0064,0.209);
-
-        ProbeHumidity probeHumidity = new ProbeHumidity(profil);
-
-        assertEquals("humidity", probeHumidity.getName());
-    }
 
 }

@@ -15,10 +15,9 @@ public class ThermometerRepository implements ThermometerRepositoryInterface {
         Configuration configuration = new Configuration(configurationReader);
 
         this.thermometer = configuration.createThermometer();
-        for (Probe probe : configuration.getProbes()) {
-            thermometer.Subscribe(new AggregatorMain(probe));
+        for (AggregatorMain aggregator : configuration.getAggregator()) {
+            thermometer.Subscribe(aggregator);
         }
-
 
         this.format = configuration.getFormat();
     }

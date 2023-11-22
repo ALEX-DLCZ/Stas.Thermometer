@@ -3,7 +3,7 @@ package stas.thermometer.domains;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class ProbeTemperature implements Probe{
+public class ProbeTemperature implements Probe {
 
     private final List<Double> profil;
 
@@ -12,21 +12,8 @@ public class ProbeTemperature implements Probe{
     }
 
 
-
     @Override
-    public Measurement generateMeasurement(LocalDateTime dateTime ) {
-        return new Measurement(currentValue(dateTime), dateTime);
-
-    }
-
-    @Override
-    public String getName() {
-        return "temperature";
-    }
-
-
-
-    private double currentValue(LocalDateTime dateTime) {
+    public Measurement generateMeasurement(LocalDateTime dateTime) {
         int nbList = profil.size();
         int time = dateTime.toLocalTime().toSecondOfDay();
 
@@ -45,7 +32,11 @@ public class ProbeTemperature implements Probe{
 
         double finalValue = value1 + ((value2 - value1) * ((time * nbList) % timeSecond) / timeSecond);
 
-        //marge d'erreur de 0.5
-        return finalValue + ((Math.random() * 0.1) - 0.5);
+        //marge d'erreur de 0.05
+        finalValue = finalValue + ((Math.random() * 0.1) - 0.5);
+
+
+        return new Measurement(finalValue, dateTime);
+
     }
 }

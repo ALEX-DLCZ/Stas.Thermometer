@@ -3,7 +3,7 @@ package stas.thermometer.domains;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class ProbeHumidity implements Probe{
+public class ProbeHumidity implements Probe {
 
     private final List<Double> profil;
 
@@ -14,17 +14,6 @@ public class ProbeHumidity implements Probe{
 
     @Override
     public Measurement generateMeasurement(LocalDateTime dateTime) {
-        return new Measurement(currentValue(dateTime), dateTime);
-
-    }
-
-    @Override
-    public String getName() {
-        return "humidity";
-    }
-
-
-    private double currentValue(LocalDateTime dateTime) {
         int nbList = profil.size();
         int time = dateTime.toLocalTime().toSecondOfDay();
 
@@ -44,6 +33,11 @@ public class ProbeHumidity implements Probe{
         double finalValue = value1 + ((value2 - value1) * ((time * nbList) % timeSecond) / timeSecond);
 
         //marge d'erreur de 0.05
-        return finalValue + ((Math.random() * 0.1) - 0.05);
+        finalValue = finalValue + ((Math.random() * 0.1) - 0.05);
+
+
+        return new Measurement(finalValue, dateTime);
+
     }
+
 }

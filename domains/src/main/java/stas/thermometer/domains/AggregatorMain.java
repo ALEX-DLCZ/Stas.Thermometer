@@ -17,8 +17,8 @@ public class AggregatorMain implements AggregatorAccessor {
 
 
 
-    public AggregatorMain(Probe probe) {
-        this.name = probe.getName();
+    public AggregatorMain(String name, Probe probe) {
+        this.name = name;
 
         this.modeler = new AggregatorLogistical(new AggregatorValueUpdater(probe));
     }

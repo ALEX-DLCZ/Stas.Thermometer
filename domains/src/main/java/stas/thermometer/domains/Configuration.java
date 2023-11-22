@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class Configuration {
 
     private final Map<String, String> format;
-    private final List<Probe> probes = new ArrayList<>();
+    private final List<AggregatorMain> aggregators = new ArrayList<>();
 
     private final Map<String, Map<String, String>> readedConfiguration;
 
@@ -22,14 +22,16 @@ public class Configuration {
                     List<Double> profil = getProfilList(readedConfiguration.get(type.getType()));
 
                     Class<? extends Probe> probeType = type.getProbeClass();
+                    AggregatorMain aggregatorInstance = new AggregatorMain(
+                            type.getType(),
+                            probeType.getDeclaredConstructor(List.class).newInstance(profil)
+                    );
 
-                    Probe probeInstance = probeType.getDeclaredConstructor(List.class).newInstance(profil);
-
-                    this.probes.add(probeInstance);
+                    this.aggregators.add(aggregatorInstance);
 
                 } catch (Exception e) {
                     //ce cas de figure est litéralement impossible sauf si l'enum ValueType est mal construite
-                    this.probes.add(null);
+                    this.aggregators.add(null);
                 }
             }
         }
@@ -44,10 +46,11 @@ public class Configuration {
     public Thermometer createThermometer() {
         return new Thermometer(readedConfiguration.get("general").get("name"));
     }
-    public List<Probe> getProbes() {
-        return probes;
-    }
 
+
+    public List<AggregatorMain> getAggregator() {
+        return this.aggregators;
+    }
 
 
     private List<Double> getProfilList(Map<String, String> profile) {
@@ -56,4 +59,5 @@ public class Configuration {
                 .map(entry -> Double.parseDouble(entry.getValue())) // Conversion des valeurs en Double
                 .collect(Collectors.toList()); // Collecte des éléments dans une liste
     }
+
 }

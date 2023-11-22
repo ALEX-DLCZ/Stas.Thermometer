@@ -5,4 +5,5 @@ id 'helmo-common-conventions'
 
 dependencies {
 implementation project(':domains')
+    implementation 'mysql:mysql-connector-java:8.0.33'
 }

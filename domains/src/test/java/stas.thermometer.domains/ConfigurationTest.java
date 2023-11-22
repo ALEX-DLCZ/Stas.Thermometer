@@ -67,15 +67,18 @@ public class ConfigurationTest {
     }
 
     @Test
-    public void Should_Return_ProbesList_when_getProbesCall(){
+    public void Should_Return_AggregatorsList_when_getProbesCall(){
 
         Configuration configuration = new Configuration(mockReader);
 
-        List<Probe> probes = configuration.getProbes();
+        List<AggregatorMain> aggregators = configuration.getAggregator();
 
-        assertEquals(2, probes.size());
-        assertEquals(ProbeTemperature.class, probes.get(0).getClass());
-        assertEquals(ProbeHumidity.class, probes.get(1).getClass());
+        assertEquals(2, aggregators.size());
+        assertEquals(AggregatorMain.class, aggregators.get(0).getClass());
+        assertEquals(AggregatorMain.class, aggregators.get(1).getClass());
+        assertEquals("temperature", aggregators.get(0).getName());
+        assertEquals("humidity", aggregators.get(1).getName());
+
     }
 
     @Test
@@ -116,16 +119,16 @@ public class ConfigurationTest {
 
         Configuration configuration = new Configuration(mockReaderHappyPath);
 
-        List<Probe> probes = configuration.getProbes();
+        List<AggregatorMain> aggregators = configuration.getAggregator();
 
-        assertEquals(2, probes.size());
-        assertNull(probes.get(0));
-        assertEquals(ProbeHumidity.class, probes.get(1).getClass());
+        assertEquals(2, aggregators.size());
+        assertNull(aggregators.get(0));
+        assertEquals( AggregatorMain.class, aggregators.get(1).getClass());
     }
 
 
     @Test
-    public void Should_Return_ProbesList_but_with_only_humidity_probe(){
+    public void Should_Return_aggregatorsList_but_with_only_humidity_probe(){
         ConfigurationReader mockReaderHappyPath = mock(ConfigurationReader.class);
         Map<String, Map<String, String>> configWithoutCorrectProfil = new HashMap<>();
         Map<String, String> generalWithoutCorrectProfil = new HashMap<>();
@@ -148,10 +151,10 @@ public class ConfigurationTest {
         when(mockReaderHappyPath.getReadedConfiguration()).thenReturn(configWithoutCorrectProfil);
         Configuration configuration = new Configuration(mockReaderHappyPath);
 
-        List<Probe> probes = configuration.getProbes();
+        List<AggregatorMain> aggregators = configuration.getAggregator();
 
-        assertEquals(1, probes.size());
-        assertEquals(ProbeHumidity.class, probes.get(0).getClass());
+        assertEquals(1, aggregators.size());
+        assertEquals("humidity", aggregators.get(0).getName());
 
 
     }
