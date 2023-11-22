@@ -27,7 +27,7 @@ public class AggregatorLogistical {
 
     public boolean update(){
         if( this.aggregatorValueUpdater.updater()){
-            this.measurementMod = new Measurement (execute(this.aggregatorValueUpdater.getAverageMeasurement()), LocalDateTime.now());
+            this.measurementMod = new Measurement (execute(this.aggregatorValueUpdater.getMeasurementSimple().value()), LocalDateTime.now());
             return true;
         }
         return false;

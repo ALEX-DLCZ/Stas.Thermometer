@@ -35,11 +35,6 @@ public class AggregatorValueUpdater {
         this.aggregatedValues.clear();
         return true;
     }
-
-    public double getAverageMeasurement() {
-        return this.measurementSimple.value();
-    }
-
     public Measurement getMeasurementSimple() {
         return this.measurementSimple;
 

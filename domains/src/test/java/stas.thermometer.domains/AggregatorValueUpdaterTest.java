@@ -57,20 +57,6 @@ public class AggregatorValueUpdaterTest {
         assertTrue(aggregatorValueUpdater.updater());
     }
 
-    @Test
-    public void Should_Return_AverageMeasurement_when_getAverageMeasurement_IsCalled() {
-        //given
-        Probe probeMock = mock(Probe.class);
-        when(probeMock.generateMeasurement(any(LocalDateTime.class))).thenReturn(new Measurement(1.0, LocalDateTime.of(2000, 3, 1, 0, 0,0)));
-        AggregatorValueUpdater aggregatorValueUpdater = new AggregatorValueUpdater(probeMock);
-
-        //when
-        aggregatorValueUpdater.updater();
-        when(probeMock.generateMeasurement(any(LocalDateTime.class))).thenReturn(new Measurement(2.0, LocalDateTime.of(2000, 3, 1, 0, 0,3)));
-        aggregatorValueUpdater.updater();
-        //then
-        assertEquals(1.5, aggregatorValueUpdater.getAverageMeasurement());
-    }
 
      @Test
     public void Should_Return_AggregatorMeasurementSimple_when_getMeasurementSimple_IsCalled() {

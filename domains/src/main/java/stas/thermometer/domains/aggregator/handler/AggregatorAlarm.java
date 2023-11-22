@@ -2,7 +2,6 @@ package stas.thermometer.domains.aggregator.handler;
 
 
 public class AggregatorAlarm {
-
     private int alarmType = 0;
 
 
