@@ -24,7 +24,8 @@ public class Configuration {
                     Class<? extends Probe> probeType = type.getProbeClass();
                     AggregatorMain aggregatorInstance = new AggregatorMain(
                             type.getType(),
-                            probeType.getDeclaredConstructor(List.class).newInstance(profil)
+                            probeType.getDeclaredConstructor(List.class).newInstance(profil),
+                            type.getDelta()
                     );
 
                     this.aggregators.add(aggregatorInstance);

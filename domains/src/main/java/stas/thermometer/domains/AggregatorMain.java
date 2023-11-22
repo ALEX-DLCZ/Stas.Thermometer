@@ -11,19 +11,18 @@ import java.util.List;
 public class AggregatorMain implements AggregatorAccessor {
 
     private final String name;
-    private final AggregatorLogistical modeler;
+    private final AggregatorLogistical aggregatorLogistical;
 
     private final List<AggregatorSubscriber> subscribers = new ArrayList<>();
 
 
 
-    public AggregatorMain(String name, Probe probe) {
+    public AggregatorMain(String name, Probe probe , double delta) {
         this.name = name;
-
-        this.modeler = new AggregatorLogistical(new AggregatorValueUpdater(probe));
+        this.aggregatorLogistical = new AggregatorLogistical(new AggregatorValueUpdater(probe), delta);
     }
     public void updateAgregatedValues() {
-        if(modeler.update()) {
+        if(aggregatorLogistical.update()) {
             notifySubscribers();
         }
     }
@@ -36,8 +35,8 @@ public class AggregatorMain implements AggregatorAccessor {
 
     //--------------------------
     @Override
-    public void adjustDelta(double correctiveDelta) {
-        this.modeler.adjustDelta(correctiveDelta);
+    public void adjustDelta(boolean isRise) {
+        this.aggregatorLogistical.adjustDelta(isRise);
     }
 
     @Override
@@ -46,15 +45,15 @@ public class AggregatorMain implements AggregatorAccessor {
     }
     @Override
     public Measurement getmesurementMod() {
-        return modeler.getMeasurementMod();
+        return aggregatorLogistical.getMeasurementMod();
     }
     @Override
     public Measurement getmesurementSimple() {
-        return modeler.getMeasurementSimple();
+        return aggregatorLogistical.getMeasurementSimple();
     }
     @Override
     public int getAlarmType() {
-        return modeler.getAlarmType();
+        return aggregatorLogistical.getAlarmType();
     }
 
     //----------

@@ -10,7 +10,7 @@ public interface AggregatorAccessor {
     String getName();
     Measurement getmesurementMod();
     Measurement getmesurementSimple();
-    void adjustDelta(double correctiveDelta);
+    void adjustDelta(boolean isRise);
     int getAlarmType();
     void addSubscriber(AggregatorSubscriber subscriber);
     void removeSubscriber(AggregatorSubscriber subscriber);

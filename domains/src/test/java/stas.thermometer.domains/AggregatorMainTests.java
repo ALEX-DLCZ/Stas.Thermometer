@@ -24,7 +24,7 @@ public class AggregatorMainTests {
     @Test
     public void Should_Return_AggregatorName_when_getName_IsCalled() {
         //given
-        AggregatorMain aggregatorMain = new AggregatorMain("probeName",probeMock);
+        AggregatorMain aggregatorMain = new AggregatorMain("probeName",probeMock, 0.5);
         //when
         String aggregatorName = aggregatorMain.getName();
         //then
@@ -34,7 +34,7 @@ public class AggregatorMainTests {
     @Test
     public void Should_call1Time_updateAgregatedValues_when_updateAgregatedValues_IsCalled() {
         //given
-        AggregatorMain aggregatorMain = new AggregatorMain("probeName",probeMock);
+        AggregatorMain aggregatorMain = new AggregatorMain("probeName",probeMock, 0.5);
 
 
         //when
@@ -74,12 +74,12 @@ public class AggregatorMainTests {
     public void Should_AggregatorMeasurementSimple_SameThanBefore_when_adjustDelta_IsCalled() {
 
         //given
-        AggregatorMain aggregatorMain = new AggregatorMain("probeName",probeMock);
+        AggregatorMain aggregatorMain = new AggregatorMain("probeName",probeMock, 0.5);
 
         //when
         when(probeMock.generateMeasurement(any(LocalDateTime.class))).thenReturn(new Measurement(1.0, LocalDateTime.of(2000, 3, 1, 0, 0,0)));
         aggregatorMain.updateAgregatedValues();
-        aggregatorMain.adjustDelta(10.0);
+        aggregatorMain.adjustDelta(true);
         when(probeMock.generateMeasurement(any(LocalDateTime.class))).thenReturn(new Measurement(1.0, LocalDateTime.of(2000, 3, 1, 0, 0,3)));
         aggregatorMain.updateAgregatedValues();
 
@@ -90,6 +90,7 @@ public class AggregatorMainTests {
         //then
         assertNotNull(measurementSimple);
         assertEquals(1.0, measurementSimple.value());
+        assertEquals(1.5, measurementMod.value());
         assertNotEquals(measurementSimple.value(), measurementMod.value());
     }
 
@@ -97,12 +98,12 @@ public class AggregatorMainTests {
     public void Should_Raise_Delta_when_adjustDelta_With_positivDouble_IsCalled() {
 
         //given
-        AggregatorMain aggregatorMain = new AggregatorMain("probeName",probeMock);
+        AggregatorMain aggregatorMain = new AggregatorMain("probeName",probeMock, 0.5);
 
         //when
         when(probeMock.generateMeasurement(any(LocalDateTime.class))).thenReturn(new Measurement(1.0, LocalDateTime.of(2000, 3, 1, 0, 0,0)));
         aggregatorMain.updateAgregatedValues();
-        aggregatorMain.adjustDelta(5.0);
+        aggregatorMain.adjustDelta(true);
         when(probeMock.generateMeasurement(any(LocalDateTime.class))).thenReturn(new Measurement(1.0, LocalDateTime.of(2000, 3, 1, 0, 0,3)));
         aggregatorMain.updateAgregatedValues();
 
@@ -112,7 +113,7 @@ public class AggregatorMainTests {
 
         //then
         assertNotNull(measurementMod);
-        assertEquals(6.0, measurementMod.value());
+        assertEquals(1.5, measurementMod.value());
         assertTrue(measurementSimple.value() < measurementMod.value());
     }
 
@@ -120,7 +121,7 @@ public class AggregatorMainTests {
     public void Should_Return_AggregatorAlarmType_when_getAlarmType_IsCalled() {
 
         //given
-        AggregatorMain aggregatorMain = new AggregatorMain("probeName",probeMock);
+        AggregatorMain aggregatorMain = new AggregatorMain("probeName",probeMock, 0.5);
 
         //when
         when(probeMock.generateMeasurement(any(LocalDateTime.class))).thenReturn(new Measurement(1.0, LocalDateTime.of(2000, 3, 1, 0, 0,0)));
@@ -140,7 +141,7 @@ public class AggregatorMainTests {
 
 
         //given
-        AggregatorMain aggregatorMain = new AggregatorMain("probeName",probeMock);
+        AggregatorMain aggregatorMain = new AggregatorMain("probeName",probeMock, 0.5);
         AggregatorSubscriber aggregatorSubscriberMockToRemove = mock(AggregatorSubscriber.class);
         AggregatorSubscriber aggregatorSubscriberMockToAdd = mock(AggregatorSubscriber.class);
         AggregatorSubscriber aggregatorSubscriberMockToAdd2 = mock(AggregatorSubscriber.class);

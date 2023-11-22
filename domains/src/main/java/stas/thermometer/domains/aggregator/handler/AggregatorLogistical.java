@@ -13,15 +13,15 @@ public class AggregatorLogistical {
     private Measurement measurementMod;
 
 
-    public AggregatorLogistical(AggregatorValueUpdater aggregatorValueUpdater) {
+    public AggregatorLogistical(AggregatorValueUpdater aggregatorValueUpdater , double delta) {
         this.alarm = new AggregatorAlarm();
-        this.corrective = new AggregatorCorrective();
+        this.corrective = new AggregatorCorrective(delta);
         this.aggregatorValueUpdater = aggregatorValueUpdater;
     }
 
 
-    public void adjustDelta(double correctiveDelta) {
-        this.corrective.adjustCorrectiveDelta(correctiveDelta);
+    public void adjustDelta(boolean isRise) {
+        this.corrective.adjustCorrectiveDelta(isRise);
     }
 
 

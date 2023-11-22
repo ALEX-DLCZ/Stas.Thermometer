@@ -1,6 +1,19 @@
 package stas.thermometer.infrastructures.database;
 
+import stas.thermometer.domains.aggregator.handler.AggregatorAccessor;
+import stas.thermometer.infrastructures.ThermometerRepository;
+
+import java.util.List;
+
 public class DBRepository {
+
+
+    public DBRepository(List<AggregatorAccessor> getAggregatorsAccessor ) {
+
+
+    }
+
+
 }
 
 

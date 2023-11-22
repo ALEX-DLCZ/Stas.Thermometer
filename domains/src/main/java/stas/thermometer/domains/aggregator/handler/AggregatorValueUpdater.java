@@ -11,8 +11,6 @@ import java.util.List;
 public class AggregatorValueUpdater {
 
     private static final int SECONDS_BETWEEN = 2;
-
-
     private final Probe probe;
     private final List<Measurement> aggregatedValues;
     private Measurement measurementSimple;
@@ -35,6 +33,7 @@ public class AggregatorValueUpdater {
         this.aggregatedValues.clear();
         return true;
     }
+
     public Measurement getMeasurementSimple() {
         return this.measurementSimple;
 

@@ -29,7 +29,7 @@ public class AggregatorLogisticalTest {
     public void Should_Return_False_when_update_IsCalled_One_time_and_aggregatorValueUpdater_IsFalse() {
         //given
         when(aggregatorValueUpdaterMock.updater()).thenReturn(false);
-        AggregatorLogistical aggregatorLogistical = new AggregatorLogistical(aggregatorValueUpdaterMock);
+        AggregatorLogistical aggregatorLogistical = new AggregatorLogistical(aggregatorValueUpdaterMock, 0.5);
 
         //when
         boolean result = aggregatorLogistical.update();
@@ -45,7 +45,7 @@ public class AggregatorLogisticalTest {
         //given
         when(aggregatorValueUpdaterMock.updater()).thenReturn(true);
         when(aggregatorValueUpdaterMock.getMeasurementSimple()).thenReturn(new Measurement(1.0, LocalDateTime.now()));
-        AggregatorLogistical aggregatorLogistical = new AggregatorLogistical(aggregatorValueUpdaterMock);
+        AggregatorLogistical aggregatorLogistical = new AggregatorLogistical(aggregatorValueUpdaterMock, 0.5);
 
         //when
         boolean result = aggregatorLogistical.update();
@@ -61,11 +61,11 @@ public class AggregatorLogisticalTest {
         //given
         when(aggregatorValueUpdaterMock.updater()).thenReturn(true);
         when(aggregatorValueUpdaterMock.getMeasurementSimple()).thenReturn(new Measurement(1.0, LocalDateTime.now()));
-        AggregatorLogistical aggregatorLogistical = new AggregatorLogistical(aggregatorValueUpdaterMock);
+        AggregatorLogistical aggregatorLogistical = new AggregatorLogistical(aggregatorValueUpdaterMock, 0.5);
 
         //when
         aggregatorLogistical.update();
-        aggregatorLogistical.adjustDelta(10.0);
+        aggregatorLogistical.adjustDelta(true);
 
         aggregatorLogistical.update();
         int result = aggregatorLogistical.getAlarmType();
@@ -81,18 +81,18 @@ public class AggregatorLogisticalTest {
         //given
         when(aggregatorValueUpdaterMock.updater()).thenReturn(true);
         when(aggregatorValueUpdaterMock.getMeasurementSimple()).thenReturn(new Measurement(1.0, LocalDateTime.now()));
-        AggregatorLogistical aggregatorLogistical = new AggregatorLogistical(aggregatorValueUpdaterMock);
+        AggregatorLogistical aggregatorLogistical = new AggregatorLogistical(aggregatorValueUpdaterMock, 0.5);
 
         //when
         aggregatorLogistical.update();
-        aggregatorLogistical.adjustDelta(10.0);
+        aggregatorLogistical.adjustDelta(false);
 
         aggregatorLogistical.update();
         Measurement result = aggregatorLogistical.getMeasurementMod();
 
         //then
         assertNotNull(result);
-        assertEquals(11.0, result.value());
+        assertEquals(0.5, result.value());
         verify(aggregatorValueUpdaterMock, times(2)).updater();
         verify(aggregatorValueUpdaterMock, times(2)).getMeasurementSimple();
     }
@@ -103,11 +103,11 @@ public class AggregatorLogisticalTest {
         //given
         when(aggregatorValueUpdaterMock.updater()).thenReturn(true);
         when(aggregatorValueUpdaterMock.getMeasurementSimple()).thenReturn(new Measurement(1.0, LocalDateTime.now()));
-        AggregatorLogistical aggregatorLogistical = new AggregatorLogistical(aggregatorValueUpdaterMock);
+        AggregatorLogistical aggregatorLogistical = new AggregatorLogistical(aggregatorValueUpdaterMock, 0.5);
 
         //when
         aggregatorLogistical.update();
-        aggregatorLogistical.adjustDelta(10.0);
+        aggregatorLogistical.adjustDelta(true);
 
         aggregatorLogistical.update();
         Measurement result = aggregatorLogistical.getMeasurementSimple();

@@ -55,12 +55,12 @@ public class MainPresenter  {
             }
             case "r": {
                 this.view.printString("raise");
-                this.aggregatorAccessors.get(this.currentProbe).adjustDelta(0.1);
+                this.aggregatorAccessors.get(this.currentProbe).adjustDelta(true);
                 break;
             }
             case "m": {
                 this.view.printString("minimize");
-                this.aggregatorAccessors.get(this.currentProbe).adjustDelta(-0.1);
+                this.aggregatorAccessors.get(this.currentProbe).adjustDelta(false);
 
                 break;
             }
