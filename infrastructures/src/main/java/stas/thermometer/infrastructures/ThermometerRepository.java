@@ -12,7 +12,6 @@ public class ThermometerRepository implements ThermometerRepositoryInterface {
     private final Thermometer thermometer;
     private final Map<String, String> format;
     private final String name;
-    private final DBRepository dbRepository;
 
     public ThermometerRepository(ConfigurationReader configurationReader) {
         Configuration configuration = new Configuration(configurationReader);
@@ -25,7 +24,7 @@ public class ThermometerRepository implements ThermometerRepositoryInterface {
         this.name = configuration.getThermometerName();
         this.format = configuration.getFormat();
 
-        this.dbRepository = new DBRepository(this);
+        new DBRepository(this);
     }
 
 

@@ -23,9 +23,9 @@ public class DBRepository {
 
 
     }
-
-    private void updateAggregatorNotificatio(String s) {
-        System.out.println(" DB GET NOTIFIED " + s);
+    //todo changer nom
+    private void updateAggregatorNotificatio(String aggregatorName) {
+        System.out.println(" DB GET NOTIFIED " + aggregatorName);
     }
 
 

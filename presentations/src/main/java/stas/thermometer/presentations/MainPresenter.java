@@ -77,11 +77,11 @@ public class MainPresenter  {
 
 
 
-    public void updateAggregatorNotification(String name) {
+    public void updateAggregatorNotification(String aggregatorName) {
         this.aggregatorAccessors.stream()
-                .filter(aggregatorAccessor -> aggregatorAccessor.getName().equals(name))
+                .filter(aggregatorAccessor -> aggregatorAccessor.getName().equals(aggregatorName))
                 .forEach(aggregatorAccessor -> {
-                    this.view.printString("Update de la sonde " + name);
+                    this.view.printString("Update de la sonde " + aggregatorName);
                     this.view.printString("Valeur actuelle : " + aggregatorAccessor.getmesurementMod().value());
                     this.view.printString("Valeur simple : " + aggregatorAccessor.getmesurementSimple().value());
                     this.view.printString("Alarme : " + aggregatorAccessor.getAlarmType());

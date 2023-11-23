@@ -3,5 +3,5 @@ package stas.thermometer.domains;
 @FunctionalInterface
 public interface AggregatorSubscriber {
 
-    void updateAggregatorNotification(String name);
+    void updateAggregatorNotification(String aggregatorName);
 }

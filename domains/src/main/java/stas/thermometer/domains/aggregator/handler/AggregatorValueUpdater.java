@@ -18,6 +18,7 @@ public class AggregatorValueUpdater {
     public AggregatorValueUpdater(Probe probe) {
         this.probe = probe;
         this.aggregatedValues = new LinkedList<>();
+        this.measurementSimple = new Measurement(0.0, LocalDateTime.now());
     }
 
     public boolean updater() {
