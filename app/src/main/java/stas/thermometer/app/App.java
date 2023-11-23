@@ -6,8 +6,7 @@ package stas.thermometer.app;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import stas.thermometer.app.personalExceptions.fatalException;
-import stas.thermometer.domains.ThermometerRepositoryInterface;
-import stas.thermometer.infrastructures.ThermometerRepository;
+import stas.thermometer.domains.AggregatorMain;
 import stas.thermometer.presentations.MainPresenter;
 import stas.thermometer.views.MainView;
 
@@ -60,12 +59,21 @@ public class App {
 
         var scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
         try {
-            ArgsAnalyzer argsAnalyzer = new ArgsAnalyzer(args);
-            ThermometerRepositoryInterface thermometerRepository = new ThermometerRepository(argsAnalyzer.getConfiguration());
+            ArgsExecutor argsExecutor = new ArgsExecutor(args);
+            for (AggregatorMain aggregator : argsExecutor.getAggregators()) {
+                argsExecutor.getThermometer().Subscribe(aggregator);
+            }
+
             MainView mainView = new MainView();
-            MainPresenter mainPresenter = new MainPresenter(mainView, thermometerRepository);
+            MainPresenter mainPresenter = new MainPresenter(mainView, argsExecutor.getThermometer());
+            /*
+            mainPresenter.setFormat();
+            thermometerRepository.setThermometer ();
+            dbRepository.setThermometer ();
+            dbRepository.setFormat ();
+            dbRepository.setDBConfiguration ();
 
-
+             */
 
 
             var task = new RefreshProbeTask(mainPresenter);

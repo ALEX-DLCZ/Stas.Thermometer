@@ -1,11 +1,7 @@
 package stas.thermometer.infrastructures.database;
 
-import stas.thermometer.domains.Configuration;
-import stas.thermometer.domains.ConfigurationReader;
-import stas.thermometer.domains.Thermometer;
-import stas.thermometer.domains.ThermometerRepositoryInterface;
+import stas.thermometer.domains.ThermometerInterface;
 import stas.thermometer.domains.aggregator.handler.AggregatorAccessor;
-import stas.thermometer.infrastructures.ThermometerRepository;
 
 import java.util.List;
 
@@ -14,8 +10,8 @@ public class DBRepository {
     private final List<AggregatorAccessor> aggregatorAccessors;
 
 
-    public DBRepository(ThermometerRepositoryInterface thermometerRepositoryInterface) {
-        this.aggregatorAccessors = thermometerRepositoryInterface.getAggregatorsAccessor();
+    public DBRepository(ThermometerInterface thermometerInterface) {
+        this.aggregatorAccessors = thermometerInterface.getAggregatorsAccessor();
 
         for (AggregatorAccessor aggregatorAccessor : aggregatorAccessors) {
             aggregatorAccessor.addSubscriber(this::updateAggregatorNotificatio);

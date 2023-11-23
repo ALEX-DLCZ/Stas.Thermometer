@@ -1,7 +1,7 @@
 package stas.thermometer.presentations;
 
 import stas.thermometer.domains.aggregator.handler.AggregatorAccessor;
-import stas.thermometer.domains.ThermometerRepositoryInterface;
+import stas.thermometer.domains.ThermometerInterface;
 
 import java.util.List;
 
@@ -9,17 +9,17 @@ import java.util.List;
 public class MainPresenter  {
 
     private final MainViewInterface view;
-    private final ThermometerRepositoryInterface repository;
+    private final ThermometerInterface thermometer;
     int currentProbe = 0;
     private final List<AggregatorAccessor> aggregatorAccessors;
 
     // TODO: 10/11/2023 possède mes agrégateur ou thermometre a voir mais il le récupère grace a thermometreRepository
 
-    public MainPresenter(MainViewInterface view, ThermometerRepositoryInterface repository) {
+    public MainPresenter(MainViewInterface view, ThermometerInterface thermometer) {
         this.view = view;
         this.view.setPresenter(this);
-        this.repository = repository;
-        this.aggregatorAccessors = this.repository.getAggregatorsAccessor();
+        this.thermometer = thermometer;
+        this.aggregatorAccessors = this.thermometer.getAggregatorsAccessor();
 
         for (AggregatorAccessor aggregatorAccessor : aggregatorAccessors) {
             aggregatorAccessor.addSubscriber(this::updateAggregatorNotification);
@@ -28,7 +28,7 @@ public class MainPresenter  {
 
     public void onUpdate() {
         //this.view.printString("update");
-        this.repository.notifyUpdate();
+        this.thermometer.notifyUpdate();
     }
 
     public void Start() {
