@@ -1,11 +1,14 @@
 package stas.thermometer.infrastructures.database;
 
 public class Alert {
-    private int idMesure;
-    private double expectedValue;
+    private final double expectedValue;
 
-    public Alert( double expectedValue) {
+
+    private final int idMesure;
+
+    public Alert( double expectedValue, int idMesure) {
         this.expectedValue = expectedValue;
+        this.idMesure = idMesure;
     }
 
 
@@ -14,14 +17,8 @@ public class Alert {
     public int getIdMesure() {
         return idMesure;
     }
-    public void setIdMesure(int idMesure) {
-        this.idMesure = idMesure;
+    public double getExpectedValue() {
+        return this.expectedValue;
     }
 
-    public double getExpectedValue() {
-        return expectedValue;
-    }
-    public void setExpectedValue(double expectedValue) {
-        this.expectedValue = expectedValue;
-    }
 }

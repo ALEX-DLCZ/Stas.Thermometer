@@ -4,11 +4,12 @@ import java.time.LocalDateTime;
 
 public class Mesure {
 
-    private String thermometerName;
-    private LocalDateTime datetime;
-    private String type;
-    private String format;
-    private double value;
+    private final String thermometerName;
+    private final LocalDateTime datetime;
+    private final String type;
+    private final String format;
+    private final double value;
+
 
     public Mesure(String thermometerName, LocalDateTime datetime, String type, String format, double value) {
         this.thermometerName = thermometerName;
@@ -23,36 +24,18 @@ public class Mesure {
     public String getThermometerName() {
         return thermometerName;
     }
-    public void setThermometerName(String thermometerName) {
-        this.thermometerName = thermometerName;
-    }
-
     public LocalDateTime getDatetime() {
         return datetime;
     }
-    public void setDatetime(LocalDateTime datetime) {
-        this.datetime = datetime;
-    }
-
     public String getType() {
         return type;
-    }
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getFormat() {
         return format;
     }
-    public void setFormat(String format) {
-        this.format = format;
-    }
-
     public double getValue() {
         return value;
-    }
-    public void setValue(double value) {
-        this.value = value;
     }
 
 }

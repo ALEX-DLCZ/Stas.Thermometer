@@ -52,7 +52,7 @@ public class ArgsExecutor {
             }
         }
 
-        this.thermometer = new Thermometer(readedConfigurationMap.get("general").get("name"));
+        this.thermometer = new Thermometer(configuration.getThermometerName());
         this.formatmap = readedConfigurationMap.get("general");
 
         /*

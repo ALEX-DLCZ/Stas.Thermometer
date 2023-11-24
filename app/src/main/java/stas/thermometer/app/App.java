@@ -66,6 +66,7 @@ public class App {
             }
             MainView mainView = new MainView();
             MainPresenter mainPresenter = new MainPresenter(mainView, argsExecutor.getThermometer());
+
             new MainDataBase(argsExecutor.getConnectionString(),argsExecutor.getThermometer());
             /*
             mainPresenter.setFormat();
@@ -79,6 +80,7 @@ public class App {
             scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
             //Exécute la tache tout de suite et la répète toutes les 2 secondes
             scheduledExecutor.scheduleAtFixedRate(task, 0, 100, TimeUnit.MILLISECONDS);
+
 
 
             // TODO: 12/11/2023 askip c'est pas bien ici

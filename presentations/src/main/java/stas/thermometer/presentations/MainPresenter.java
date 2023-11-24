@@ -86,6 +86,7 @@ public class MainPresenter  {
                     this.view.printString("Valeur actuelle : " + aggregatorAccessor.getmesurementMod().value());
                     this.view.printString("Valeur simple : " + aggregatorAccessor.getmesurementSimple().value());
                     this.view.printString("Alarme : " + aggregatorAccessor.getAlarmType());
+                    this.view.printString("DateTime : " + aggregatorAccessor.getmesurementMod().dateTime());
                     this.view.printString(" ");
                 });
 

@@ -3,16 +3,11 @@ package stas.thermometer.infrastructures.database;
 import stas.thermometer.domains.ThermometerInterface;
 import stas.thermometer.domains.aggregator.handler.AggregatorAccessor;
 import stas.thermometer.infrastructures.database.dbexceptions.RepositoryException;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 public class MainDataBase {
 
-    private List<AggregatorAccessor> aggregatorAccessors;
+    private final List<AggregatorAccessor> aggregatorAccessors;
     private final String thermometerName;
     private final MesureRepository mesureRepository;
     private final AlertRepository alertRepository;
@@ -33,19 +28,21 @@ public class MainDataBase {
 
     }
 
-    //todo changer nom
     private void updateAggregatorNotification(String aggregatorName)  {
         AggregatorAccessor aggregatorAccessor = this.aggregatorAccessors.stream().filter(aggregatorAccessor1 -> aggregatorAccessor1.getName().equals(aggregatorName)).findFirst().get();
 
+        //todo changer nom du format
         Mesure mesure = new Mesure(this.thermometerName, aggregatorAccessor.getmesurementMod().dateTime(), aggregatorName, "todo", aggregatorAccessor.getmesurementMod().value());
-        Alert alert = new Alert(aggregatorAccessor.getmesurementMod().value());
 
+        //todo changer nom de l'id
+        Alert alert = new Alert(0.0, 0);
 
         try {
+
             mesureRepository.save(mesure);
 
-        if (aggregatorAccessor.getAlarmType() != 0) {
-            alert.setIdMesure(mesureRepository.getMesureId());
+            if (aggregatorAccessor.getAlarmType() != 0) {
+//            alert.setIdMesure(mesureRepository.getMesureId());
             alertRepository.save(alert);
         }
 
