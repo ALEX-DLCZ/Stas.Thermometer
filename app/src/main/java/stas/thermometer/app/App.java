@@ -76,8 +76,6 @@ public class App {
 
 
             var task = new RefreshProbeTask(mainPresenter);
-            //Configure un exécuteur planifié pour un seul thread
-            scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
             //Exécute la tache tout de suite et la répète toutes les 2 secondes
             scheduledExecutor.scheduleAtFixedRate(task, 0, 100, TimeUnit.MILLISECONDS);
 

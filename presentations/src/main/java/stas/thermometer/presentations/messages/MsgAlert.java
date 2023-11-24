@@ -1,44 +1,35 @@
 package stas.thermometer.presentations.messages;
 
-import stas.thermometer.domains.ValueType;
 
 public class MsgAlert {
-
     private final String message;
 
     public MsgAlert(String type, int alertType) {
+        this.message = generateMessage(type, alertType);
+    }
 
-        switch (type) {
-            case "temperature":
-                switch (alertType) {
-                    case 1:
-                        this.message = "--TROP FROID--";
-                        break;
-                    case 2:
-                        this.message = "--TROP CHAUD--";
-                        break;
-                    default:
-                        this.message = "ERROR ALERT TYPE";
-                        break;
-                }
-                break;
-            case "humidity":
-                switch (alertType) {
-                    case 1:
-                        this.message = "--TROP SEC--";
-                        break;
-                    case 2:
-                        this.message = "--TROP HUMIDE--";
-                        break;
-                    default:
-                        this.message = "ERROR ALERT TYPE";
-                        break;
-                }
-                break;
-            default:
-                this.message = "ERROR ALERT TYPE";
-                break;
-        }
+    private String generateMessage(String type, int alertType) {
+        return switch (type) {
+            case "temperature" -> generateTemperatureMessage(alertType);
+            case "humidity" -> generateHumidityMessage(alertType);
+            default -> "ERROR ALERT TYPE";
+        };
+    }
+
+    private String generateTemperatureMessage(int alertType) {
+        return switch (alertType) {
+            case -1 -> "--TROP FROID--";
+            case 1 -> "--TROP CHAUD--";
+            default -> "ERROR ALERT TYPE";
+        };
+    }
+
+    private String generateHumidityMessage(int alertType) {
+        return switch (alertType) {
+            case -1 -> "--TROP SEC--";
+            case 1 -> "--TROP HUMIDE--";
+            default -> "ERROR ALERT TYPE";
+        };
     }
 
     public String getMessage() {

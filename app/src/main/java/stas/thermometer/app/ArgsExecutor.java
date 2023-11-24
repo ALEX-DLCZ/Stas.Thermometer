@@ -16,6 +16,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * @implNote cette class va s'occuper de la gestion des arguments pour instancier/créer les objets nécessaires au programme
+ * en fonction des arguments
+ */
 public class ArgsExecutor {
 
 
@@ -54,17 +58,6 @@ public class ArgsExecutor {
 
         this.thermometer = new Thermometer(configuration.getThermometerName());
         this.formatmap = readedConfigurationMap.get("general");
-
-        /*
-        readedConfigurationMap.get("BD") =
-        [BD]
-        IpServer= 192.168.132.200
-        PortServer= 13306
-        User= Q210007
-        Pws= 0007
-         */
-        // String connectionString = "jdbc:mysql://db:3306/mydatabase?user=root&password=mysql";
-        //jdbc:mysql://192.168.132.200:13306/Q210007?user=Q210007&password=0007
 
         this.connectionString = "jdbc:mysql://" +
                 readedConfigurationMap.get("BD").get("IpServer") + ":" +

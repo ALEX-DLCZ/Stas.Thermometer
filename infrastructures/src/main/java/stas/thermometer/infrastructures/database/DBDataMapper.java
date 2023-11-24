@@ -12,6 +12,18 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+
+/**
+ * @implNote cette classe est une implémentation de l'interface DataMapper
+ *
+ *
+ * visibility of constructors, ..., using setAccessible() : dans ce cas, nous sommes obligé de rendre les champs publics
+ * pour pouvoir les accéder
+ *
+ *
+ *
+ * @param <T> T est un type générique qui représente un dto de la base de données style Mesure ou Alert
+ */
 public class DBDataMapper<T> implements DataMapper<T>{
 
     private final String connectionString;
@@ -32,6 +44,7 @@ public class DBDataMapper<T> implements DataMapper<T>{
 
         String insertQuery = buildSaveQuery(fields);
         try (Connection connection = DriverManager.getConnection(connectionString)) {
+
             int id = saveStatement(connection, entity, fields, insertQuery);
             objRefMap.put(entity, id);
         }
@@ -70,6 +83,7 @@ public class DBDataMapper<T> implements DataMapper<T>{
     private void setParameterValues(PreparedStatement preparedStatement, T entity, Field[] fields) throws IllegalAccessException, SQLException {
         int parameterIndex = 1;
         for (Field field : fields) {
+            field.setAccessible(true);
             Object columnValue = field.get(entity);
             preparedStatement.setObject(parameterIndex++, columnValue);
         }
