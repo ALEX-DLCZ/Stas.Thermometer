@@ -16,9 +16,6 @@ public class Configuration {
         return readedConfigurationMap;
     }
 
-    public String getThermometerName() {
-        return this.readedConfigurationMap.get("general").get("name");
-    }
     public List<Double> getProfilList(Map<String, String> profile) {
         return profile.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey()) // Tri des entrées par clé (l'ordre d'insertion est préservé)

@@ -10,7 +10,7 @@ public class MainPresenter  {
 
     private final MainViewInterface view;
     private final ThermometerInterface thermometer;
-    int currentProbe = 0;
+    private int currentProbe = 0;
     private final List<AggregatorAccessor> aggregatorAccessors;
 
     // TODO: 10/11/2023 possède mes agrégateur ou thermometre a voir mais il le récupère grace a thermometreRepository
@@ -72,6 +72,7 @@ public class MainPresenter  {
             }
             default:
                 this.view.printString("Commande non reconnue");
+                break;
         }
     }
 

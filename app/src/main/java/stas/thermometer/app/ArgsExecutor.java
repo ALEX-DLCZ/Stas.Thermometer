@@ -22,6 +22,9 @@ public class ArgsExecutor {
 
     private final List<AggregatorMain> aggregators = new ArrayList<>();
     private final Thermometer thermometer;
+    private final Map<String, String> formatmap;
+    private final String connectionString;
+
 
 
     public ArgsExecutor(String[] args) throws fatalException {
@@ -49,8 +52,26 @@ public class ArgsExecutor {
             }
         }
 
-        this.thermometer = new Thermometer(configuration.getThermometerName());
+        this.thermometer = new Thermometer(readedConfigurationMap.get("general").get("name"));
+        this.formatmap = readedConfigurationMap.get("general");
 
+        /*
+        readedConfigurationMap.get("BD") =
+        [BD]
+        IpServer= 192.168.132.200
+        PortServer= 13306
+        User= Q210007
+        Pws= 0007
+         */
+        // String connectionString = "jdbc:mysql://db:3306/mydatabase?user=root&password=mysql";
+        //jdbc:mysql://192.168.132.200:13306/Q210007?user=Q210007&password=0007
+
+        this.connectionString = "jdbc:mysql://" +
+                readedConfigurationMap.get("BD").get("IpServer") + ":" +
+                readedConfigurationMap.get("BD").get("PortServer") + "/" +
+                readedConfigurationMap.get("BD").get("User") + "?" +
+                "user=" + readedConfigurationMap.get("BD").get("User") + "&" +
+                "password=" + readedConfigurationMap.get("BD").get("Pws");
     }
 
     public Thermometer getThermometer() {
@@ -59,7 +80,12 @@ public class ArgsExecutor {
     public List<AggregatorMain> getAggregators() {
         return this.aggregators;
     }
-
+    public Map<String, String> getFormatmap() {
+        return this.formatmap;
+    }
+    public String getConnectionString() {
+        return this.connectionString;
+    }
     private MainConfigurationReader argsAnalyzer(String[] args) throws fatalException {
 
         MainConfigurationReader configurationStrategy;
