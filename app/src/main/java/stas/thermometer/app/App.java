@@ -65,7 +65,7 @@ public class App {
                 argsExecutor.getThermometer().Subscribe(aggregator);
             }
             MainView mainView = new MainView();
-            MainPresenter mainPresenter = new MainPresenter(mainView, argsExecutor.getThermometer());
+            MainPresenter mainPresenter = new MainPresenter(mainView, argsExecutor.getThermometer(), argsExecutor.getFormatmap());
 
             new MainDataBase(argsExecutor.getConnectionString(),argsExecutor.getThermometer());
             /*

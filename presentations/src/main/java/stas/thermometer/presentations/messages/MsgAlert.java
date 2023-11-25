@@ -1,6 +1,55 @@
 package stas.thermometer.presentations.messages;
 
 
+public enum MsgAlert {
+    TEMPERATURE_COLD("--TROP FROID--"),
+    TEMPERATURE_HOT("--TROP CHAUD--"),
+    HUMIDITY_DRY("--TROP SEC--"),
+    HUMIDITY_WET("--TROP HUMIDE--"),
+    ERROR_ALERT_TYPE("ERROR ALERT TYPE");
+
+    private final String message;
+
+    MsgAlert(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return this.message + "\n";
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 public class MsgAlert {
     private final String message;
 
@@ -36,3 +85,6 @@ public class MsgAlert {
         return this.message + "\n";
     }
 }
+
+
+ */

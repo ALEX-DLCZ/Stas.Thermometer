@@ -57,7 +57,7 @@ public class ArgsExecutor {
         }
 
         this.thermometer = new Thermometer(configuration.getThermometerName());
-        this.formatmap = readedConfigurationMap.get("general");
+        this.formatmap = readedConfigurationMap.get("format");
 
         this.connectionString = "jdbc:mysql://" +
                 readedConfigurationMap.get("BD").get("IpServer") + ":" +

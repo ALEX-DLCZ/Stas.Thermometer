@@ -2,8 +2,10 @@ package stas.thermometer.presentations;
 
 import stas.thermometer.domains.aggregator.handler.AggregatorAccessor;
 import stas.thermometer.domains.ThermometerInterface;
+import stas.thermometer.presentations.messages.MsgNotifOrganization;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class MainPresenter  {
@@ -12,14 +14,16 @@ public class MainPresenter  {
     private final ThermometerInterface thermometer;
     private int currentProbe = 0;
     private final List<AggregatorAccessor> aggregatorAccessors;
+    private final MsgNotifOrganization msgNotifOrganization;
 
-    // TODO: 10/11/2023 possède mes agrégateur ou thermometre a voir mais il le récupère grace a thermometreRepository
 
-    public MainPresenter(MainViewInterface view, ThermometerInterface thermometer) {
+    public MainPresenter(MainViewInterface view, ThermometerInterface thermometer, Map<String, String> format) {
         this.view = view;
         this.view.setPresenter(this);
         this.thermometer = thermometer;
         this.aggregatorAccessors = this.thermometer.getAggregatorsAccessor();
+
+        this.msgNotifOrganization = new MsgNotifOrganization(format);
 
         for (AggregatorAccessor aggregatorAccessor : aggregatorAccessors) {
             aggregatorAccessor.addSubscriber(this::updateAggregatorNotification);
@@ -79,16 +83,29 @@ public class MainPresenter  {
 
 
     public void updateAggregatorNotification(String aggregatorName) {
-        this.aggregatorAccessors.stream()
+        AggregatorAccessor aggregatorAccessorCible = this.aggregatorAccessors.stream()
                 .filter(aggregatorAccessor -> aggregatorAccessor.getName().equals(aggregatorName))
-                .forEach(aggregatorAccessor -> {
-                    this.view.printString("Update de la sonde " + aggregatorName);
-                    this.view.printString("Valeur actuelle : " + aggregatorAccessor.getmesurementMod().value());
-                    this.view.printString("Valeur simple : " + aggregatorAccessor.getmesurementSimple().value());
-                    this.view.printString("Alarme : " + aggregatorAccessor.getAlarmType());
-                    this.view.printString("DateTime : " + aggregatorAccessor.getmesurementMod().dateTime());
-                    this.view.printString(" ");
-                });
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("AggregatorAccessor not found"));
+
+
+        this.view.printString(this.msgNotifOrganization.getMsgCurrent(aggregatorAccessorCible));
+
+
+
+
+
+
+//        this.aggregatorAccessors.stream()
+//                .filter(aggregatorAccessor -> aggregatorAccessor.getName().equals(aggregatorName))
+//                .forEach(aggregatorAccessor -> {
+//                    this.view.printString("Update de la sonde " + aggregatorName);
+//                    this.view.printString("Valeur actuelle : " + aggregatorAccessor.getmesurementMod().value());
+//                    this.view.printString("Valeur simple : " + aggregatorAccessor.getmesurementSimple().value());
+//                    this.view.printString("Alarme : " + aggregatorAccessor.getAlarmType());
+//                    this.view.printString("DateTime : " + aggregatorAccessor.getmesurementMod().dateTime());
+//                    this.view.printString(" ");
+//                });
 
 
 
