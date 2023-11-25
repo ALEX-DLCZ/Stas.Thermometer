@@ -88,9 +88,12 @@ public class MainPresenter  {
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("AggregatorAccessor not found"));
 
-
-        this.view.printString(this.msgNotifOrganization.getMsgCurrent(aggregatorAccessorCible));
-
+        //vérifie si le type d'allert est 0 ou autre
+        if (aggregatorAccessorCible.getAlarmType() == 0) {
+            this.view.printString(this.msgNotifOrganization.getMsgCurrent(aggregatorAccessorCible));
+        } else {
+            this.view.printString(this.msgNotifOrganization.getMsgAlert(aggregatorAccessorCible));
+        }
 
 
 

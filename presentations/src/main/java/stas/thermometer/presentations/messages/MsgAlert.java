@@ -2,21 +2,38 @@ package stas.thermometer.presentations.messages;
 
 
 public enum MsgAlert {
-    TEMPERATURE_COLD("--TROP FROID--"),
-    TEMPERATURE_HOT("--TROP CHAUD--"),
-    HUMIDITY_DRY("--TROP SEC--"),
-    HUMIDITY_WET("--TROP HUMIDE--"),
-    ERROR_ALERT_TYPE("ERROR ALERT TYPE");
 
-    private final String message;
+    TEMPERATURE("temperature", "--TROP FROID--", "--TROP CHAUD--"),
+    HUMIDITY("humidity", "--TROP SEC--", "--TROP HUMIDE--"),
+    ERROR_ALERT_TYPE("ERROR", "ERROR ALERT TYPE", "ERROR ALERT TYPE");
 
-    MsgAlert(String message) {
-        this.message = message;
+    private final String type;
+    private final String messagedown;
+    private final String messageup;
+
+    MsgAlert(String type, String messagedown, String messageup) {
+        this.type = type;
+        this.messagedown = messagedown;
+        this.messageup = messageup;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getMessage(int alertType) {
+        return switch (alertType) {
+            case -1 -> this.messagedown;
+            case 1 -> this.messageup;
+            default -> "ERROR ALERT TYPE";
+        };
     }
 
     public String getMessage() {
-        return this.message + "\n";
+        return this.messagedown;
     }
+
+
 }
 
 

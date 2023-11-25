@@ -38,6 +38,7 @@ public enum MsgCurrent {
     public String getMessage() {
         return this.message;
     }
+
 }
 
 
