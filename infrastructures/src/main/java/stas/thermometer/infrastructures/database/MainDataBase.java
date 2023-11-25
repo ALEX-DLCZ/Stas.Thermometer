@@ -35,22 +35,17 @@ public class MainDataBase {
         Mesure mesure = new Mesure(this.thermometerName, aggregatorAccessor.getmesurementMod().dateTime(), aggregatorName, "todo", aggregatorAccessor.getmesurementMod().value());
 
         //todo changer nom de l'id
-        Alert alert = new Alert(0.0, 0);
 
         try {
 
             mesureRepository.save(mesure);
-
             if (aggregatorAccessor.getAlarmType() != 0) {
-//            alert.setIdMesure(mesureRepository.getMesureId());
-            alertRepository.save(alert);
-        }
-
+            alertRepository.save(new Alert(0.0, mesureRepository.getMesureId(mesure)));
+            }
         } catch (RepositoryException e) {
             throw new RuntimeException(e);
         }
     }
-
 
 }
 

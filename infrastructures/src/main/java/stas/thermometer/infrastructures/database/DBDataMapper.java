@@ -111,6 +111,10 @@ public class DBDataMapper<T> implements DataMapper<T>{
         }
     }
 
+    protected int getObjRef(T entity) {
+        return objRefMap.get(entity);
+    }
+
 
 
 

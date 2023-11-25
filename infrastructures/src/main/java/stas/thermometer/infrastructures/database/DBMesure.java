@@ -7,9 +7,9 @@ public class DBMesure extends DBDataMapper<Mesure> implements MesureRepository{
     }
 
     @Override
-    public int getMesureId() {
+    public int getMesureId(Mesure mesure) {
         //objRefMap
-        return 0;
+        return getObjRef(mesure);
     }
 
 }
