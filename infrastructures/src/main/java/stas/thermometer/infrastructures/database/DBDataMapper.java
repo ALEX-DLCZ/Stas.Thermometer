@@ -1,6 +1,7 @@
 package stas.thermometer.infrastructures.database;
 
-import stas.thermometer.infrastructures.database.dbexceptions.RepositoryException;
+import stas.thermometer.infrastructures.database.dbexceptions.DBConnectException;
+import stas.thermometer.infrastructures.database.dbexceptions.DBInsertException;
 
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
@@ -39,7 +40,7 @@ public class DBDataMapper<T> implements DataMapper<T>{
 
 
     @Override
-    public void save(T entity) throws RepositoryException {
+    public void save(T entity) throws DBInsertException, DBConnectException {
         Field[] fields = getAllFields(entityClass);
 
         String insertQuery = buildSaveQuery(fields);
@@ -49,7 +50,7 @@ public class DBDataMapper<T> implements DataMapper<T>{
             objRefMap.put(entity, id);
         }
         catch (SQLException e) {
-            throw new RepositoryException("SQL exception", e);
+            throw new DBConnectException();
         }
 
     }
@@ -63,7 +64,6 @@ public class DBDataMapper<T> implements DataMapper<T>{
             columns.append(columnName).append(", ");
             values.append("?, ");
         }
-        // Supprimer la virgule en trop à la fin des clauses
         columns.delete(columns.length() - 2, columns.length());
         values.delete(values.length() - 2, values.length());
 
@@ -71,7 +71,6 @@ public class DBDataMapper<T> implements DataMapper<T>{
     }
     private Field[] getAllFields(Class<?> inputClass) {
         Class<?> clazz = inputClass;
-        // Collecter tous les champs de la classe courante et de ses superclasses
         java.util.List<Field> fields = new java.util.ArrayList<>();
         while (clazz != null) {
             fields.addAll(java.util.Arrays.asList(clazz.getDeclaredFields()));
@@ -100,16 +99,17 @@ public class DBDataMapper<T> implements DataMapper<T>{
         }
     }
 
-    private int saveStatement(Connection connection, T entity, Field[] fields, String insertQuery) throws RepositoryException {
+    private int saveStatement(Connection connection, T entity, Field[] fields, String insertQuery) throws DBInsertException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
             setParameterValues(preparedStatement, entity, fields);
             return executeInsertion(preparedStatement);
         } catch (SQLException e) {
-            throw new RepositoryException("Erreur SQL", e);
+            throw new DBInsertException( e);
         } catch (IllegalAccessException e) {
-            throw new RepositoryException("Impossible d'accéder au membre", e);
+            throw new DBInsertException("Impossible d'accéder au membre", e);
         }
     }
+
 
     protected int getObjRef(T entity) {
         return objRefMap.get(entity);

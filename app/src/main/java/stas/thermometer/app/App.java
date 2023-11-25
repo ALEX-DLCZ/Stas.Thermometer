@@ -67,7 +67,7 @@ public class App {
             MainView mainView = new MainView();
             MainPresenter mainPresenter = new MainPresenter(mainView, argsExecutor.getThermometer(), argsExecutor.getFormatmap());
 
-            new MainDataBase(argsExecutor.getConnectionString(),argsExecutor.getThermometer());
+            new MainDataBase(argsExecutor.getConnectionString(),argsExecutor.getThermometer(),argsExecutor.getFormatmap());
             /*
             mainPresenter.setFormat();
             dbRepository.setFormat ();

@@ -2,8 +2,15 @@ package stas.thermometer.infrastructures.database;
 
 import stas.thermometer.domains.ThermometerInterface;
 import stas.thermometer.domains.aggregator.handler.AggregatorAccessor;
-import stas.thermometer.infrastructures.database.dbexceptions.RepositoryException;
+import stas.thermometer.infrastructures.database.dbexceptions.DBConnectException;
+import stas.thermometer.infrastructures.database.dbexceptions.DBInsertException;
+
 import java.util.List;
+import java.util.Map;
+
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 
 public class MainDataBase {
 
@@ -11,11 +18,15 @@ public class MainDataBase {
     private final String thermometerName;
     private final MesureRepository mesureRepository;
     private final AlertRepository alertRepository;
+    private final Map<String,String> formatMap;
+
+    private static final Logger LOG = LogManager.getLogger("stas thermometre");
 
 
-    public MainDataBase(String connectionString, ThermometerInterface thermometerInterface) {
+    public MainDataBase(String connectionString, ThermometerInterface thermometerInterface, Map<String,String> formatMap) {
         this.aggregatorAccessors = thermometerInterface.getAggregatorsAccessor();
         this.thermometerName = thermometerInterface.getThermometerName();
+        this.formatMap = formatMap;
 
         for (AggregatorAccessor aggregatorAccessor : aggregatorAccessors) {
             aggregatorAccessor.addSubscriber(this::updateAggregatorNotification);
@@ -32,18 +43,21 @@ public class MainDataBase {
         AggregatorAccessor aggregatorAccessor = this.aggregatorAccessors.stream().filter(aggregatorAccessor1 -> aggregatorAccessor1.getName().equals(aggregatorName)).findFirst().get();
 
         //todo changer nom du format
-        Mesure mesure = new Mesure(this.thermometerName, aggregatorAccessor.getmesurementMod().dateTime(), aggregatorName, "todo", aggregatorAccessor.getmesurementMod().value());
+        Mesure mesure = new Mesure(this.thermometerName,
+                aggregatorAccessor.getmesurementMod().dateTime(),
+                aggregatorName,
+                formatMap.get(aggregatorName),
+                aggregatorAccessor.getmesurementMod().value());
 
-        //todo changer nom de l'id
 
         try {
 
             mesureRepository.save(mesure);
             if (aggregatorAccessor.getAlarmType() != 0) {
-            alertRepository.save(new Alert(0.0, mesureRepository.getMesureId(mesure)));
+            alertRepository.save(new Alert(aggregatorAccessor.getmesurementSimple().value(), mesureRepository.getMesureId(mesure)));
             }
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
+        } catch (DBInsertException | DBConnectException e) {
+            LOG.error(e.getMessage());
         }
     }
 

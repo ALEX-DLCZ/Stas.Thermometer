@@ -1,11 +1,12 @@
 package stas.thermometer.infrastructures.database;
 
 
-import stas.thermometer.infrastructures.database.dbexceptions.RepositoryException;
+import stas.thermometer.infrastructures.database.dbexceptions.DBConnectException;
+import stas.thermometer.infrastructures.database.dbexceptions.DBInsertException;
 
 
 public interface DataMapper<T> {
-    void save(T entity) throws RepositoryException;
+    void save(T entity) throws DBInsertException, DBConnectException;
 
 
 //    List<T> getAll();
