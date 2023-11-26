@@ -19,9 +19,9 @@ public class App {
     /**
      * --NOTE--
      * <p>
-     * prévoir une évolution de maintenabilité du code
+     * prévoit une évolution de maintenabilité du code
      * ex : pression atmosphérique, rayonnement thermique, vitesse du vent, Conductivité thermique.
-     * (créer un probe "ProbeNom", créer un message "MsgNom" + imp MsgAlert, implémenter dans ValueType et c'est tout ... normalement)
+     * (créer un probe "ProbeNom", imp MsgCurrent + imp MsgAlert, implémenter dans ValueType et c'est tout ... normalement)
      * <p>
      * <p>
      * gradlew run --args="--config-file config.ini"
@@ -85,7 +85,6 @@ public class App {
  */
 class RefreshProbeTask implements Runnable {
     private final MainPresenter mainPresenter;
-    public final Logger log = LogManager.getLogger("stas");
 
     public RefreshProbeTask(MainPresenter mainPresenter) {
         this.mainPresenter = mainPresenter;

@@ -45,6 +45,14 @@ public class MainPresenter {
         this.view.inputLoop();
     }
 
+    /**
+     * @param userInput la commande entrée par l'utilisateur
+     * @implNote cette méthode est appelée par la vue à chaque fois que l'utilisateur entre une commande
+     * <p>
+     * pmd NCSS: plusieurs versions de cette méthode ont été testées, pour rendre la méthode plus courte,
+     * impossible de réduir d'avenatage la méthode dans une utilisations de switch
+     * (DP chain of responsability a éventuellement mettre en place)
+     */
     public void processingUserInput(String userInput) {
         switch ( userInput ) {
             case "h":

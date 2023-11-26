@@ -1,5 +1,11 @@
 package stas.thermometer.domains.aggregator.handler;
 
+/**
+ * @implNote cette classe permet de gérer les alarmes de l'aggrégateur. elle permet de déterminer le type d'alarme.
+ *
+ * Cohesive set: la class est relativement courte et ne fait qu'une seule chose. impossibilité de la découper en sous-classe.
+ *
+ */
 public class AggregatorAlarm {
     private int alarmType = 0;
 

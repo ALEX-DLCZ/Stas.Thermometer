@@ -18,6 +18,8 @@ public class AggregatorMain implements AggregatorAccessor {
         this.aggregatorLogistical = new AggregatorLogistical(new AggregatorValueUpdater(probe), delta);
     }
 
+
+    // notifie les subscribers si les valeurs agregées ont changées
     public void updateAgregatedValues() {
         if ( aggregatorLogistical.update() ) {
             notifySubscribers();
@@ -57,6 +59,7 @@ public class AggregatorMain implements AggregatorAccessor {
     }
 
     //----------
+    //permet de s'abonner à un AggregatorMain grace a l'accessor
     @Override
     public void addSubscriber(AggregatorSubscriber subscriber) {subscribers.add(subscriber);}
 

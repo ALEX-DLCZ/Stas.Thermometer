@@ -13,19 +13,17 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-
 /**
+ * @param <T> T est un type générique qui représente un dto de la base de données style Mesure ou Alert
  * @implNote cette classe est une implémentation de l'interface DataMapper
- *
- *
+ * <p>
+ * <p>
  * visibility of constructors, ..., using setAccessible() : dans ce cas, nous sommes obligé de rendre les champs publics
  * pour pouvoir les accéder
- *
- *
- *
- * @param <T> T est un type générique qui représente un dto de la base de données style Mesure ou Alert
+ * <p>
+ * Cohesive set: ... oui l'erreur est correcte, a éventuellement modifier grace a l'implémentation de l'interface ou autre.
  */
-public class DBDataMapper<T> implements DataMapper<T>{
+public class DBDataMapper<T> implements DataMapper<T> {
 
     private final String connectionString;
     private final String tableName;
@@ -38,28 +36,27 @@ public class DBDataMapper<T> implements DataMapper<T>{
         this.entityClass = entityClass;
     }
 
-
     @Override
     public void save(T entity) throws DBInsertException, DBConnectException {
         Field[] fields = getAllFields(entityClass);
 
         String insertQuery = buildSaveQuery(fields);
-        try (Connection connection = DriverManager.getConnection(connectionString)) {
+        try ( Connection connection = DriverManager.getConnection(connectionString) ) {
 
             int id = saveStatement(connection, entity, fields, insertQuery);
             objRefMap.put(entity, id);
-        }
-        catch (SQLException e) {
+        } catch ( SQLException e ) {
             throw new DBConnectException();
         }
 
     }
+
     private String buildSaveQuery(Field[] fields) {
         StringBuilder columns = new StringBuilder();
         StringBuilder values = new StringBuilder();
 
-        for (Field field : fields) {
-//            field.setAccessible(true);
+        for ( Field field : fields ) {
+            //            field.setAccessible(true);
             String columnName = field.getName();
             columns.append(columnName).append(", ");
             values.append("?, ");
@@ -69,10 +66,11 @@ public class DBDataMapper<T> implements DataMapper<T>{
 
         return "INSERT INTO " + tableName + " (" + columns.toString() + ") VALUES (" + values.toString() + ")";
     }
+
     private Field[] getAllFields(Class<?> inputClass) {
         Class<?> clazz = inputClass;
         java.util.List<Field> fields = new java.util.ArrayList<>();
-        while (clazz != null) {
+        while ( clazz != null ) {
             fields.addAll(java.util.Arrays.asList(clazz.getDeclaredFields()));
             clazz = clazz.getSuperclass();
         }
@@ -81,7 +79,7 @@ public class DBDataMapper<T> implements DataMapper<T>{
 
     private void setParameterValues(PreparedStatement preparedStatement, T entity, Field[] fields) throws IllegalAccessException, SQLException {
         int parameterIndex = 1;
-        for (Field field : fields) {
+        for ( Field field : fields ) {
             field.setAccessible(true);
             Object columnValue = field.get(entity);
             preparedStatement.setObject(parameterIndex++, columnValue);
@@ -90,80 +88,72 @@ public class DBDataMapper<T> implements DataMapper<T>{
 
     private int executeInsertion(PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.execute();
-        try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-            if (generatedKeys.next()) {
+        try ( ResultSet generatedKeys = preparedStatement.getGeneratedKeys() ) {
+            if ( generatedKeys.next() ) {
                 return generatedKeys.getInt(1);
-            } else {
+            }
+            else {
                 throw new SQLException("Aucune clé générée après l'insertion.");
             }
         }
     }
 
     private int saveStatement(Connection connection, T entity, Field[] fields, String insertQuery) throws DBInsertException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
+        try ( PreparedStatement preparedStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS) ) {
             setParameterValues(preparedStatement, entity, fields);
             return executeInsertion(preparedStatement);
-        } catch (SQLException e) {
-            throw new DBInsertException( e);
-        } catch (IllegalAccessException e) {
+        } catch ( SQLException e ) {
+            throw new DBInsertException(e);
+        } catch ( IllegalAccessException e ) {
             throw new DBInsertException("Impossible d'accéder au membre", e);
         }
     }
-
 
     protected int getObjRef(T entity) {
         return objRefMap.get(entity);
     }
 
 
+    //    private int saveStatement(Connection connection, T entity, Field[] fields, String insertQuery) throws RepositoryException {
+    //        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
+    //            int parameterIndex = 1;
+    //
+    //            // Définir les valeurs des paramètres dans la clause VALUES
+    //            for (Field field : fields) {
+    ////                field.setAccessible(true);
+    //                Object columnValue = field.get(entity);
+    //                preparedStatement.setObject(parameterIndex++, columnValue);
+    //            }
+    //
+    //            // Exécuter l'insertion
+    //            preparedStatement.execute();
+    //
+    //            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+    //                if (generatedKeys.next()) {
+    //                    return generatedKeys.getInt(1);
+    //                } else {
+    //                    throw new SQLException("Aucune clé générée après l'insertion.");
+    //                }
+    //            }
+    //        }
+    //        catch (SQLException e) {
+    //            throw new RepositoryException("Erreur SQL", e);
+    //        }
+    //        catch (IllegalAccessException e) {
+    //            throw new RepositoryException("Impossible d'accéder au membre", e);
+    //        }
+    //    }
 
 
-
-
-
-//    private int saveStatement(Connection connection, T entity, Field[] fields, String insertQuery) throws RepositoryException {
-//        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
-//            int parameterIndex = 1;
-//
-//            // Définir les valeurs des paramètres dans la clause VALUES
-//            for (Field field : fields) {
-////                field.setAccessible(true);
-//                Object columnValue = field.get(entity);
-//                preparedStatement.setObject(parameterIndex++, columnValue);
-//            }
-//
-//            // Exécuter l'insertion
-//            preparedStatement.execute();
-//
-//            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-//                if (generatedKeys.next()) {
-//                    return generatedKeys.getInt(1);
-//                } else {
-//                    throw new SQLException("Aucune clé générée après l'insertion.");
-//                }
-//            }
-//        }
-//        catch (SQLException e) {
-//            throw new RepositoryException("Erreur SQL", e);
-//        }
-//        catch (IllegalAccessException e) {
-//            throw new RepositoryException("Impossible d'accéder au membre", e);
-//        }
-//    }
-
-
-
-
-
-//    @Override
-//    public void update(T entity) {
-//        throw new UnsupportedOperationException("Unimplemented method 'update'");
-//    }
-//
-//    @Override
-//    public void delete(T entity) {
-//        throw new UnsupportedOperationException("Unimplemented method 'delete'");
-//    }
+    //    @Override
+    //    public void update(T entity) {
+    //        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    //    }
+    //
+    //    @Override
+    //    public void delete(T entity) {
+    //        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    //    }
 
 
 }
