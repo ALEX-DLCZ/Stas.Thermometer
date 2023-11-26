@@ -74,11 +74,8 @@ User= q210007
 Pws= 0007
 
      */
-    //Les tests unitaires suivent une convention de nommage telle que Should…, It…, ou Given...When...Then…
-
-
     @Test
-    public void ShouldReadIniFile()  {
+    public void ShouldReadIniFile() {
         //Given
         String path = "src/test/resources/configBASIC.ini";
         IniConfigurationReader iniConfigurationReader = new IniConfigurationReader();
@@ -86,8 +83,8 @@ Pws= 0007
         //When
         Map<String, Map<String, String>> readedConfiguration = new HashMap<>();
         try {
-             readedConfiguration = iniConfigurationReader.executeConfigurationReaderStrategy(path);
-        } catch (FileNotFoundException e) {
+            readedConfiguration = iniConfigurationReader.executeConfigurationReaderStrategy(path);
+        } catch ( FileNotFoundException e ) {
             fail();
         }
         //Then
@@ -111,7 +108,6 @@ Pws= 0007
         assertEquals("0.7", readedConfiguration.get("humidity").get("j05"));
     }
 
-
     @Test
     public void ShouldReadEmptyIniFile() {
         //Given
@@ -122,13 +118,12 @@ Pws= 0007
         Map<String, Map<String, String>> readedConfiguration = new HashMap<>();
         try {
             readedConfiguration = iniConfigurationReader.executeConfigurationReaderStrategy(path);
-        } catch (FileNotFoundException e) {
+        } catch ( FileNotFoundException e ) {
             fail();
         }
         //Then
         assertTrue(readedConfiguration.isEmpty());
     }
-
 
     @Test
     public void ShouldReadIniFileWithoutProfiles() {
@@ -140,7 +135,7 @@ Pws= 0007
         Map<String, Map<String, String>> readedConfiguration = new HashMap<>();
         try {
             readedConfiguration = iniConfigurationReader.executeConfigurationReaderStrategy(path);
-        } catch (FileNotFoundException e) {
+        } catch ( FileNotFoundException e ) {
             fail();
         }
         //Then
@@ -152,8 +147,6 @@ Pws= 0007
 
     }
 
-
-    //test avec un fichier qui n'existe pas donc la méthode executeConfigurationReaderStrategy doit lever une exception
     @Test
     public void ShouldThrowFileNotFoundException() {
         //Given
@@ -164,14 +157,12 @@ Pws= 0007
         Map<String, Map<String, String>> readedConfiguration = new HashMap<>();
         try {
             readedConfiguration = iniConfigurationReader.executeConfigurationReaderStrategy(path);
-        } catch (FileNotFoundException e) {
+        } catch ( FileNotFoundException e ) {
             //Then
             assertTrue(true);
         }
     }
 
-
-    //test le fichier configDegragated.ini qui est un fichier ini avec des sections qui ne sont pas dans l'ordre et dont le format n'est pas correct
     @Test
     public void ShouldReadIniFileDegraded() {
         //Given
@@ -182,7 +173,7 @@ Pws= 0007
         Map<String, Map<String, String>> readedConfiguration = new HashMap<>();
         try {
             readedConfiguration = iniConfigurationReader.executeConfigurationReaderStrategy(path);
-        } catch (FileNotFoundException e) {
+        } catch ( FileNotFoundException e ) {
             fail();
         }
         //Then

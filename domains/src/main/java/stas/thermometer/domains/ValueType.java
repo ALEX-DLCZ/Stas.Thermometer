@@ -6,8 +6,6 @@ public enum ValueType {
     HUMIDITY("humidity", ProbeHumidity.class, 0.04);
 
     private final String type;
-    //Field probeClass has the same name as a method
-    // private final Class<? extends Probe> probeClass;
     private final Class<? extends Probe> probeClass;
 
     private final double delta;

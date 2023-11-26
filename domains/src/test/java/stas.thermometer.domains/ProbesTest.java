@@ -4,21 +4,15 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 
 public class ProbesTest {
-    //Les tests unitaires suivent une convention de nommage telle que Should…, It…, ou Given...When...Then…
-
-
 
     @Test
     public void AlwaysTRue() {
         assertTrue(true);
     }
-
-
-
 
     @Test
     public void Should_Return_Measurement_When_PerfectTiming_Temperature() {
@@ -43,7 +37,7 @@ public class ProbesTest {
     @Test
     public void Should_Return_Measurement_When_PerfectTiming_Humidity() {
 
-        List<Double> profil = List.of(0.5,0.02,0.0064,0.209);
+        List<Double> profil = List.of(0.5, 0.02, 0.0064, 0.209);
         LocalDateTime date = LocalDateTime.of(2023, 3, 27, 12, 0);
 
         ProbeHumidity probeHumidity = new ProbeHumidity(profil);
@@ -72,8 +66,6 @@ public class ProbesTest {
         Measurement measurement = probeTemperature.generateMeasurement(date);
 
         assertNotNull(measurement);
-        //assertEquals(10, measurement.value());
-        // 0.5 de marge d'erreur
         assertTrue(measurement.value() >= 9.5 && measurement.value() <= 10.5);
 
     }
@@ -81,7 +73,7 @@ public class ProbesTest {
     @Test
     public void Should_Return_Measurement_When_oddProfilNumber_Humidity() {
 
-        List<Double> profil = List.of(0.5,0.02,0.0064,0.209,0.9);
+        List<Double> profil = List.of(0.5, 0.02, 0.0064, 0.209, 0.9);
         LocalDateTime date = LocalDateTime.of(2023, 3, 27, 4, 48);
 
         ProbeHumidity probeHumidity = new ProbeHumidity(profil);
@@ -91,8 +83,6 @@ public class ProbesTest {
         Measurement measurement = probeHumidity.generateMeasurement(date);
 
         assertNotNull(measurement);
-        //assertEquals(0.02, measurement.value());
-        // 0.05 de marge d'erreur
         assertTrue(measurement.value() >= -0.03 && measurement.value() <= 0.07);
     }
 
@@ -109,15 +99,13 @@ public class ProbesTest {
         Measurement measurement = probeTemperature.generateMeasurement(date);
 
         assertNotNull(measurement);
-        //assertEquals(15, measurement.value());
-        // 0.5 de marge d'erreur
         assertTrue(measurement.value() >= 14.5 && measurement.value() <= 15.5);
     }
 
     @Test
     public void Should_Return_Measurement_When_TimeInTrensition_Humidity() {
 
-        List<Double> profil = List.of(0.5,0.02,0.0064,0.209);
+        List<Double> profil = List.of(0.5, 0.02, 0.0064, 0.209);
         LocalDateTime date = LocalDateTime.of(2023, 3, 27, 9, 0);
 
         ProbeHumidity probeHumidity = new ProbeHumidity(profil);
@@ -127,8 +115,6 @@ public class ProbesTest {
         Measurement measurement = probeHumidity.generateMeasurement(date);
 
         assertNotNull(measurement);
-        //assertEquals(0.0132, measurement.value());
-        // 0.05 de marge d'erreur
         assertTrue(measurement.value() >= -0.0368 && measurement.value() <= 0.0632);
     }
 
@@ -145,15 +131,13 @@ public class ProbesTest {
         Measurement measurement = probeTemperature.generateMeasurement(date);
 
         assertNotNull(measurement);
-        //assertEquals(4.3525, measurement.value());
-        // 0.5 de marge d'erreur
         assertTrue(measurement.value() >= 3.8525 && measurement.value() <= 4.8525);
     }
 
     @Test
     public void Should_Return_Measurement_When_Midnight_Humidity() {
 
-        List<Double> profil = List.of(0.5,0.02,0.0064,0.21);
+        List<Double> profil = List.of(0.5, 0.02, 0.0064, 0.21);
         LocalDateTime date = LocalDateTime.of(2023, 3, 27, 21, 0);
 
         ProbeHumidity probeHumidity = new ProbeHumidity(profil);
@@ -163,8 +147,6 @@ public class ProbesTest {
         Measurement measurement = probeHumidity.generateMeasurement(date);
 
         assertNotNull(measurement);
-        //assertEquals(0.355, measurement.value());
-        // 0.05 de marge d'erreur
         assertTrue(measurement.value() >= 0.305 && measurement.value() <= 0.405);
     }
 

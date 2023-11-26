@@ -11,7 +11,6 @@ public class ProbeHumidity implements Probe {
         this.profil = profil;
     }
 
-
     @Override
     public Measurement generateMeasurement(LocalDateTime dateTime) {
         int nbList = profil.size();
@@ -19,14 +18,14 @@ public class ProbeHumidity implements Probe {
 
         //détermine l'index de la liste dans laquelle nous nous trouvons
         int timeSecond = 86400;
-        int index = (int) Math.floor((double) (time * nbList) / timeSecond);
+        int index = ( int ) Math.floor(( double ) (time * nbList) / timeSecond);
         //récupère les valeur des éléments de la liste entre lesquels nous nous trouvons
         double value1 = profil.get(index);
-
         double value2;
+
         try {
             value2 = profil.get(index + 1);
-        } catch (IndexOutOfBoundsException e) {
+        } catch ( IndexOutOfBoundsException e ) {
             value2 = profil.get(0);
         }
 
@@ -37,7 +36,6 @@ public class ProbeHumidity implements Probe {
 
 
         return new Measurement(finalValue, dateTime);
-
     }
 
 }

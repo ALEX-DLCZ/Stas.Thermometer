@@ -14,7 +14,6 @@ import static org.mockito.Mockito.*;
 
 public class MainPresenterTest {
 
-
     @Mock
     MainViewInterface viewMock = mock(MainViewInterface.class);
 
@@ -34,12 +33,7 @@ public class MainPresenterTest {
 
     }
 
-    private final Map<String, String> format = Map.of(
-            "temperature", "Température : %s °C",
-            "humidity", "Humidité : %s %%"
-    );
-
-
+    private final Map<String, String> format = Map.of("temperature", "Température : %s °C", "humidity", "Humidité : %s %%");
 
     @Test
     public void Should_call1Time_addSubscriber_when_MainPresenter_IsCreated() {
@@ -49,6 +43,7 @@ public class MainPresenterTest {
         verify(aggregatorAccessorMockTemperature, times(1)).addSubscriber(any());
         verify(aggregatorAccessorMockHumidity, times(1)).addSubscriber(any());
     }
+
     @Test
     public void Should_call1Time_setPresenter_when_MainPresenter_IsCreated() {
         //given
@@ -56,6 +51,7 @@ public class MainPresenterTest {
         //then
         verify(viewMock, times(1)).setPresenter(mainPresenter);
     }
+
     @Test
     public void Should_call1Time_getAggregatorsAccessor_when_MainPresenter_IsCreated() {
         //given
@@ -63,8 +59,6 @@ public class MainPresenterTest {
         //then
         verify(thermometerMock, times(1)).getAggregatorsAccessor();
     }
-
-
 
     @Test
     public void Should_call1Time_printString_and_inputLoop_when_Start_IsCalled() {
@@ -76,6 +70,7 @@ public class MainPresenterTest {
         verify(viewMock, times(1)).printString("Bienvenue dans le thermomètre");
         verify(viewMock, times(1)).inputLoop();
     }
+
     @Test
     public void Should_call1Time_notifyUpdate_when_onUpdate_IsCalled() {
         //given
@@ -86,8 +81,6 @@ public class MainPresenterTest {
         verify(thermometerMock, times(1)).notifyUpdate();
     }
 
-
-
     @Test
     public void Should_call1Time_printString_when_processingUserInput_IsCalled_with_h() {
         //given
@@ -97,6 +90,7 @@ public class MainPresenterTest {
         //then
         verify(viewMock, times(1)).printString("h: help\nP: quit\nr: raise\nm: minimize\ns: change probe");
     }
+
     @Test
     public void Should_call1Time_printString_when_processingUserInput_IsCalled_with_q() {
         //given
@@ -106,6 +100,7 @@ public class MainPresenterTest {
         //then
         verify(viewMock, times(1)).printString("Bye");
     }
+
     @Test
     public void Should_call1Time_printString_and_adjustDelta_when_processingUserInput_IsCalled_with_r() {
         //given
@@ -117,6 +112,7 @@ public class MainPresenterTest {
         verify(aggregatorAccessorMockTemperature, times(1)).adjustDelta(true);
         verify(aggregatorAccessorMockHumidity, times(0)).adjustDelta(true);
     }
+
     @Test
     public void Should_call1Time_printString_and_adjustDelta_when_processingUserInput_IsCalled_with_m() {
         //given
@@ -128,6 +124,7 @@ public class MainPresenterTest {
         verify(aggregatorAccessorMockTemperature, times(1)).adjustDelta(false);
         verify(aggregatorAccessorMockHumidity, times(0)).adjustDelta(false);
     }
+
     @Test
     public void Should_call1Time_printString_when_processingUserInput_IsCalled_with_s() {
         //given
@@ -140,6 +137,7 @@ public class MainPresenterTest {
         //then
         verify(viewMock, times(1)).printString("Changement de sonde\nSonde actuelle : humidity");
     }
+
     @Test
     public void Should_call1Time_printString_when_processingUserInput_IsCalled_with_s_and_raise_humidity() {
         //given
@@ -155,6 +153,7 @@ public class MainPresenterTest {
         verify(aggregatorAccessorMockTemperature, times(0)).adjustDelta(true);
         verify(aggregatorAccessorMockHumidity, times(1)).adjustDelta(true);
     }
+
     @Test
     public void Should_call1Time_printString_when_processingUserInput_IsCalled_with_z() {
         //given
@@ -188,6 +187,7 @@ public class MainPresenterTest {
         //then
         verify(viewMock, times(1)).printString(anyString());
     }
+
     @Test
     public void Should_call1Time_printString_when_updateAggregatorNotification_IsCalled_with_alarmType1() {
         //given
@@ -211,6 +211,7 @@ public class MainPresenterTest {
         //then
         verify(viewMock, times(1)).printString(anyString());
     }
+
     @Test
     public void Should_Throw_RuntimeException_when_updateAggregatorNotification_IsCalled_with_unknownAggregator() {
         //given
@@ -230,10 +231,9 @@ public class MainPresenterTest {
         when(aggregatorAccessorMockTemperature.getmesurementMod().value()).thenReturn(12.3028943);
 
         //when
-        //then
         try {
             mainPresenter.updateAggregatorNotification("unknownAggregator");
-        } catch (RuntimeException e) {
+        } catch ( RuntimeException e ) {
             //then
             verify(viewMock, times(0)).printString(anyString());
         }

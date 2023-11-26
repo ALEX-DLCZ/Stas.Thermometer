@@ -1,12 +1,9 @@
 package stas.thermometer.domains;
 
-
-
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import stas.thermometer.domains.aggregator.handler.AggregatorLogistical;
 import stas.thermometer.domains.aggregator.handler.AggregatorValueUpdater;
-
 
 import java.time.LocalDateTime;
 
@@ -18,12 +15,8 @@ import static org.mockito.Mockito.times;
 
 public class AggregatorLogisticalTest {
 
-
-
-
     @Mock
     AggregatorValueUpdater aggregatorValueUpdaterMock = mock(AggregatorValueUpdater.class);
-
 
     @Test
     public void Should_Return_False_when_update_IsCalled_One_time_and_aggregatorValueUpdater_IsFalse() {
@@ -96,7 +89,6 @@ public class AggregatorLogisticalTest {
         verify(aggregatorValueUpdaterMock, times(2)).updater();
         verify(aggregatorValueUpdaterMock, times(2)).getMeasurementSimple();
     }
-
 
     @Test
     public void Should_Return_MesurementSimple_when_getMeasurementSimple_IsCalled() {

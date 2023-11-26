@@ -4,12 +4,10 @@ import stas.thermometer.domains.ConfigurationReader;
 import stas.thermometer.infrastructures.personal.exceptions.FileNotFoundException;
 import stas.thermometer.infrastructures.personal.exceptions.unknownArgumentException;
 
-
 import java.util.Map;
 
-
 /**
- * classe qui implémente l'interface ConfigurationReader
+ *@implNote classe qui implémente l'interface ConfigurationReader
  * <p>
  * inspirée du design pattern Strategy en temps que "Context"
  */
@@ -21,24 +19,18 @@ public class MainConfigurationReader implements ConfigurationReader {
 
         String fileExtension;
 
-        if (pathArgs.contains(".")) {
+        if ( pathArgs.contains(".") ) {
             fileExtension = pathArgs.substring(pathArgs.lastIndexOf(".") + 1);
-        } else {
+        }
+        else {
             throw new unknownArgumentException();
         }
         ConfigurationStrategy configurationStrategy;
 
-        //pmd : Position literals first in String comparisons
-        /*
-        if (fileExtension.equals("ini")) {
+        if ( "ini".equals(fileExtension) ) {
             configurationStrategy = new IniConfigurationReader();
-        } else {
-            throw new unknownArgumentException();
         }
-         */
-        if ("ini".equals(fileExtension)) {
-            configurationStrategy = new IniConfigurationReader();
-        } else {
+        else {
             throw new unknownArgumentException();
         }
 

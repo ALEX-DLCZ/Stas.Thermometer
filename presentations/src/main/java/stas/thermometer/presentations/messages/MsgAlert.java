@@ -1,6 +1,5 @@
 package stas.thermometer.presentations.messages;
 
-
 public enum MsgAlert {
 
     TEMPERATURE("temperature", "--TROP FROID--", "--TROP CHAUD--"),
@@ -22,7 +21,7 @@ public enum MsgAlert {
     }
 
     public String getMessage(int alertType) {
-        return switch (alertType) {
+        return switch ( alertType ) {
             case -1 -> this.messagedown;
             case 1 -> this.messageup;
             default -> "ERROR ALERT TYPE";
@@ -32,7 +31,6 @@ public enum MsgAlert {
     public String getMessage() {
         return this.messagedown;
     }
-
 
 }
 

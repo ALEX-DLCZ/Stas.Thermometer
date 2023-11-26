@@ -11,5 +11,4 @@ public interface ThermometerInterface {
     void notifyUpdate();
 
     List<AggregatorAccessor> getAggregatorsAccessor();
-
 }

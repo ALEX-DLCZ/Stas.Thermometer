@@ -4,10 +4,8 @@ import stas.thermometer.domains.aggregator.handler.AggregatorAccessor;
 
 import java.util.Map;
 
-
 /**
  * @implNote Cette classe permet de générer les messages de notification à partir des données de l'aggrégateur
- *
  */
 public class MsgNotifOrganization {
     private final MessageGenerator currentHandler;
@@ -24,13 +22,13 @@ public class MsgNotifOrganization {
 
     public String getMsgAlert(AggregatorAccessor aggregatorAccessorCible) {
         return alertHandler.getMessage(aggregatorAccessorCible) + "\n" + currentHandler.getMessage(aggregatorAccessorCible);
-
     }
 }
 
 
 
 /*
+ANCIENNE VERSION POUR CORRECTION DE PMD
 
 public class MsgNotifOrganization {
     private final Map<String, String> format;

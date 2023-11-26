@@ -8,11 +8,10 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * @implNote IniConfigurationReader est une classe qui implemente ConfigurationStrategy
  * elle va lire un fichier de configuration .ini et retourner une Map<String, Map < String, String>> sectionMaps qui contient toute les sections et leurs valeurs
- *
+ * <p>
  * cohesive set: impossible de corrigé car les méthodes privées sont utilisé dans la méthode executeConfigurationReaderStrategy
  * et sont trop spécifique à la classe que pour les mettre dans une autre
  */
@@ -21,11 +20,9 @@ public class IniConfigurationReader implements ConfigurationStrategy {
     private final Map<String, Map<String, String>> sectionMaps = new HashMap<>();
     private Map<String, String> currentSection;
 
-
     /**
      * @param pathArg chemin vers le fichier de configuration
      * @return Map<String, Map < String, String>> sectionMaps  qui contient toute les sections et leurs valeurs
-     *
      * @implNote executeConfigurationReaderStrategy va lire toute les ligne d'un fichier une par une et executer la commande ReadLine,
      * si la ligne est un commentaire ou vide, elle va passer a la ligne suivante, si la ligne est une nouvelle section elle va creer une nouvelle section,
      * si la ligne est une paire de valeur elle va ajouter la valeur a la section courante
@@ -35,10 +32,10 @@ public class IniConfigurationReader implements ConfigurationStrategy {
 
         try {
             //va lire toute les ligne d'un fichier une par une et executer la commande ReadLine
-            for (String line : Files.readAllLines(Paths.get(pathArg))) {
+            for ( String line : Files.readAllLines(Paths.get(pathArg)) ) {
                 readLine(line);
             }
-        } catch (IOException e) {
+        } catch ( IOException e ) {
             throw new FileNotFoundException();
         }
         return sectionMaps;
@@ -47,11 +44,13 @@ public class IniConfigurationReader implements ConfigurationStrategy {
     //---------- private methods ----------
     private void readLine(String line) {
 
-        if (isCommentOrEmpty(line)) {
+        if ( isCommentOrEmpty(line) ) {
             return;
-        } else if (isNewSection(line)) {
+        }
+        else if ( isNewSection(line) ) {
             handleNewSection(line);
-        } else if (IsValuePair(line)) {
+        }
+        else if ( IsValuePair(line) ) {
             processKeyValuePair(line);
         }
     }
@@ -80,6 +79,5 @@ public class IniConfigurationReader implements ConfigurationStrategy {
     private boolean IsValuePair(String line) {
         return line.contains("=");
     }
-
 
 }

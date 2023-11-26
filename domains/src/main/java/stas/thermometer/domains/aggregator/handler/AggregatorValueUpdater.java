@@ -25,9 +25,8 @@ public class AggregatorValueUpdater {
         LocalDateTime date = LocalDateTime.now();
         this.aggregatedValues.add(probe.generateMeasurement(date));
 
-        long secondsBetween = ChronoUnit.SECONDS.between(aggregatedValues.get(0).dateTime(), aggregatedValues.get(aggregatedValues.size()-1).dateTime());
-
-        if ((SECONDS_BETWEEN -1) >= secondsBetween) {
+        long secondsBetween = ChronoUnit.SECONDS.between(aggregatedValues.get(0).dateTime(), aggregatedValues.get(aggregatedValues.size() - 1).dateTime());
+        if ( (SECONDS_BETWEEN - 1) >= secondsBetween ) {
             return false;
         }
         this.measurementSimple = new Measurement(aggregatedValues.stream().mapToDouble(Measurement::value).average().orElse(0.0), LocalDateTime.now());
@@ -37,6 +36,6 @@ public class AggregatorValueUpdater {
 
     public Measurement getMeasurementSimple() {
         return this.measurementSimple;
-
     }
+
 }

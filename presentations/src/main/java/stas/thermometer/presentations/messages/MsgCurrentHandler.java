@@ -15,20 +15,14 @@ public class MsgCurrentHandler implements MessageGenerator {
     public String getMessage(AggregatorAccessor aggregatorAccessorCible) {
 
         try {
-            for (MsgCurrent msgCurrent : MsgCurrent.values()) {
-                if (msgCurrent.getType().equals(aggregatorAccessorCible.getName())) {
-                    return msgCurrent.getMessage(
-                            aggregatorAccessorCible.getmesurementMod().dateTime(),
-                            aggregatorAccessorCible.getmesurementMod().value(),
-                            format.get("datetime"),
-                            format.get(msgCurrent.getType())
-                    );
+            for ( MsgCurrent msgCurrent : MsgCurrent.values() ) {
+                if ( msgCurrent.getType().equals(aggregatorAccessorCible.getName()) ) {
+                    return msgCurrent.getMessage(aggregatorAccessorCible.getmesurementMod().dateTime(), aggregatorAccessorCible.getmesurementMod().value(), format.get("datetime"), format.get(msgCurrent.getType()));
                 }
             }
-        } catch (Exception e) {
+        } catch ( Exception e ) {
             return MsgCurrent.ERROR_CURRENT_TYPE.getMessage();
         }
         return MsgCurrent.ERROR_CURRENT_TYPE.getMessage();
-
     }
 }

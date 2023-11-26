@@ -15,7 +15,6 @@ import static org.mockito.Mockito.when;
 
 public class MsgHandlerTest {
 
-
     @Mock
     AggregatorAccessor aggregatorAccessorCibleMsgCurrent = mock(AggregatorAccessor.class);
 
@@ -24,8 +23,6 @@ public class MsgHandlerTest {
 
     @BeforeEach
     void setUp() {
-        //aggregatorAccessorCibleMsgCurrent = mock(AggregatorAccessor.class);
-        //aggregatorAccessorCibleMsgAlert = mock(AggregatorAccessor.class);
         Measurement measurement = mock(Measurement.class);
         when(measurement.dateTime()).thenReturn(java.time.LocalDateTime.of(2021, 11, 11, 12, 12, 12));
         when(measurement.value()).thenReturn(12.3028943);
@@ -42,15 +39,10 @@ public class MsgHandlerTest {
 
     }
 
-
     @Test
     public void Should_Return_Message_when_getMessage_IsCalled() {
         //given
-        Map<String, String> format = Map.of(
-                "datetime", "dd/MM/YYYY à HH :mm :ss",
-                "temperature", "00.00°",
-                "humidity", "00%"
-        );
+        Map<String, String> format = Map.of("datetime", "dd/MM/YYYY à HH :mm :ss", "temperature", "00.00°", "humidity", "00%");
         MsgCurrentHandler msgCurrentHandler = new MsgCurrentHandler(format);
 
         //when
@@ -65,18 +57,19 @@ public class MsgHandlerTest {
     public void Should_Return_Message_TOHOT_when_getMessage_AlertType_Is1() {
         //given
         MsgAlertHandler msgCurrentHandler = new MsgAlertHandler();
-        when(aggregatorAccessorCibleMsgAlert.getmesurementSimple()).thenReturn(new Measurement(1.0, java.time.LocalDateTime.of(2000, 3, 1, 0, 0,0)));
+        when(aggregatorAccessorCibleMsgAlert.getmesurementSimple()).thenReturn(new Measurement(1.0, java.time.LocalDateTime.of(2000, 3, 1, 0, 0, 0)));
         when(aggregatorAccessorCibleMsgAlert.getAlarmType()).thenReturn(1);
         //when
         String result = msgCurrentHandler.getMessage(aggregatorAccessorCibleMsgAlert);
         //then
         assert (result.contains("--TROP CHAUD--"));
     }
+
     @Test
     public void Should_Return_Message_TOCOLD_when_getMessage_AlertType_IsMinus1() {
         //given
         MsgAlertHandler msgCurrentHandler = new MsgAlertHandler();
-        when(aggregatorAccessorCibleMsgAlert.getmesurementSimple()).thenReturn(new Measurement(1.0, java.time.LocalDateTime.of(2000, 3, 1, 0, 0,0)));
+        when(aggregatorAccessorCibleMsgAlert.getmesurementSimple()).thenReturn(new Measurement(1.0, java.time.LocalDateTime.of(2000, 3, 1, 0, 0, 0)));
         when(aggregatorAccessorCibleMsgAlert.getAlarmType()).thenReturn(-1);
         //when
         String result = msgCurrentHandler.getMessage(aggregatorAccessorCibleMsgAlert);
@@ -88,7 +81,7 @@ public class MsgHandlerTest {
     public void Should_Return_Message_TOHUMID_when_getMessage_AlertType_Is1() {
         //given
         MsgAlertHandler msgCurrentHandler = new MsgAlertHandler();
-        when(aggregatorAccessorCibleMsgAlert.getmesurementSimple()).thenReturn(new Measurement(1.0, java.time.LocalDateTime.of(2000, 3, 1, 0, 0,0)));
+        when(aggregatorAccessorCibleMsgAlert.getmesurementSimple()).thenReturn(new Measurement(1.0, java.time.LocalDateTime.of(2000, 3, 1, 0, 0, 0)));
         when(aggregatorAccessorCibleMsgAlert.getAlarmType()).thenReturn(1);
         when(aggregatorAccessorCibleMsgAlert.getName()).thenReturn("humidity");
         //when
@@ -100,17 +93,12 @@ public class MsgHandlerTest {
     @Test
     public void Should_Return_ERROR_MESSAGE_when_getMessage_cannot_find_type_From_Aggregator() {
         //given
-        Map<String, String> format = Map.of(
-                "datetime", "dd/MM/YYYY à HH :mm :ss",
-                "temperature", "00.00°",
-                "humidity", "00%"
-        );
+        Map<String, String> format = Map.of("datetime", "dd/MM/YYYY à HH :mm :ss", "temperature", "00.00°", "humidity", "00%");
         MsgCurrentHandler msgCurrentHandler = new MsgCurrentHandler(format);
         when(aggregatorAccessorCibleMsgCurrent.getName()).thenReturn("typenonconform");
         //when
         String result = msgCurrentHandler.getMessage(aggregatorAccessorCibleMsgCurrent);
         //then
-        //retourne ERROR CURRENT TYPE
         assert (result.contains("ERROR CURRENT TYPE"));
 
     }
@@ -118,22 +106,15 @@ public class MsgHandlerTest {
     @Test
     public void Should_Return_ERROR_MESSAGE_when_getMessage_cannot_find_type_From_Format() {
         //given
-        Map<String, String> format = Map.of(
-                "datetime", "dd/MM/YYYY à HH :mm :ss",
-                "pasBonTempérature", "",
-                "humidity", "00%"
-        );
+        Map<String, String> format = Map.of("datetime", "dd/MM/YYYY à HH :mm :ss", "pasBonTempérature", "", "humidity", "00%");
         MsgCurrentHandler msgCurrentHandler = new MsgCurrentHandler(format);
         when(aggregatorAccessorCibleMsgCurrent.getName()).thenReturn("temperature");
         //when
         String result = msgCurrentHandler.getMessage(aggregatorAccessorCibleMsgCurrent);
         //then
-        //retourne ERROR CURRENT TYPE
         assert (result.contains("ERROR CURRENT TYPE"));
 
     }
-
-
 
     @Test
     public void Should_Return_ERROR_MESSAGE_when_getMessage_cannot_find_type_From_Aggregator_ALERT() {
@@ -145,7 +126,6 @@ public class MsgHandlerTest {
         //when
         String result = msgCurrentHandler.getMessage(aggregatorAccessorCibleMsgAlert);
         //then
-        //retourne ERROR CURRENT TYPE
         assert (result.contains("ERROR ALERT TYPE"));
 
     }
@@ -153,18 +133,13 @@ public class MsgHandlerTest {
     @Test
     public void Should_Return_ERROR_MESSAGE_when_getMessage_cannot_find_type_From_Format_ALERT() {
         //given
-        Map<String, String> format = Map.of(
-                "datetime", "dd/MM/YYYY à HH :mm :ss",
-                "pasBonTempérature", "",
-                "humidity", "00%"
-        );
+        Map<String, String> format = Map.of("datetime", "dd/MM/YYYY à HH :mm :ss", "pasBonTempérature", "", "humidity", "00%");
         MsgAlertHandler msgCurrentHandler = new MsgAlertHandler();
         when(aggregatorAccessorCibleMsgAlert.getName()).thenReturn("temperature");
         when(aggregatorAccessorCibleMsgAlert.getAlarmType()).thenReturn(0);
         //when
         String result = msgCurrentHandler.getMessage(aggregatorAccessorCibleMsgAlert);
         //then
-        //retourne ERROR CURRENT TYPE
         assert (result.contains("ERROR ALERT TYPE"));
     }
 }

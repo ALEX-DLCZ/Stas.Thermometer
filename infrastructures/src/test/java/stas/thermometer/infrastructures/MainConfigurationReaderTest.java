@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MainConfigurationReaderTest {
 
     /*
-
 configBASIC.ini :
 ; Last modified 15 July 2010 by Juan Dona
 [general]
@@ -38,11 +37,7 @@ PortServer= 13306
 User= q210007
 Pws= 0007
 
-
      */
-    //Les tests unitaires suivent une convention de nommage telle que Should…, It…, ou Given...When...Then…
-    //exemple : Should_Provide_His_View_With_Thermometer_Name ou Should_ReadIniFile_Without_Profiles ou autre
-
 
     @Test
     public void Should_Return_The_Same_Configuration_Than_In_The_File() {
@@ -51,8 +46,7 @@ Pws= 0007
         MainConfigurationReader mainConfigurationReader = null;
         try {
             mainConfigurationReader = new MainConfigurationReader(path);
-        } catch (FileNotFoundException | unknownArgumentException e) {
-            e.printStackTrace();
+        } catch ( FileNotFoundException | unknownArgumentException e ) {
             fail();
         }
 
@@ -67,8 +61,6 @@ Pws= 0007
         assertEquals("0.5", readedConfiguration.get("humidity").get("j00"));
     }
 
-
-    //le test vérifie que le constructeur renvoir une exception si le fichier a une extension inconnue ConfigNOTGoodExtention.txt
     @Test
     public void Should_Throw_UnknownArgumentException_When_Extension_Is_Unknown() {
         //Given
@@ -77,10 +69,9 @@ Pws= 0007
         //When
         try {
             mainConfigurationReader = new MainConfigurationReader(path);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } catch ( FileNotFoundException e ) {
             fail();
-        } catch (unknownArgumentException e) {
+        } catch ( unknownArgumentException e ) {
             //Then
             assertNotNull(e);
         }
@@ -94,10 +85,9 @@ Pws= 0007
         //When
         try {
             mainConfigurationReader = new MainConfigurationReader(path);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } catch ( FileNotFoundException e ) {
             fail();
-        } catch (unknownArgumentException e) {
+        } catch ( unknownArgumentException e ) {
             //Then
             assertNotNull(e);
         }

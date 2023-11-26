@@ -2,7 +2,6 @@ package stas.thermometer.infrastructures.database;
 
 import java.time.LocalDateTime;
 
-
 /**
  * @implNote cette classe est un simple dto et pourrait avoir des setters dans le futur.
  * représente la table Mesure sans le champ id pour éviter les base de données sans clé primaire ID
@@ -15,7 +14,5 @@ import java.time.LocalDateTime;
  */
 
 public record Mesure(String thermometerName, LocalDateTime datetime, String type, String format, double value) {
-
-    //--------------------------
 
 }

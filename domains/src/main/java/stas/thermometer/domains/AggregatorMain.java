@@ -1,6 +1,5 @@
 package stas.thermometer.domains;
 
-
 import stas.thermometer.domains.aggregator.handler.AggregatorAccessor;
 import stas.thermometer.domains.aggregator.handler.AggregatorLogistical;
 import stas.thermometer.domains.aggregator.handler.AggregatorValueUpdater;
@@ -12,28 +11,26 @@ public class AggregatorMain implements AggregatorAccessor {
 
     private final String name;
     private final AggregatorLogistical aggregatorLogistical;
-
     private final List<AggregatorSubscriber> subscribers = new ArrayList<>();
 
-
-
-    public AggregatorMain(String name, Probe probe , double delta) {
+    public AggregatorMain(String name, Probe probe, double delta) {
         this.name = name;
         this.aggregatorLogistical = new AggregatorLogistical(new AggregatorValueUpdater(probe), delta);
     }
+
     public void updateAgregatedValues() {
-        if(aggregatorLogistical.update()) {
+        if ( aggregatorLogistical.update() ) {
             notifySubscribers();
         }
     }
+
     private void notifySubscribers() {
-        for (AggregatorSubscriber subscriber : subscribers) {
+        for ( AggregatorSubscriber subscriber : subscribers ) {
             subscriber.updateAggregatorNotification(this.name);
         }
     }
 
-
-    //--------------------------
+    //---------------AggregatorAccessor----------------
     @Override
     public void adjustDelta(boolean isRise) {
         this.aggregatorLogistical.adjustDelta(isRise);
@@ -43,14 +40,17 @@ public class AggregatorMain implements AggregatorAccessor {
     public String getName() {
         return this.name;
     }
+
     @Override
     public Measurement getmesurementMod() {
         return aggregatorLogistical.getMeasurementMod();
     }
+
     @Override
     public Measurement getmesurementSimple() {
         return aggregatorLogistical.getMeasurementSimple();
     }
+
     @Override
     public int getAlarmType() {
         return aggregatorLogistical.getAlarmType();
@@ -59,6 +59,7 @@ public class AggregatorMain implements AggregatorAccessor {
     //----------
     @Override
     public void addSubscriber(AggregatorSubscriber subscriber) {subscribers.add(subscriber);}
+
     @Override
     public void removeSubscriber(AggregatorSubscriber subscriber) {subscribers.remove(subscriber);}
 

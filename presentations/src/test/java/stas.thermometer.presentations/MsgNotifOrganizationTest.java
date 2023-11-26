@@ -15,29 +15,6 @@ import java.util.Map;
 
 public class MsgNotifOrganizationTest {
 
-
-    /*
-    public class MsgNotifOrganization {
-    private final MessageGenerator currentHandler;
-    private final MessageGenerator alertHandler;
-
-    public MsgNotifOrganization(Map<String, String> format) {
-        this.currentHandler = new MsgCurrentHandler(format);
-        this.alertHandler = new MsgAlertHandler();
-    }
-
-    public String getMsgCurrent(AggregatorAccessor aggregatorAccessorCible) {
-        return currentHandler.getMessage(aggregatorAccessorCible);
-    }
-
-    public String getMsgAlert(AggregatorAccessor aggregatorAccessorCible) {
-        return alertHandler.getMessage(aggregatorAccessorCible) + "\n" + currentHandler.getMessage(aggregatorAccessorCible);
-
-    }
-}
-     */
-
-
     @Mock
     AggregatorAccessor aggregatorAccessorCibleMsgCurrent = mock(AggregatorAccessor.class);
 
@@ -46,8 +23,6 @@ public class MsgNotifOrganizationTest {
 
     @BeforeEach
     void setUp() {
-        //aggregatorAccessorCibleMsgCurrent = mock(AggregatorAccessor.class);
-        //aggregatorAccessorCibleMsgAlert = mock(AggregatorAccessor.class);
         Measurement measurement = mock(Measurement.class);
         when(measurement.dateTime()).thenReturn(java.time.LocalDateTime.of(2021, 11, 11, 12, 12, 12));
         when(measurement.value()).thenReturn(12.3028943);
@@ -64,19 +39,9 @@ public class MsgNotifOrganizationTest {
 
     }
 
+    private final Map<String, String> format = Map.of("datetime", "dd/MM/YYYY à HH :mm :ss", "temperature", "00.00°", "humidity", "00%");
 
-    private final Map<String, String> format = Map.of(
-            "datetime", "dd/MM/YYYY à HH :mm :ss",
-            "temperature", "00.00°",
-            "humidity", "00%"
-    );
-
-
-    private final Map<String, String> formatOther = Map.of(
-            "datetime", "dd/MM/YYYY à HH :mm :ss",
-            "temperature", "00.00°",
-            "humidity", "00%"
-    );
+    private final Map<String, String> formatOther = Map.of("datetime", "dd/MM/YYYY à HH :mm :ss", "temperature", "00.00°", "humidity", "00%");
 
     @Test
     public void Should_Return_MsgCurrent_When_AggregatorAccessorCible_Is_Temperature() {
@@ -86,9 +51,7 @@ public class MsgNotifOrganizationTest {
         // When
         String result = msgNotifOrganization.getMsgCurrent(aggregatorAccessorCibleMsgCurrent);
         // Then
-        //vérifie que la chaines de charactere contient bien 12.30
         assert (result.contains("12,30"));
-        //vérifie que la chaines de charactere commence bien par 11/11/2021
         assert (result.startsWith("11/11/2021"));
     }
 
@@ -131,7 +94,6 @@ public class MsgNotifOrganizationTest {
         assert (result.contains("1230"));
         assert (result.startsWith("--TROP HUMIDE--"));
     }
-
 
 
 }

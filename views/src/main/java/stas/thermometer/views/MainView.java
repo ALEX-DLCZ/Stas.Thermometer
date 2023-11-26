@@ -12,10 +12,8 @@ public class MainView implements MainViewInterface {
     private MainPresenter presenter;
 
     public MainView() {
-
     }
 
-//todo interface fonctionelle
     @Override
     public void setPresenter(MainPresenter presenter) {
         this.presenter = presenter;
@@ -23,20 +21,18 @@ public class MainView implements MainViewInterface {
 
     @Override
     public void inputLoop() {
-        try (var input = new BufferedReader(new InputStreamReader(System.in))) {
+        try ( var input = new BufferedReader(new InputStreamReader(System.in)) ) {
             boolean quitRequested = false;
             do {
-                //System.out.print("> ");
                 String cmd = input.readLine();
 
-                if (cmd.strip().equals("q")) {
+                if ( cmd.strip().equals("q") ) {
                     quitRequested = true;
                 }
                 this.presenter.processingUserInput(cmd.strip());
 
-            } while (!quitRequested);
-        } catch (IOException e) {
-            //logger.warning("Erreur de lecture de la commande");
+            } while ( !quitRequested );
+        } catch ( IOException e ) {
             System.out.println("FATAL : Erreur de lecture de la commande");
         }
     }

@@ -17,41 +17,10 @@ import static org.mockito.Mockito.when;
 
 public class ConfigurationTest {
 
-/*
-
-public class Configuration {
-
-    private final Map<String, Map<String, String>> readedConfigurationMap;
-
-    public Configuration(ConfigurationReader reader) {
-        this.readedConfigurationMap = reader.getReadedConfiguration();
-    }
-
-    public Map<String, Map<String, String>> getReadedConfiguration() {
-        return readedConfigurationMap;
-    }
-
-    public String getThermometerName() {
-        return readedConfigurationMap.get("general").get("name");
-    }
-
-    public List<Double> getProfilList(Map<String, String> profile) {
-        return profile.entrySet().stream()
-                .sorted(Map.Entry.comparingByKey()) // Tri des entrées par clé (l'ordre d'insertion est préservé)
-                .map(entry -> Double.parseDouble(entry.getValue())) // Conversion des valeurs en Double
-                .collect(Collectors.toList()); // Collecte des éléments dans une liste
-    }
-
-}
-
- */
-
     private final Map<String, Map<String, String>> configWhenGRC = new HashMap<>();
-
 
     @Mock
     ConfigurationReader mockReader = mock(ConfigurationReader.class);
-
 
     @BeforeEach
     public void setup() {
@@ -83,14 +52,13 @@ public class Configuration {
 
     }
 
-
     @Test
-    public void Should_Return_ThermometerName_when_ConfigurationReader_getReadedConfiguration_Return_Correct_Map(){
+    public void Should_Return_ThermometerName_when_ConfigurationReader_getReadedConfiguration_Return_Correct_Map() {
 
         Configuration configuration = null;
         try {
-             configuration = new Configuration(mockReader);
-        } catch (PropertyNotFoundException | NameNotFoundException e) {
+            configuration = new Configuration(mockReader);
+        } catch ( PropertyNotFoundException | NameNotFoundException e ) {
             fail();
         }
 
@@ -101,12 +69,12 @@ public class Configuration {
     }
 
     @Test
-    public void Should_Return_FormatMap_when_ConfigurationReader_getReadedConfiguration_Return_Correct_Map(){
+    public void Should_Return_FormatMap_when_ConfigurationReader_getReadedConfiguration_Return_Correct_Map() {
 
         Configuration configuration = null;
         try {
             configuration = new Configuration(mockReader);
-        } catch (PropertyNotFoundException | NameNotFoundException e) {
+        } catch ( PropertyNotFoundException | NameNotFoundException e ) {
             fail();
         }
 
@@ -119,12 +87,12 @@ public class Configuration {
     }
 
     @Test
-    public void Should_Return_TemperatureProfil_when_ConfigurationReader_getReadedConfiguration_Return_Correct_Map(){
+    public void Should_Return_TemperatureProfil_when_ConfigurationReader_getReadedConfiguration_Return_Correct_Map() {
 
         Configuration configuration = null;
         try {
             configuration = new Configuration(mockReader);
-        } catch (PropertyNotFoundException | NameNotFoundException e) {
+        } catch ( PropertyNotFoundException | NameNotFoundException e ) {
             fail();
         }
 
@@ -138,12 +106,12 @@ public class Configuration {
     }
 
     @Test
-    public void Should_Return_Sorted_ListOfDouble_when_getProfilListCall(){
+    public void Should_Return_Sorted_ListOfDouble_when_getProfilListCall() {
 
         Configuration configuration = null;
         try {
             configuration = new Configuration(mockReader);
-        } catch (PropertyNotFoundException | NameNotFoundException e) {
+        } catch ( PropertyNotFoundException | NameNotFoundException e ) {
             fail();
         }
 
@@ -157,12 +125,12 @@ public class Configuration {
     }
 
     @Test
-    public void Should_Return_Sorted_ListOfDouble_when_getProfilListCall_with_humidityProfil(){
+    public void Should_Return_Sorted_ListOfDouble_when_getProfilListCall_with_humidityProfil() {
 
         Configuration configuration = null;
         try {
             configuration = new Configuration(mockReader);
-        } catch (PropertyNotFoundException | NameNotFoundException e) {
+        } catch ( PropertyNotFoundException | NameNotFoundException e ) {
             fail();
         }
 
@@ -176,7 +144,7 @@ public class Configuration {
     }
 
     @Test
-    public void Should_Throw_PropertyNotFoundException_when_ConfigurationReader_getReadedConfiguration_Return_Map_Without_GeneralKey(){
+    public void Should_Throw_PropertyNotFoundException_when_ConfigurationReader_getReadedConfiguration_Return_Map_Without_GeneralKey() {
 
         ConfigurationReader mockReaderWithoutGeneralKey = mock(ConfigurationReader.class);
         Map<String, Map<String, String>> configWithoutGeneralKey = new HashMap<>();
@@ -205,12 +173,13 @@ public class Configuration {
         Configuration configuration = null;
         try {
             configuration = new Configuration(mockReaderWithoutGeneralKey);
-        } catch (PropertyNotFoundException | NameNotFoundException e) {
+        } catch ( PropertyNotFoundException | NameNotFoundException e ) {
             assertTrue(e instanceof PropertyNotFoundException);
         }
     }
+
     @Test
-    public void Should_Throw_PropertyNotFoundException_when_ConfigurationReader_getReadedConfiguration_Return_Map_Without_FormatKey(){
+    public void Should_Throw_PropertyNotFoundException_when_ConfigurationReader_getReadedConfiguration_Return_Map_Without_FormatKey() {
 
         ConfigurationReader mockReaderWithoutGeneralKey = mock(ConfigurationReader.class);
         Map<String, Map<String, String>> configWithoutGeneralKey = new HashMap<>();
@@ -239,13 +208,13 @@ public class Configuration {
         Configuration configuration = null;
         try {
             configuration = new Configuration(mockReaderWithoutGeneralKey);
-        } catch (PropertyNotFoundException | NameNotFoundException e) {
+        } catch ( PropertyNotFoundException | NameNotFoundException e ) {
             assertTrue(e instanceof PropertyNotFoundException);
         }
     }
 
     @Test
-    public void Should_Throw_NameNotFoundException_when_ConfigurationReader_getReadedConfiguration_Return_Map_Without_NameKey(){
+    public void Should_Throw_NameNotFoundException_when_ConfigurationReader_getReadedConfiguration_Return_Map_Without_NameKey() {
 
         ConfigurationReader mockReaderWithoutNameKey = mock(ConfigurationReader.class);
         Map<String, Map<String, String>> configWithoutNameKey = new HashMap<>();
@@ -276,147 +245,144 @@ public class Configuration {
         Configuration configuration = null;
         try {
             configuration = new Configuration(mockReaderWithoutNameKey);
-        } catch (PropertyNotFoundException | NameNotFoundException e) {
+        } catch ( PropertyNotFoundException | NameNotFoundException e ) {
             assertTrue(e instanceof NameNotFoundException);
         }
 
     }
 
 
-
-
-
-//
-//    private final Map<String, Map<String, String>> configWhenGRC = new HashMap<>();
-//
-//
-//    @Mock
-//    ConfigurationReader mockReader = mock(ConfigurationReader.class);
-//
-//
-//    @BeforeEach
-//    public void setup() {
-//
-//        Map<String, String> generalWhenGRC = new HashMap<>();
-//        Map<String, String> formatWhenGRC = new HashMap<>();
-//        Map<String, String> temperatureWhenGRC = new HashMap<>();
-//        Map<String, String> humidityWhenGRC = new HashMap<>();
-//
-//        generalWhenGRC.put("name", "BHAAAaaaNAME");
-//        formatWhenGRC.put("temperature", "00.00°");
-//        formatWhenGRC.put("humidity", "0%");
-//        formatWhenGRC.put("datetime", "dd/MM/YYYY à HH :mm :ss");
-//        temperatureWhenGRC.put("j00", "18");
-//        temperatureWhenGRC.put("j01", "19");
-//        temperatureWhenGRC.put("j02", "20");
-//        temperatureWhenGRC.put("j03", "19");
-//        humidityWhenGRC.put("j00", "0.5");
-//        humidityWhenGRC.put("j01", "0.02");
-//        humidityWhenGRC.put("j02", "0.0064");
-//        humidityWhenGRC.put("j03", "0.209");
-//
-//        configWhenGRC.put("general", generalWhenGRC);
-//        configWhenGRC.put("format", formatWhenGRC);
-//        configWhenGRC.put("temperature", temperatureWhenGRC);
-//        configWhenGRC.put("humidity", humidityWhenGRC);
-//
-//        when(mockReader.getReadedConfiguration()).thenReturn(configWhenGRC);
-//
-//
-//    }
-//
-//
-//    @Test
-//    public void Should_Return_AggregatorsList_when_getProbesCall(){
-//
-//        Configuration configuration = new Configuration(mockReader);
-//
-//        List<AggregatorMain> aggregators = configuration.getAggregator();
-//
-//        assertEquals(2, aggregators.size());
-//        assertEquals(AggregatorMain.class, aggregators.get(0).getClass());
-//        assertEquals(AggregatorMain.class, aggregators.get(1).getClass());
-//        assertEquals("temperature", aggregators.get(0).getName());
-//        assertEquals("humidity", aggregators.get(1).getName());
-//
-//    }
-//
-//    @Test
-//    public void Should_Return_FormatMap_when_getFormatCall(){
-//
-//        Configuration configuration = new Configuration(mockReader);
-//
-//        Map<String, String> format = configuration.getFormat();
-//
-//        assertEquals(3, format.size());
-//        assertEquals("00.00°", format.get("temperature"));
-//        assertEquals("0%", format.get("humidity"));
-//        assertEquals("dd/MM/YYYY à HH :mm :ss", format.get("datetime"));
-//    }
-//
-//
-//
-//    @Test
-//    public void Should_Test_HappyPath_when_ConfigurationConstructeur_but_newInstanceFail(){
-//
-//        ConfigurationReader mockReaderHappyPath = mock(ConfigurationReader.class);
-//        Map<String, Map<String, String>> configWithoutCorrectProfil = new HashMap<>();
-//        Map<String, String> generalWithoutCorrectProfil = new HashMap<>();
-//        Map<String, String> formatWithoutCorrectProfil = new HashMap<>();
-//        Map<String, String> humidityWithoutCorrectProfil = new HashMap<>();
-//        generalWithoutCorrectProfil.put("name", "BHAAAaaaNAME");
-//        formatWithoutCorrectProfil.put("temperature", "00.00°");
-//        formatWithoutCorrectProfil.put("humidity", "0%");
-//        formatWithoutCorrectProfil.put("datetime", "dd/MM/YYYY à HH :mm :ss");
-//        configWithoutCorrectProfil.put("general", generalWithoutCorrectProfil);
-//        configWithoutCorrectProfil.put("format", formatWithoutCorrectProfil);
-//        configWithoutCorrectProfil.put("humidity", humidityWithoutCorrectProfil);
-//
-//        //ERREUR HAPPY PATH
-//        configWithoutCorrectProfil.put("temperature", null);
-//
-//        when(mockReaderHappyPath.getReadedConfiguration()).thenReturn(configWithoutCorrectProfil);
-//
-//        Configuration configuration = new Configuration(mockReaderHappyPath);
-//
-//        List<AggregatorMain> aggregators = configuration.getAggregator();
-//
-//        assertEquals(2, aggregators.size());
-//        assertNull(aggregators.get(0));
-//        assertEquals( AggregatorMain.class, aggregators.get(1).getClass());
-//    }
-//
-//
-//    @Test
-//    public void Should_Return_aggregatorsList_but_with_only_humidity_probe(){
-//        ConfigurationReader mockReaderHappyPath = mock(ConfigurationReader.class);
-//        Map<String, Map<String, String>> configWithoutCorrectProfil = new HashMap<>();
-//        Map<String, String> generalWithoutCorrectProfil = new HashMap<>();
-//        Map<String, String> formatWithoutCorrectProfil = new HashMap<>();
-//        Map<String, String> humidityWithoutCorrectProfil = new HashMap<>();
-//        generalWithoutCorrectProfil.put("name", "BHAAAaaaNAME");
-//        formatWithoutCorrectProfil.put("temperature", "00.00°");
-//        formatWithoutCorrectProfil.put("humidity", "0%");
-//        formatWithoutCorrectProfil.put("datetime", "dd/MM/YYYY à HH :mm :ss");
-//        configWithoutCorrectProfil.put("general", generalWithoutCorrectProfil);
-//        configWithoutCorrectProfil.put("format", formatWithoutCorrectProfil);
-//        configWithoutCorrectProfil.put("humidity", humidityWithoutCorrectProfil);
-//
-//        humidityWithoutCorrectProfil.put("j00", "0.5");
-//        humidityWithoutCorrectProfil.put("j01", "0.02");
-//        humidityWithoutCorrectProfil.put("j02", "0.0064");
-//        humidityWithoutCorrectProfil.put("j03", "0.209");
-//
-//
-//        when(mockReaderHappyPath.getReadedConfiguration()).thenReturn(configWithoutCorrectProfil);
-//        Configuration configuration = new Configuration(mockReaderHappyPath);
-//
-//        List<AggregatorMain> aggregators = configuration.getAggregator();
-//
-//        assertEquals(1, aggregators.size());
-//        assertEquals("humidity", aggregators.get(0).getName());
-//
-//
-//    }
+    //
+    //    private final Map<String, Map<String, String>> configWhenGRC = new HashMap<>();
+    //
+    //
+    //    @Mock
+    //    ConfigurationReader mockReader = mock(ConfigurationReader.class);
+    //
+    //
+    //    @BeforeEach
+    //    public void setup() {
+    //
+    //        Map<String, String> generalWhenGRC = new HashMap<>();
+    //        Map<String, String> formatWhenGRC = new HashMap<>();
+    //        Map<String, String> temperatureWhenGRC = new HashMap<>();
+    //        Map<String, String> humidityWhenGRC = new HashMap<>();
+    //
+    //        generalWhenGRC.put("name", "BHAAAaaaNAME");
+    //        formatWhenGRC.put("temperature", "00.00°");
+    //        formatWhenGRC.put("humidity", "0%");
+    //        formatWhenGRC.put("datetime", "dd/MM/YYYY à HH :mm :ss");
+    //        temperatureWhenGRC.put("j00", "18");
+    //        temperatureWhenGRC.put("j01", "19");
+    //        temperatureWhenGRC.put("j02", "20");
+    //        temperatureWhenGRC.put("j03", "19");
+    //        humidityWhenGRC.put("j00", "0.5");
+    //        humidityWhenGRC.put("j01", "0.02");
+    //        humidityWhenGRC.put("j02", "0.0064");
+    //        humidityWhenGRC.put("j03", "0.209");
+    //
+    //        configWhenGRC.put("general", generalWhenGRC);
+    //        configWhenGRC.put("format", formatWhenGRC);
+    //        configWhenGRC.put("temperature", temperatureWhenGRC);
+    //        configWhenGRC.put("humidity", humidityWhenGRC);
+    //
+    //        when(mockReader.getReadedConfiguration()).thenReturn(configWhenGRC);
+    //
+    //
+    //    }
+    //
+    //
+    //    @Test
+    //    public void Should_Return_AggregatorsList_when_getProbesCall(){
+    //
+    //        Configuration configuration = new Configuration(mockReader);
+    //
+    //        List<AggregatorMain> aggregators = configuration.getAggregator();
+    //
+    //        assertEquals(2, aggregators.size());
+    //        assertEquals(AggregatorMain.class, aggregators.get(0).getClass());
+    //        assertEquals(AggregatorMain.class, aggregators.get(1).getClass());
+    //        assertEquals("temperature", aggregators.get(0).getName());
+    //        assertEquals("humidity", aggregators.get(1).getName());
+    //
+    //    }
+    //
+    //    @Test
+    //    public void Should_Return_FormatMap_when_getFormatCall(){
+    //
+    //        Configuration configuration = new Configuration(mockReader);
+    //
+    //        Map<String, String> format = configuration.getFormat();
+    //
+    //        assertEquals(3, format.size());
+    //        assertEquals("00.00°", format.get("temperature"));
+    //        assertEquals("0%", format.get("humidity"));
+    //        assertEquals("dd/MM/YYYY à HH :mm :ss", format.get("datetime"));
+    //    }
+    //
+    //
+    //
+    //    @Test
+    //    public void Should_Test_HappyPath_when_ConfigurationConstructeur_but_newInstanceFail(){
+    //
+    //        ConfigurationReader mockReaderHappyPath = mock(ConfigurationReader.class);
+    //        Map<String, Map<String, String>> configWithoutCorrectProfil = new HashMap<>();
+    //        Map<String, String> generalWithoutCorrectProfil = new HashMap<>();
+    //        Map<String, String> formatWithoutCorrectProfil = new HashMap<>();
+    //        Map<String, String> humidityWithoutCorrectProfil = new HashMap<>();
+    //        generalWithoutCorrectProfil.put("name", "BHAAAaaaNAME");
+    //        formatWithoutCorrectProfil.put("temperature", "00.00°");
+    //        formatWithoutCorrectProfil.put("humidity", "0%");
+    //        formatWithoutCorrectProfil.put("datetime", "dd/MM/YYYY à HH :mm :ss");
+    //        configWithoutCorrectProfil.put("general", generalWithoutCorrectProfil);
+    //        configWithoutCorrectProfil.put("format", formatWithoutCorrectProfil);
+    //        configWithoutCorrectProfil.put("humidity", humidityWithoutCorrectProfil);
+    //
+    //        //ERREUR HAPPY PATH
+    //        configWithoutCorrectProfil.put("temperature", null);
+    //
+    //        when(mockReaderHappyPath.getReadedConfiguration()).thenReturn(configWithoutCorrectProfil);
+    //
+    //        Configuration configuration = new Configuration(mockReaderHappyPath);
+    //
+    //        List<AggregatorMain> aggregators = configuration.getAggregator();
+    //
+    //        assertEquals(2, aggregators.size());
+    //        assertNull(aggregators.get(0));
+    //        assertEquals( AggregatorMain.class, aggregators.get(1).getClass());
+    //    }
+    //
+    //
+    //    @Test
+    //    public void Should_Return_aggregatorsList_but_with_only_humidity_probe(){
+    //        ConfigurationReader mockReaderHappyPath = mock(ConfigurationReader.class);
+    //        Map<String, Map<String, String>> configWithoutCorrectProfil = new HashMap<>();
+    //        Map<String, String> generalWithoutCorrectProfil = new HashMap<>();
+    //        Map<String, String> formatWithoutCorrectProfil = new HashMap<>();
+    //        Map<String, String> humidityWithoutCorrectProfil = new HashMap<>();
+    //        generalWithoutCorrectProfil.put("name", "BHAAAaaaNAME");
+    //        formatWithoutCorrectProfil.put("temperature", "00.00°");
+    //        formatWithoutCorrectProfil.put("humidity", "0%");
+    //        formatWithoutCorrectProfil.put("datetime", "dd/MM/YYYY à HH :mm :ss");
+    //        configWithoutCorrectProfil.put("general", generalWithoutCorrectProfil);
+    //        configWithoutCorrectProfil.put("format", formatWithoutCorrectProfil);
+    //        configWithoutCorrectProfil.put("humidity", humidityWithoutCorrectProfil);
+    //
+    //        humidityWithoutCorrectProfil.put("j00", "0.5");
+    //        humidityWithoutCorrectProfil.put("j01", "0.02");
+    //        humidityWithoutCorrectProfil.put("j02", "0.0064");
+    //        humidityWithoutCorrectProfil.put("j03", "0.209");
+    //
+    //
+    //        when(mockReaderHappyPath.getReadedConfiguration()).thenReturn(configWithoutCorrectProfil);
+    //        Configuration configuration = new Configuration(mockReaderHappyPath);
+    //
+    //        List<AggregatorMain> aggregators = configuration.getAggregator();
+    //
+    //        assertEquals(1, aggregators.size());
+    //        assertEquals("humidity", aggregators.get(0).getName());
+    //
+    //
+    //    }
 
 }

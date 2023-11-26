@@ -5,9 +5,6 @@ import stas.thermometer.domains.aggregator.handler.AggregatorAlarm;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-
-
 public class AggregatorAlarmTest {
 
     @Test
@@ -37,6 +34,7 @@ public class AggregatorAlarmTest {
         // Assert
         assertEquals(1, aggregatorAlarm.getAlarmType());
     }
+
     @Test
     public void Should_Return_minus1_When_TempIs10_And_ModTempIs8() {
         // Arrange

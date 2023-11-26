@@ -1,6 +1,6 @@
 package stas.thermometer.domains.personal.exceptions;
 
-public class NameNotFoundException extends Exception{
+public class NameNotFoundException extends Exception {
 
     private static final long serialVersionUID = 1L;
 

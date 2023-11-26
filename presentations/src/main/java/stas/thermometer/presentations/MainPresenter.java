@@ -7,8 +7,7 @@ import stas.thermometer.presentations.messages.MsgNotifOrganization;
 import java.util.List;
 import java.util.Map;
 
-
-public class MainPresenter  {
+public class MainPresenter {
 
     private final MainViewInterface view;
     private final ThermometerInterface thermometer;
@@ -24,7 +23,6 @@ public class MainPresenter  {
     private static final String PROBE_CHANGE_MESSAGE = "Changement de sonde\nSonde actuelle : ";
     // --------------------------------------------
 
-
     public MainPresenter(MainViewInterface view, ThermometerInterface thermometer, Map<String, String> format) {
         this.view = view;
         this.view.setPresenter(this);
@@ -33,13 +31,12 @@ public class MainPresenter  {
 
         this.msgNotifOrganization = new MsgNotifOrganization(format);
 
-        for (AggregatorAccessor aggregatorAccessor : aggregatorAccessors) {
+        for ( AggregatorAccessor aggregatorAccessor : aggregatorAccessors ) {
             aggregatorAccessor.addSubscriber(this::updateAggregatorNotification);
         }
     }
 
     public void onUpdate() {
-        //this.view.printString("update");
         this.thermometer.notifyUpdate();
     }
 
@@ -48,10 +45,8 @@ public class MainPresenter  {
         this.view.inputLoop();
     }
 
-
-
     public void processingUserInput(String userInput) {
-        switch (userInput) {
+        switch ( userInput ) {
             case "h":
                 this.view.printString(HELP_MESSAGE);
                 break;
@@ -85,45 +80,40 @@ public class MainPresenter  {
         this.view.printString(PROBE_CHANGE_MESSAGE + this.aggregatorAccessors.get(this.currentProbe).getName());
     }
 
-
     public void updateAggregatorNotification(String aggregatorName) {
-        AggregatorAccessor aggregatorAccessorCible = this.aggregatorAccessors.stream()
-                .filter(aggregatorAccessor -> aggregatorAccessor.getName().equals(aggregatorName))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("AggregatorAccessor not found"));
+        AggregatorAccessor aggregatorAccessorCible = this.aggregatorAccessors.stream().filter(aggregatorAccessor -> aggregatorAccessor.getName().equals(aggregatorName)).findFirst().orElseThrow(() -> new RuntimeException("AggregatorAccessor not found"));
 
-        if (aggregatorAccessorCible.getAlarmType() == 0) {
+        if ( aggregatorAccessorCible.getAlarmType() == 0 ) {
             this.view.printString(this.msgNotifOrganization.getMsgCurrent(aggregatorAccessorCible));
-        } else {
+        }
+        else {
             this.view.printString(this.msgNotifOrganization.getMsgAlert(aggregatorAccessorCible));
         }
 
+/*
+ancienne version de l'updater, stable mais pas bien
+                this.aggregatorAccessors.stream()
+                        .filter(aggregatorAccessor -> aggregatorAccessor.getName().equals(aggregatorName))
+                        .forEach(aggregatorAccessor -> {
+                            this.view.printString("Update de la sonde " + aggregatorName);
+                            this.view.printString("Valeur actuelle : " + aggregatorAccessor.getmesurementMod().value());
+                            this.view.printString("Valeur simple : " + aggregatorAccessor.getmesurementSimple().value());
+                            this.view.printString("Alarme : " + aggregatorAccessor.getAlarmType());
+                            this.view.printString("DateTime : " + aggregatorAccessor.getmesurementMod().dateTime());
+                            this.view.printString(" ");
+                        });
 
 
+                aggregatorAccessors.get(1).getName();
 
-
-//        this.aggregatorAccessors.stream()
-//                .filter(aggregatorAccessor -> aggregatorAccessor.getName().equals(aggregatorName))
-//                .forEach(aggregatorAccessor -> {
-//                    this.view.printString("Update de la sonde " + aggregatorName);
-//                    this.view.printString("Valeur actuelle : " + aggregatorAccessor.getmesurementMod().value());
-//                    this.view.printString("Valeur simple : " + aggregatorAccessor.getmesurementSimple().value());
-//                    this.view.printString("Alarme : " + aggregatorAccessor.getAlarmType());
-//                    this.view.printString("DateTime : " + aggregatorAccessor.getmesurementMod().dateTime());
-//                    this.view.printString(" ");
-//                });
-
-
-
-//        aggregatorAccessors.get(1).getName();
-//
-//        if (name.equals(this.aggregatorAccessors.get(this.currentProbe).getName())) {
-//            this.view.printString("Update de la sonde " + name);
-//            this.view.printString("Valeur actuelle : " + this.aggregatorAccessors.get(this.currentProbe).getmesurementMod().value());
-//            this.view.printString("Valeur simple : " + this.aggregatorAccessors.get(this.currentProbe).getmesurementSimple().value());
-//            this.view.printString("Alarme : " + this.aggregatorAccessors.get(this.currentProbe).getAlarmType());
-//            this.view.printString(" ");
-//        }
+                if (name.equals(this.aggregatorAccessors.get(this.currentProbe).getName())) {
+                    this.view.printString("Update de la sonde " + name);
+                    this.view.printString("Valeur actuelle : " + this.aggregatorAccessors.get(this.currentProbe).getmesurementMod().value());
+                    this.view.printString("Valeur simple : " + this.aggregatorAccessors.get(this.currentProbe).getmesurementSimple().value());
+                    this.view.printString("Alarme : " + this.aggregatorAccessors.get(this.currentProbe).getAlarmType());
+                    this.view.printString(" ");
+                }
+                */
     }
 
 
