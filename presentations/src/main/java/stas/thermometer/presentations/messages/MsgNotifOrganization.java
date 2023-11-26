@@ -28,6 +28,8 @@ public class MsgNotifOrganization {
     }
 }
 
+
+
 /*
 
 public class MsgNotifOrganization {

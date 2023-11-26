@@ -4,7 +4,7 @@ import stas.thermometer.domains.aggregator.handler.AggregatorAccessor;
 
 import java.util.Map;
 
-class MsgCurrentHandler implements MessageGenerator {
+public class MsgCurrentHandler implements MessageGenerator {
     private final Map<String, String> format;
 
     public MsgCurrentHandler(Map<String, String> format) {

@@ -16,6 +16,14 @@ public class MainPresenter  {
     private final List<AggregatorAccessor> aggregatorAccessors;
     private final MsgNotifOrganization msgNotifOrganization;
 
+    // ----------------- Messages -----------------
+    private static final String HELP_MESSAGE = "h: help\nP: quit\nr: raise\nm: minimize\ns: change probe";
+    private static final String BYE_MESSAGE = "Bye";
+    private static final String RAISE_MESSAGE = "raise";
+    private static final String MINIMIZE_MESSAGE = "minimize";
+    private static final String PROBE_CHANGE_MESSAGE = "Changement de sonde\nSonde actuelle : ";
+    // --------------------------------------------
+
 
     public MainPresenter(MainViewInterface view, ThermometerInterface thermometer, Map<String, String> format) {
         this.view = view;
@@ -44,42 +52,38 @@ public class MainPresenter  {
 
     public void processingUserInput(String userInput) {
         switch (userInput) {
-            case "h": {
-                this.view.printString("h: help");
-                this.view.printString("P: quit");
-                this.view.printString("h: help");
-                this.view.printString("h: help");
-                this.view.printString("h: help");
-                this.view.printString("h: help");
+            case "h":
+                this.view.printString(HELP_MESSAGE);
                 break;
-            }
-            case "q": {
-                this.view.printString("Bye");
+            case "q":
+                this.view.printString(BYE_MESSAGE);
                 break;
-            }
-            case "r": {
-                this.view.printString("raise");
-                this.aggregatorAccessors.get(this.currentProbe).adjustDelta(true);
+            case "r":
+                this.view.printString(RAISE_MESSAGE);
+                adjustDelta(true);
                 break;
-            }
-            case "m": {
-                this.view.printString("minimize");
-                this.aggregatorAccessors.get(this.currentProbe).adjustDelta(false);
-
+            case "m":
+                this.view.printString(MINIMIZE_MESSAGE);
+                adjustDelta(false);
                 break;
-            }
-            case "s": {
-                this.view.printString("Changement de sonde");
-                this.currentProbe = (this.currentProbe + 1) % this.aggregatorAccessors.size();
-                this.view.printString("Sonde actuelle : " + this.aggregatorAccessors.get(this.currentProbe).getName());
+            case "s":
+                this.view.printString(PROBE_CHANGE_MESSAGE);
+                changeProbe();
                 break;
-            }
             default:
                 this.view.printString("Commande non reconnue");
                 break;
         }
     }
 
+    private void adjustDelta(boolean shouldRaise) {
+        this.aggregatorAccessors.get(this.currentProbe).adjustDelta(shouldRaise);
+    }
+
+    private void changeProbe() {
+        this.currentProbe = (this.currentProbe + 1) % this.aggregatorAccessors.size();
+        this.view.printString(PROBE_CHANGE_MESSAGE + this.aggregatorAccessors.get(this.currentProbe).getName());
+    }
 
 
     public void updateAggregatorNotification(String aggregatorName) {
@@ -88,7 +92,6 @@ public class MainPresenter  {
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("AggregatorAccessor not found"));
 
-        //vérifie si le type d'allert est 0 ou autre
         if (aggregatorAccessorCible.getAlarmType() == 0) {
             this.view.printString(this.msgNotifOrganization.getMsgCurrent(aggregatorAccessorCible));
         } else {
