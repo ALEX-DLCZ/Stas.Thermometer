@@ -5,6 +5,8 @@ import stas.thermometer.domains.AggregatorMain;
 import stas.thermometer.domains.Configuration;
 import stas.thermometer.domains.Probe;
 import stas.thermometer.domains.ValueType;
+import stas.thermometer.domains.personal.exceptions.NameNotFoundException;
+import stas.thermometer.domains.personal.exceptions.PropertyNotFoundException;
 import stas.thermometer.infrastructures.MainConfigurationReader;
 import stas.thermometer.infrastructures.Thermometer;
 import stas.thermometer.infrastructures.personal.exceptions.FileNotFoundException;
@@ -32,8 +34,14 @@ public class ArgsExecutor {
 
 
     public ArgsExecutor(String[] args) throws fatalException {
+        Configuration configuration;
+        try {
+            configuration = new Configuration(argsAnalyzer(args));
+        }catch (PropertyNotFoundException | NameNotFoundException e) {
+            throw new fatalException(e.getMessage());
+        }
 
-        Configuration configuration = new Configuration(argsAnalyzer(args));
+
         Map<String, Map<String, String>> readedConfigurationMap = configuration.getReadedConfiguration();
 
         for (ValueType type : ValueType.values()) {
@@ -96,7 +104,6 @@ public class ArgsExecutor {
 
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new fatalException("missing configuration file argument");
-
 
         } catch (Exception e) {
             throw new fatalException("Unknown argument");
