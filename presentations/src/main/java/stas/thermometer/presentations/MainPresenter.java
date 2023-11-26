@@ -71,7 +71,7 @@ public class MainPresenter  {
                 changeProbe();
                 break;
             default:
-                this.view.printString("Commande non reconnue");
+                this.view.printString("Commande inconnue");
                 break;
         }
     }
