@@ -17,8 +17,8 @@ import java.sql.SQLException;
  * Cohesive set: ... oui l'erreur est correcte, a éventuellement modifier grace a l'implémentation de l'interface ou autre.
  */
 public class DBDataMapper<T> implements DataMapper<T> {
-    private final String connectionString;
-    private final String tableName;
+    protected final String connectionString;
+    protected final String tableName;
 
     public DBDataMapper(String connectionString, String tableName) {
         this.connectionString = connectionString;
@@ -40,11 +40,13 @@ public class DBDataMapper<T> implements DataMapper<T> {
         }
     }
 
-    protected int saveAndGetReference(T entity) throws DBInsertException, DBConnectException {
+    @Override
+    public int saveAndGetReference(T entity) throws DBInsertException, DBConnectException {
         DBConnector connector = new DBConnector();
         try (Connection connection = connector.getConnection(connectionString)) {
             QueryBuilder<T> queryBuilder = new QueryBuilder<>();
             String insertQuery = queryBuilder.buildSaveQuery(entity, tableName);
+            //TODO faire le preparedStatement et essayer de faire les SetTring avec les entity
 
             return connector.executeInsertion(connection, insertQuery);
         } catch (SQLException e) {

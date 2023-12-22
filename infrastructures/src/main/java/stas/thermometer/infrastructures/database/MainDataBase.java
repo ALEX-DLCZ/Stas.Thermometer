@@ -42,7 +42,7 @@ public class MainDataBase {
         Mesure mesure = new Mesure(this.thermometerName, aggregatorAccessor.getmesurementMod().dateTime(), aggregatorName, formatMap.get(aggregatorName), aggregatorAccessor.getmesurementMod().value());
 
         try {
-            mesureRepository.save(mesure);
+            mesureRepository.saveMesure(mesure);
             if ( aggregatorAccessor.getAlarmType() != 0 ) {
                 alertRepository.save(new Alert(aggregatorAccessor.getmesurementSimple().value(), mesureRepository.getMesureId(mesure)));
             }

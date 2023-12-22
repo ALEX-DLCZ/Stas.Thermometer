@@ -3,6 +3,7 @@ package stas.thermometer.infrastructures.database;
 import stas.thermometer.infrastructures.database.dbexceptions.DBConnectException;
 import stas.thermometer.infrastructures.database.dbexceptions.DBInsertException;
 
+import java.sql.*;
 
 public class DBMesure extends DBDataMapper<Mesure> implements MesureRepository {
     private final DBRepoObjectMapper<Mesure> referenceMapper;
@@ -17,11 +18,28 @@ public class DBMesure extends DBDataMapper<Mesure> implements MesureRepository {
         return referenceMapper.getObjRef(mesure);
     }
 
+
     @Override
-    public void save(Mesure entity) throws DBInsertException, DBConnectException {
-        int id = saveAndGetReference(entity);
-        referenceMapper.addReference(entity, id);
+    public void saveMesure(Mesure entity) throws DBInsertException, DBConnectException {
+
+
+        DBConnector connector = new DBConnector();
+        try (Connection connection = connector.getConnection(connectionString)) {
+            connection.setAutoCommit(false);
+
+            int id = saveAndGetReference(entity);
+            referenceMapper.addReference(entity, id);
+
+            connection.commit();
+        } catch (SQLException e) {
+            throw new DBConnectException();
+        }
+
+
+
+
     }
+
 }
 
 //public class DBMesure extends DBDataMapper<Mesure> implements MesureRepository {

@@ -13,15 +13,9 @@ public class QueryBuilder<T> {
         StringJoiner columns = new StringJoiner(", ");
         StringJoiner values = new StringJoiner(", ");
 
-
-        try {
         for (Field field : fields) {
             columns.add(field.getName());
-            field.setAccessible(true);
-            values.add("'" + field.get(entity) + "'");
-        }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            values.add("?");
         }
 
         return "INSERT INTO " + tableName + " (" + columns + ") VALUES (" + values + ")";
