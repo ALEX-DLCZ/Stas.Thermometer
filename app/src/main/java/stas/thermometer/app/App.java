@@ -28,7 +28,6 @@ public class App {
      * <p>
      * <p>
      * <p>
-     * <p>
      * -- Table 'Mesure'
      * CREATE TABLE Mesure (
      * id INT AUTO_INCREMENT PRIMARY KEY,

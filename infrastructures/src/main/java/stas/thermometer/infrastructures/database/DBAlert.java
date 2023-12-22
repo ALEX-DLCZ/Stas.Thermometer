@@ -4,6 +4,6 @@ public class DBAlert extends DBDataMapper<Alert> implements AlertRepository {
 
     public DBAlert(String connectionString) {
 
-        super(connectionString, "Alerts", Alert.class);
+        super(connectionString, "Alerts");
     }
 }
