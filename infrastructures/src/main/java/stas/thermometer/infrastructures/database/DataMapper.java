@@ -4,7 +4,8 @@ import stas.thermometer.infrastructures.database.dbexceptions.DBConnectException
 import stas.thermometer.infrastructures.database.dbexceptions.DBInsertException;
 
 public interface DataMapper<T> {
-    void save(T entity) throws DBInsertException, DBConnectException;
+
+//    void save(T entity) throws DBInsertException, DBConnectException;
 
     int saveAndGetReference(T entity) throws DBInsertException, DBConnectException;
 

@@ -3,8 +3,8 @@ package stas.thermometer.infrastructures.database;
 import stas.thermometer.infrastructures.database.dbexceptions.DBConnectException;
 import stas.thermometer.infrastructures.database.dbexceptions.DBInsertException;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.lang.reflect.Field;
+import java.sql.*;
 
 /**
  * @param <T> T est un type générique qui représente un dto de la base de données style Mesure ou Alert
@@ -16,43 +16,53 @@ import java.sql.SQLException;
  * <p>
  * Cohesive set: ... oui l'erreur est correcte, a éventuellement modifier grace a l'implémentation de l'interface ou autre.
  */
-public class DBDataMapper<T> implements DataMapper<T> {
-    protected final String connectionString;
-    protected final String tableName;
 
-    public DBDataMapper(String connectionString, String tableName) {
-        this.connectionString = connectionString;
+public class DBDataMapper<T> implements DataMapper<T> {
+    protected DBConnector dbConnector;
+    private final String tableName;
+
+    public DBDataMapper(DBConnector dbConnector, String tableName) {
+        this.dbConnector = dbConnector;
         this.tableName = tableName;
     }
 
     @Override
-    public void save(T entity) throws DBInsertException, DBConnectException {
-        DBConnector connector = new DBConnector();
-        try (Connection connection = connector.getConnection(connectionString)) {
-            QueryBuilder<T> queryBuilder = new QueryBuilder<>();
-            String insertQuery = queryBuilder.buildSaveQuery(entity, tableName);
-
-            int id = connector.executeInsertion(connection, insertQuery);
-            DBRepoObjectMapper<T> referenceMapper = new DBRepoObjectMapper<>();
-            referenceMapper.addReference(entity, id);
-        } catch (SQLException e) {
-            throw new DBConnectException();
-        }
-    }
-
-    @Override
     public int saveAndGetReference(T entity) throws DBInsertException, DBConnectException {
-        DBConnector connector = new DBConnector();
-        try (Connection connection = connector.getConnection(connectionString)) {
-            QueryBuilder<T> queryBuilder = new QueryBuilder<>();
-            String insertQuery = queryBuilder.buildSaveQuery(entity, tableName);
-            //TODO faire le preparedStatement et essayer de faire les SetTring avec les entity
-
-            return connector.executeInsertion(connection, insertQuery);
-        } catch (SQLException e) {
+        try {
+            String insertQuery = buildInsertQuery(entity);
+            try (PreparedStatement preparedStatement = dbConnector.getConnection().prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
+                setStatementParameters(preparedStatement, entity);
+                preparedStatement.execute();
+                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        return generatedKeys.getInt(1);
+                    } else {
+                        throw new SQLException("No keys generated after insertion.");
+                    }
+                }
+            }
+        } catch (SQLException | IllegalAccessException e) {
             throw new DBConnectException();
         }
     }
+
+    private String buildInsertQuery(T entity) {
+        QueryBuilder<T> queryBuilder = new QueryBuilder<>();
+        return queryBuilder.buildInsertQuery(entity, tableName);
+    }
+
+    private void setStatementParameters(PreparedStatement preparedStatement, T entity) throws SQLException, IllegalAccessException {
+        Field[] fields = entity.getClass().getDeclaredFields();
+        int parameterIndex = 1;
+        for (Field field : fields) {
+            field.setAccessible(true);
+            Object columnValue = field.get(entity);
+            preparedStatement.setObject(parameterIndex++, columnValue);
+        }
+    }
+
+
+
 
 
 //

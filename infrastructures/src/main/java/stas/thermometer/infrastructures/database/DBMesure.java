@@ -9,7 +9,7 @@ public class DBMesure extends DBDataMapper<Mesure> implements MesureRepository {
     private final DBRepoObjectMapper<Mesure> referenceMapper;
 
     public DBMesure(String connectionString) {
-        super(connectionString, "Mesures");
+        super(new DBConnector(connectionString), "Mesures");
         this.referenceMapper = new DBRepoObjectMapper<>();
     }
 
@@ -18,29 +18,28 @@ public class DBMesure extends DBDataMapper<Mesure> implements MesureRepository {
         return referenceMapper.getObjRef(mesure);
     }
 
-
     @Override
     public void saveMesure(Mesure entity) throws DBInsertException, DBConnectException {
 
 
-        DBConnector connector = new DBConnector();
-        try (Connection connection = connector.getConnection(connectionString)) {
-            connection.setAutoCommit(false);
-
-            int id = saveAndGetReference(entity);
-            referenceMapper.addReference(entity, id);
-
-            connection.commit();
-        } catch (SQLException e) {
+        try ( Connection connection = dbConnector.getConnection() ) {
+            try {
+                connection.setAutoCommit(false);
+                int id = saveAndGetReference(entity);
+                referenceMapper.addReference(entity, id);
+                connection.commit();
+            } catch ( SQLException e ) {
+                connection.rollback();
+                throw new DBInsertException();
+            } finally {
+                dbConnector.disconnect();
+            }
+        } catch ( SQLException e ) {
             throw new DBConnectException();
         }
-
-
-
-
     }
-
 }
+
 
 //public class DBMesure extends DBDataMapper<Mesure> implements MesureRepository {
 //

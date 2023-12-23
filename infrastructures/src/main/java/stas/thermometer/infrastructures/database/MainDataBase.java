@@ -44,7 +44,7 @@ public class MainDataBase {
         try {
             mesureRepository.saveMesure(mesure);
             if ( aggregatorAccessor.getAlarmType() != 0 ) {
-                alertRepository.save(new Alert(aggregatorAccessor.getmesurementSimple().value(), mesureRepository.getMesureId(mesure)));
+                alertRepository.saveAlerte(new Alert(aggregatorAccessor.getmesurementSimple().value(), mesureRepository.getMesureId(mesure)));
             }
         } catch ( DBInsertException | DBConnectException e ) {
             LOG.error(e.getMessage());
