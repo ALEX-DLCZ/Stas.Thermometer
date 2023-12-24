@@ -85,4 +85,29 @@ public class DBConnectorTest {
             fail("Connection failed");
         }
     }
+
+    //test le cas ou on déconnecte 2 fois
+    @Test
+    public void Should_Return_New_Connection_When_getConnection_After_Disconnect_And_Disconnect() {
+        DBConnector dbConnector = new DBConnector(connectionString);
+        try {
+            dbConnector.disconnect();
+        } catch ( SQLException e ) {
+            fail("unnable to disconnect");
+        }
+        try ( Connection connection = dbConnector.getConnection() ) {
+            dbConnector.disconnect();
+            dbConnector.disconnect();
+            try ( Connection connection2 = dbConnector.getConnection() ) {
+                dbConnector.disconnect();
+                dbConnector.disconnect();
+                assertNotEquals(connection, connection2);
+            } catch ( SQLException e ) {
+                fail("Connection failed");
+
+            }
+        } catch ( SQLException e ) {
+            fail("Connection failed");
+        }
+    }
 }

@@ -23,7 +23,7 @@ public class DBAlert extends DBDataMapper<Alert> implements AlertRepository {
                 connection.setAutoCommit(false);
                 saveAndGetReference(entity);
                 connection.commit();
-            } catch ( SQLException e ) {
+            } catch ( DBInsertException | DBConnectException e ) {
                 connection.rollback();
                 throw new DBInsertException();
             } finally {

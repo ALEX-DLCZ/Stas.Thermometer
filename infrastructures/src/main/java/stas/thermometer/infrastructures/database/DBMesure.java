@@ -28,7 +28,7 @@ public class DBMesure extends DBDataMapper<Mesure> implements MesureRepository {
                 int id = saveAndGetReference(entity);
                 referenceMapper.addReference(entity, id);
                 connection.commit();
-            } catch ( SQLException e ) {
+            } catch ( DBInsertException|DBConnectException e ) {
                 connection.rollback();
                 throw new DBInsertException();
             } finally {

@@ -47,12 +47,10 @@ package stas.thermometer.infrastructures.database;
 //    }
 //}
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
-import org.mockito.Mock;
 import stas.thermometer.infrastructures.database.dbexceptions.DBConnectException;
 import stas.thermometer.infrastructures.database.dbexceptions.DBInsertException;
 
@@ -60,7 +58,6 @@ import java.sql.*;
 import java.time.LocalDateTime;
 
 public class DBDataMapperTest {
-
 
 //user = demo password = demo
     private static final String connectionString = "jdbc:derby:../StasThermometerDerby;user=demo;password=demo";

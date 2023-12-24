@@ -41,7 +41,7 @@ public class DBDataMapper<T> implements DataMapper<T> {
                     }
                 }
             }
-        } catch (SQLException | IllegalAccessException e) {
+        } catch (SQLException | IllegalAccessException|NullPointerException e) {
             throw new DBConnectException(e);
         }
     }
@@ -51,7 +51,7 @@ public class DBDataMapper<T> implements DataMapper<T> {
         return queryBuilder.buildInsertQuery(entity, tableName);
     }
 
-    private void setStatementParameters(PreparedStatement preparedStatement, T entity) throws SQLException, IllegalAccessException {
+    private void setStatementParameters(PreparedStatement preparedStatement, T entity) throws SQLException, IllegalAccessException,NullPointerException {
         Field[] fields = entity.getClass().getDeclaredFields();
         int parameterIndex = 1;
         for (Field field : fields) {
