@@ -32,7 +32,7 @@ public class DBDataMapper<T> implements DataMapper<T> {
             String insertQuery = buildInsertQuery(entity);
             try (PreparedStatement preparedStatement = dbConnector.getConnection().prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
                 setStatementParameters(preparedStatement, entity);
-                preparedStatement.execute();
+                preparedStatement.executeUpdate();
                 try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         return generatedKeys.getInt(1);
@@ -42,7 +42,7 @@ public class DBDataMapper<T> implements DataMapper<T> {
                 }
             }
         } catch (SQLException | IllegalAccessException e) {
-            throw new DBConnectException();
+            throw new DBConnectException(e);
         }
     }
 
@@ -56,8 +56,8 @@ public class DBDataMapper<T> implements DataMapper<T> {
         int parameterIndex = 1;
         for (Field field : fields) {
             field.setAccessible(true);
-            Object columnValue = field.get(entity);
-            preparedStatement.setObject(parameterIndex++, columnValue);
+            String columnValue = field.get(entity).toString();
+            preparedStatement.setString(parameterIndex++, columnValue);
         }
     }
 

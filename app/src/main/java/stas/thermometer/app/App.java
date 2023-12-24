@@ -28,22 +28,22 @@ public class App {
      * <p>
      * <p>
      * <p>
-     * -- Table 'Mesure'
-     * CREATE TABLE Mesure (
-     * id INT AUTO_INCREMENT PRIMARY KEY,
-     * thermometer_name VARCHAR(255) NOT NULL,
-     * datetime DATETIME NOT NULL,
-     * type VARCHAR(50) NOT NULL,
-     * format VARCHAR(50) NOT NULL,
-     * value DOUBLE NOT NULL
+     * -- Table 'Mesures'
+     * CREATE TABLE Mesures (
+     *                          id INT AUTO_INCREMENT PRIMARY KEY,
+     *                          thermometerName VARCHAR(255) NOT NULL,
+     *                          datetime DATETIME NOT NULL,
+     *                          type VARCHAR(50) NOT NULL,
+     *                          format VARCHAR(50) NOT NULL,
+     *                          value DOUBLE NOT NULL
      * );
-     * <p>
-     * -- Table 'Alert'
-     * CREATE TABLE Alert (
-     * id INT AUTO_INCREMENT PRIMARY KEY,
-     * expected_value DOUBLE NOT NULL,
-     * id_mesure INT NOT NULL,
-     * FOREIGN KEY (id_mesure) REFERENCES Mesure(id)
+     *
+     * -- Table 'Alerts'
+     * CREATE TABLE Alerts (
+     *                         id INT AUTO_INCREMENT PRIMARY KEY,
+     *                         expectedValue DOUBLE NOT NULL,
+     *                         idMesure INT NOT NULL,
+     *                         FOREIGN KEY (idMesure) REFERENCES Mesures(id)
      * );
      */
 
