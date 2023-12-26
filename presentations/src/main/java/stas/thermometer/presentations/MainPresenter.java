@@ -70,7 +70,6 @@ public class MainPresenter {
                 adjustDelta(false);
                 break;
             case "s":
-                this.view.printString(PROBE_CHANGE_MESSAGE);
                 changeProbe();
                 break;
             default:
