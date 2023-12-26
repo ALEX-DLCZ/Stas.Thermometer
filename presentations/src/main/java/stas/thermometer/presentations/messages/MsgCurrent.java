@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 
 public enum MsgCurrent {
-    TEMPERATURE("temperature", "Température actuelle : "), HUMIDITY("humidity", "Humidité actuelle : "), ERROR_CURRENT_TYPE("ERROR", "ERROR CURRENT TYPE");
+    TEMPERATURE("temperature", "Température actuelle : "), HUMIDITY("humidity", "Humidité actuelle : "), ERROR_CURRENT_TYPE("ERROR", "ERROR CURRENT TYPE - propriété manquante");
 
     private final String message;
     private final String type;

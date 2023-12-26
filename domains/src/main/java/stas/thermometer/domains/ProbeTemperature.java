@@ -31,8 +31,7 @@ public class ProbeTemperature implements Probe {
 
         double finalValue = value1 + ((value2 - value1) * ((time * nbList) % timeSecond) / timeSecond);
 
-        //marge d'erreur de 0.5
-        finalValue = finalValue + ((Math.random() * 0.1) - 0.5);
+        finalValue += Math.random() - 0.5;
 
         return new Measurement(finalValue, dateTime);
     }
