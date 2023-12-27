@@ -12,8 +12,7 @@ public class DBInsertException extends Exception{
     public DBInsertException(SQLException e) {
         super(" unable to insert data", e);
     }
-
-    public DBInsertException(String s, IllegalAccessException e) {
-        super(" unable to insert data" + s, e);
+    public DBInsertException(Exception e) {
+        super(" unable to insert data" + e.toString());
     }
 }

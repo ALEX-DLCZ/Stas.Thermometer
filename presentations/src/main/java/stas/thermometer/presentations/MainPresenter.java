@@ -51,7 +51,7 @@ public class MainPresenter {
      * <p>
      * pmd NCSS: plusieurs versions de cette méthode ont été testées, pour rendre la méthode plus courte,
      * impossible de réduir d'avenatage la méthode dans une utilisations de switch
-     * (DP chain of responsability a éventuellement mettre en place)
+     * (DP chain of responsability a éventuellement mettre en place mais risque de complexifier le code inutilement)
      */
     public void processingUserInput(String userInput) {
         switch ( userInput ) {

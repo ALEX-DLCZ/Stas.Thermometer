@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Sun Dec 24 16:56:36 CET 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-018c-9c8a-e1ca-000008deaa00 
+Wed Dec 27 18:44:17 CET 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-018c-ac60-8a4d-000008dbf578 
 on database directory C:\0alex\HELMO\B2_A.I\PROG\stas.thermometer\StasThermometerDerby with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@5e2de80c 
 Loaded from file:/C:/Users/ALEXANDRE/.gradle/caches/modules-2/files-2.1/org.apache.derby/derby/10.14.2.0/7efad40ef52fbb1f08142f07a83b42d29e47d8ce/derby-10.14.2.0.jar
 java.vendor=Oracle Corporation

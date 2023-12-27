@@ -9,6 +9,8 @@
         Ensemble de règles à valider pour l'Activité Intégrative.
     </description>
     <exclude-pattern>.*/swing/.*</exclude-pattern>
+
+    <exclude-pattern>.*/test/.*</exclude-pattern>
     
     <!-- Your rules will come here -->
     <rule ref="category/java/bestpractices.xml/ArrayIsStoredDirectly" />

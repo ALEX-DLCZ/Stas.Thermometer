@@ -15,14 +15,14 @@ import static org.mockito.Mockito.*;
 public class MainPresenterTest {
 
     @Mock
-    MainViewInterface viewMock = mock(MainViewInterface.class);
+    private final MainViewInterface viewMock = mock(MainViewInterface.class);
 
     @Mock
-    ThermometerInterface thermometerMock = mock(ThermometerInterface.class);
+    private final ThermometerInterface thermometerMock = mock(ThermometerInterface.class);
     @Mock
-    AggregatorAccessor aggregatorAccessorMockTemperature = mock(AggregatorAccessor.class);
+    private final AggregatorAccessor aggregatorAccessorMockTemperature = mock(AggregatorAccessor.class);
     @Mock
-    AggregatorAccessor aggregatorAccessorMockHumidity = mock(AggregatorAccessor.class);
+    private final AggregatorAccessor aggregatorAccessorMockHumidity = mock(AggregatorAccessor.class);
 
     @BeforeEach
     public void setUp() {
