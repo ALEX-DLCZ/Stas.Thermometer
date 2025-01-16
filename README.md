@@ -24,10 +24,10 @@ Stas.Thermometer est une application Java JDK 17 & Gradle 8.+ exposant une CLI q
   - `Alerts` : Contient des alertes basées sur les seuils définis.
 
 
- ##Particularité Technique du projet
+ ## Particularité Technique du projet
  - **projet** : Java JDK 17 et Gradle 8.+
  - **Règle PMD pour l' O.O.** : 0 NCSS, 0 CC, 0 ToManyParameter, 1 LackOfCohesion, 0 TooManyFields, 0 TooManyMethods, 1 AvoidNonPrivateInstanceField, 0 CouplingBetweenObject, 0 LooseCoupling
- - **Exploitatioon de spécificité Java** : Utilisation de Pipline Stream, Utilisation de enregistrements(record), utilisation de générique, Interface Fonctionnelle.
+ - **Exploitation de spécificité Java** : Utilisation de Pipline Stream, Utilisation de enregistrements(record), utilisation de générique, Interface Fonctionnelle.
  - **Tests Unitaire** : couverture a 100%, utilisation de Mocks
  - **DP utilisé** : DP Observeur (Publisher -> AggregatorMain, Subscriber -> AggregatorSubscriber, ConcreteSubscribers -> MainPresenter, MainDataBase)
 
